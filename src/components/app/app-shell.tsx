@@ -8,6 +8,7 @@ import type { Profile } from "@/lib/types";
 import { AccountMenu } from "./account-menu";
 import { NavLink } from "./nav-link";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LegalFooter } from "@/components/ui/legal-footer";
 
 export function AppShell({ profile, children }: { profile: Profile; children: React.ReactNode }) {
   const plan = getPlan(profile.plan);
@@ -44,6 +45,7 @@ export function AppShell({ profile, children }: { profile: Profile; children: Re
       <main id="main" className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         {children}
       </main>
+      <LegalFooter />
     </div>
   );
 }

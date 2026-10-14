@@ -8,8 +8,8 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-24 border-t border-line bg-paper-2/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-5">
-        <div className="md:col-span-2">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 lg:grid-cols-6">
+        <div className="md:col-span-3 lg:col-span-2">
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{site.description}</p>
         </div>
@@ -19,19 +19,22 @@ export function SiteFooter() {
           title="Compare"
           links={[...competitors.map((c) => [`${site.name} vs ${c.name}`, `/compare/${c.slug}`] as [string, string]), ["All comparisons", "/compare"]]}
         />
+        <FooterCol
+          title="Legal & support"
+          links={[
+            ["Terms", "/legal/terms"],
+            ["Privacy", "/legal/privacy"],
+            ["Acceptable use", "/legal/acceptable-use"],
+            ["Report abuse", "/report"],
+            ["Contact", `mailto:${site.supportEmail}`],
+          ]}
+        />
       </div>
       <div className="border-t border-line">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-6xl px-4 py-6 text-xs text-muted sm:px-6">
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/legal/terms" className="hover:text-ink">Terms</Link>
-            <Link href="/legal/privacy" className="hover:text-ink">Privacy</Link>
-            <Link href="/legal/acceptable-use" className="hover:text-ink">Acceptable use</Link>
-            <Link href="/report" className="hover:text-ink">Report abuse</Link>
-            <a href={`mailto:${site.supportEmail}`} className="hover:text-ink">Contact</a>
-          </div>
         </div>
       </div>
     </footer>
