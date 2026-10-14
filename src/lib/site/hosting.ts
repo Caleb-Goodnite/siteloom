@@ -41,9 +41,28 @@ async function lookup(host: string): Promise<HostedSite | null> {
   return (data as HostedSite) ?? null;
 }
 
-export function getHostedSite(host: string) {
+const NOT_FOUND = "hosted-site-not-found";
+
+/**
+ * Cached lookup. Only found sites are cached: a miss throws inside the cache (errors are never
+ * stored), so a host visited before its site was published doesn't stay "not found" for an hour.
+ */
+export async function getHostedSite(host: string) {
   const h = normalizeHost(host);
-  return unstable_cache(() => lookup(h), ["hosted-site", h], { tags: [`site:${h}`], revalidate: 3600 })();
+  try {
+    return await unstable_cache(
+      async () => {
+        const found = await lookup(h);
+        if (!found) throw new Error(NOT_FOUND);
+        return found;
+      },
+      ["hosted-site-v2", h],
+      { tags: [`site:${h}`], revalidate: 3600 },
+    )();
+  } catch (err) {
+    if (err instanceof Error && err.message === NOT_FOUND) return null;
+    throw err;
+  }
 }
 
 /** Clears cached copies of a site after publish / unpublish / domain changes. */
