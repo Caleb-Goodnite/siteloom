@@ -22,6 +22,18 @@ function escapeAttr(v: string | number) {
   return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 }
 
+const HANDLED = new Set(["class", "style", "aria-label", "aria-hidden", "role", "data-lucide", "width", "height", "xmlns", "viewbox", "fill", "stroke"]);
+
+/** Keeps the icon's other attributes (x-show, x-cloak, :class, id, data-*…) so Alpine toggles still work. */
+function passThrough(attrs: string) {
+  let out = "";
+  for (const m of attrs.matchAll(/([^\s=/>"']+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s>]+))?/g)) {
+    if (HANDLED.has(m[1].toLowerCase())) continue;
+    out += m[2] === undefined ? ` ${m[1]}` : ` ${m[1]}=${m[2]}`;
+  }
+  return out;
+}
+
 /** Replaces <i data-lucide="name"> with inline SVG so published pages need no icon script. */
 export function inlineIcons(html: string) {
   const replace = (match: string, before: string, name: string, after: string) => {
@@ -35,7 +47,8 @@ export function inlineIcons(html: string) {
       .map(([tag, a]) => `<${tag} ${Object.entries(a).map(([k, v]) => `${k}="${escapeAttr(v)}"`).join(" ")}/>`)
       .join("");
     const a11y = label ? `role="img" aria-label="${escapeAttr(label)}"` : `aria-hidden="true"`;
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-${name}${cls ? ` ${escapeAttr(cls)}` : ""}"${style ? ` style="${escapeAttr(style)}"` : ""} ${a11y}>${children}</svg>`;
+    const extra = passThrough(attrs);
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-${name}${cls ? ` ${escapeAttr(cls)}` : ""}"${style ? ` style="${escapeAttr(style)}"` : ""} ${a11y}${extra}>${children}</svg>`;
   };
   return html
     .replace(/<i\b([^>]*?)\bdata-lucide\s*=\s*["']([a-z0-9-]+)["']([^>]*?)>\s*<\/i>/gi, replace)

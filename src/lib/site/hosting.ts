@@ -56,7 +56,7 @@ export async function getHostedSite(host: string) {
         if (!found) throw new Error(NOT_FOUND);
         return found;
       },
-      ["hosted-site-v2", h],
+      ["hosted-site-v3", h],
       { tags: [`site:${h}`], revalidate: 3600 },
     )();
   } catch (err) {
