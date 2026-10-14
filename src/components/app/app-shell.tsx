@@ -7,6 +7,7 @@ import { totalCredits } from "@/lib/credits";
 import type { Profile } from "@/lib/types";
 import { AccountMenu } from "./account-menu";
 import { NavLink } from "./nav-link";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function AppShell({ profile, children }: { profile: Profile; children: React.ReactNode }) {
   const plan = getPlan(profile.plan);
@@ -35,6 +36,7 @@ export function AppShell({ profile, children }: { profile: Profile; children: Re
               {totalCredits(profile)} credits
               <span className="text-muted">· {plan.name}</span>
             </Link>
+            <ThemeToggle />
             <AccountMenu email={profile.email} name={profile.full_name} avatar={profile.avatar_url} />
           </div>
         </div>

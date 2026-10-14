@@ -5,6 +5,7 @@ import { html } from "@codemirror/lang-html";
 import { javascript } from "@codemirror/lang-javascript";
 import CodeMirror, { EditorView } from "@uiw/react-codemirror";
 import { useMemo } from "react";
+import { useTheme } from "@/components/ui/theme-provider";
 
 export default function CodeEditor({
   path,
@@ -17,6 +18,7 @@ export default function CodeEditor({
   onChange: (v: string) => void;
   readOnly?: boolean;
 }) {
+  const { theme } = useTheme();
   const extensions = useMemo(() => {
     const lang = path.endsWith(".css") ? css() : path.endsWith(".js") || path.endsWith(".json") ? javascript() : html();
     return [lang, EditorView.lineWrapping];
@@ -28,7 +30,7 @@ export default function CodeEditor({
       value={value}
       height="100%"
       className="h-full text-[13px]"
-      theme="light"
+      theme={theme}
       extensions={extensions}
       readOnly={readOnly}
       onChange={onChange}

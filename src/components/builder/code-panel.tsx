@@ -125,7 +125,7 @@ export function CodePanel({ files, onSave, disabled }: { files: FileMap; onSave:
             </Button>
           </div>
         </div>
-        <div className="min-h-0 flex-1 overflow-hidden bg-white">
+        <div className="min-h-0 flex-1 overflow-hidden bg-card">
           {active ? (
             <CodeEditor
               path={active}

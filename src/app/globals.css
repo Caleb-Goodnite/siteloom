@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --paper: #f6f3ee;
   --paper-2: #efeae2;
   --card: #ffffff;
@@ -15,6 +16,24 @@
   --ok: #15803d;
   --warn: #b45309;
   --danger: #b91c1c;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #11100f;
+  --paper-2: #1b1917;
+  --card: #211f1c;
+  --ink: #f5f2ed;
+  --ink-2: #ddd6ce;
+  --muted: #a69c92;
+  --line: #39342f;
+  --line-2: #4b443d;
+  --accent: #c2410c;
+  --accent-ink: #ff9b79;
+  --accent-soft: #3b241d;
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --danger: #f87171;
 }
 
 @theme inline {
@@ -60,6 +79,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 ::selection {
@@ -71,6 +91,23 @@ body {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+:root[data-theme="dark"] .bg-amber-50 { background-color: #3b2e1b; }
+:root[data-theme="dark"] .bg-amber-100 { background-color: #493919; }
+:root[data-theme="dark"] .bg-amber-200 { background-color: #49391f; }
+:root[data-theme="dark"] .text-amber-800 { color: #f6c56f; }
+:root[data-theme="dark"] .text-amber-900 { color: #fcd38d; }
+:root[data-theme="dark"] .border-amber-200 { border-color: #67502b; }
+:root[data-theme="dark"] .bg-red-50 { background-color: #3b2223; }
+:root[data-theme="dark"] .bg-red-100 { background-color: #4a2528; }
+:root[data-theme="dark"] .text-red-800 { color: #fca5a5; }
+:root[data-theme="dark"] .border-red-200 { border-color: #633537; }
+:root[data-theme="dark"] .bg-green-100 { background-color: #193923; }
+:root[data-theme="dark"] .text-green-800 { color: #86efac; }
+:root[data-theme="dark"] .bg-ink { background-color: #0b0a09; }
+:root[data-theme="dark"] .bg-ink-2 { background-color: #302b27; }
+:root[data-theme="dark"] .text-accent { color: #ff8a5b; }
+:root[data-theme="dark"] .hover\:bg-accent-ink:hover { background-color: #9a3412; }
 
 /* Long-form article typography (blog, legal) */
 .prose-sl {

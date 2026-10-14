@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useSignedIn } from "./use-session";
 
 const NAV = [
@@ -32,21 +33,24 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 md:flex">
-          {signedIn ? (
-            <ButtonLink href="/dashboard" size="sm">
-              Dashboard
-            </ButtonLink>
-          ) : (
-            <>
-              <ButtonLink href="/login" variant="ghost" size="sm">
-                Log in
+        <div className="ml-auto flex items-center gap-2 md:ml-0">
+          <div className="hidden items-center gap-2 md:flex">
+            {signedIn ? (
+              <ButtonLink href="/dashboard" size="sm">
+                Dashboard
               </ButtonLink>
-              <ButtonLink href="/signup" size="sm">
-                Start free
-              </ButtonLink>
-            </>
-          )}
+            ) : (
+              <>
+                <ButtonLink href="/login" variant="ghost" size="sm">
+                  Log in
+                </ButtonLink>
+                <ButtonLink href="/signup" size="sm">
+                  Start free
+                </ButtonLink>
+              </>
+            )}
+          </div>
+          <ThemeToggle />
         </div>
         <button
           className="rounded-full p-2 text-ink md:hidden"

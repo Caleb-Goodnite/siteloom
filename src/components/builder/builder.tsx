@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { LogoMark } from "@/components/ui/logo";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/misc";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { TIERS, type ModelTier } from "@/config/models";
 import { applyOps, listPages, parseResponse } from "@/lib/ai/protocol";
 import { auditSite } from "@/lib/site/seo";
@@ -352,6 +353,7 @@ export function Builder(props: Props) {
           <Link href="/dashboard/billing" className="hidden items-center gap-1 rounded-full border border-line px-2.5 py-1 text-xs font-medium text-ink sm:flex" title="Credits">
             <Coins className="size-3.5 text-accent" /> {credits}
           </Link>
+          <ThemeToggle />
           <Button size="sm" variant={project.published && !unpublishedChanges ? "outline" : "accent"} onClick={() => setPublishOpen(true)} disabled={!hasSite}>
             <Rocket className="size-3.5" />
             {project.published ? (unpublishedChanges ? "Update" : "Published") : "Publish"}
