@@ -6,7 +6,7 @@ import { serverEnv } from "@/lib/env";
  * Transactional email through Resend's HTTP API. Optional: without RESEND_API_KEY
  * emails are skipped (logged) and everything else keeps working.
  */
-export async function sendEmail(opts: { to: string; subject: string; html: string; replyTo?: string }) {
+export async function sendEmail(opts: { to: string; subject: string; html: string; replyTo?: string; headers?: Record<string, string> }) {
   const key = serverEnv.resendKey;
   if (!key) {
     console.info(`[email skipped: RESEND_API_KEY not set] ${opts.subject} → ${opts.to}`);
@@ -21,6 +21,7 @@ export async function sendEmail(opts: { to: string; subject: string; html: strin
       subject: opts.subject,
       html: opts.html,
       reply_to: opts.replyTo,
+      headers: opts.headers,
     }),
   });
   if (!res.ok) console.error("Resend error", res.status, await res.text());
@@ -31,14 +32,25 @@ export function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 }
 
-function layout(body: string) {
+/** Shared email shell. Marketing emails pass an unsubscribe URL (and show the postal address, per CAN-SPAM). */
+export function emailLayout(body: string, opts: { unsubscribeUrl?: string } = {}) {
+  const postal = process.env.EMAIL_POSTAL_ADDRESS;
+  const footer = [
+    `${site.name} · <a href="${site.url}" style="color:#78716c">${new URL(site.url).hostname}</a>`,
+    opts.unsubscribeUrl && postal ? escapeHtml(postal) : "",
+    opts.unsubscribeUrl ? `<a href="${opts.unsubscribeUrl}" style="color:#78716c">Unsubscribe from tips and offers</a>` : "",
+  ]
+    .filter(Boolean)
+    .join("<br>");
   return `<!doctype html><html><body style="margin:0;background:#f6f3ee;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#1c1917">
 <div style="max-width:560px;margin:0 auto;padding:32px 24px">
 <div style="font-size:20px;font-weight:700;margin-bottom:24px">${site.name}</div>
 <div style="background:#fff;border-radius:16px;padding:28px;border:1px solid #e7e2da;font-size:15px;line-height:1.6">${body}</div>
-<p style="font-size:12px;color:#78716c;margin-top:20px">${site.name} · <a href="${site.url}" style="color:#78716c">${new URL(site.url).hostname}</a></p>
+<p style="font-size:12px;color:#78716c;margin-top:20px;line-height:1.6">${footer}</p>
 </div></body></html>`;
 }
+
+const layout = (body: string) => emailLayout(body);
 
 export async function sendWelcomeEmail(to: string, name: string | null) {
   if (!to) return;

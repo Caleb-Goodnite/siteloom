@@ -14,6 +14,8 @@ export type TierConfig = {
   blurb: string;
   /** Flat credit price per message — shown to the user before they hit send. */
   credits: number;
+  /** Price of building a brand-new multi-page site (plan + parallel page writers). */
+  buildCredits: number;
   models: string[];
   maxTokens: number;
   reasoning: "low" | "medium" | null;
@@ -30,6 +32,7 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     label: "Fast",
     blurb: "Quick edits and copy changes",
     credits: 1,
+    buildCredits: 4,
     // Qwen 3.8 Flash: $0.15 / $0.47 per M tokens; GLM 5.3 Flash: $0.036 / $0.90 — well under a cent per message.
     models: fromEnv("MODELS_FAST", ["qwen/qwen3.8-flash", "z-ai/glm-5.3-flash", "anthropic/claude-haiku-5.5"]),
     maxTokens: 32_000,
@@ -40,6 +43,7 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     label: "Standard",
     blurb: "Best for new sites and redesigns",
     credits: 4,
+    buildCredits: 15,
     // Sonnet 5.5: $2 / $10 per M tokens — strongest design + HTML quality per dollar.
     models: fromEnv("MODELS_STANDARD", ["anthropic/claude-sonnet-5.5", "openai/gpt-6.1-sol", "google/gemini-4-argon"]),
     maxTokens: 40_000,
@@ -50,6 +54,7 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     label: "Max",
     blurb: "Most capable, for complex multi-page builds",
     credits: 10,
+    buildCredits: 35,
     // Opus 5.5: $4 / $20 per M tokens.
     models: fromEnv("MODELS_MAX", ["anthropic/claude-opus-5.5", "anthropic/claude-sonnet-5.5"]),
     maxTokens: 48_000,

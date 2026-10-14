@@ -3,6 +3,7 @@
  * preview and the server-side publish pipeline, so what you see is what ships.
  */
 import { parse, type HTMLElement } from "node-html-parser";
+import { expandBlocks } from "@/lib/site/blocks";
 import type { FileMap } from "@/lib/types";
 
 export const CDN = {
@@ -110,22 +111,44 @@ export function aspectToSize(aspect: string | undefined) {
   return w >= h ? { w: 1600, h: Math.round((1600 * h) / w) } : { w: Math.round((1600 * w) / h), h: 1600 };
 }
 
-/** A soft gradient SVG used until a real photo is generated. */
-export function placeholderSrc(prompt: string, aspect?: string) {
+/** Hue/saturation of a #rrggbb color (null if it isn't one). */
+function hexHue(hex: string | null | undefined) {
+  const m = hex?.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  if (!m) return null;
+  const [r, g, b] = [m[1], m[2], m[3]].map((x) => parseInt(x, 16) / 255);
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const d = max - min;
+  if (d === 0) return { hue: 0, sat: 0 };
+  const hue = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return { hue: Math.round(((hue * 60) + 360) % 360), sat: Math.round((d / (1 - Math.abs(max + min - 1))) * 100) };
+}
+
+/** The site's --color-brand token, if the page defines one. */
+export function brandFromHtml(html: string) {
+  return html.match(/--color-brand\s*:\s*(#[0-9a-f]{6})\b/i)?.[1] ?? null;
+}
+
+/** A soft gradient SVG used until a real photo is generated, tinted with the site's brand color. */
+export function placeholderSrc(prompt: string, aspect?: string, brand?: string | null) {
   const { w, h } = aspectToSize(aspect);
-  const hue = hashHue(prompt);
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${hue} 35% 88%)"/><stop offset="1" stop-color="hsl(${(hue + 40) % 360} 30% 76%)"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><g transform="translate(${w / 2 - 36} ${h / 2 - 28})" fill="none" stroke="hsl(${hue} 20% 45%)" stroke-width="4" opacity=".55"><rect x="2" y="2" width="68" height="52" rx="8"/><circle cx="22" cy="20" r="6"/><path d="M6 50l20-20 14 14 10-10 20 16"/></g></svg>`;
+  const tint = hexHue(brand);
+  // Brand-tinted (subtle variation per image) or, without a brand, a neutral warm gray.
+  const hue = tint ? (tint.hue + (hashHue(prompt) % 24) - 12 + 360) % 360 : 30;
+  const sat = tint ? Math.min(32, Math.max(10, Math.round(tint.sat * 0.35))) : 8;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${hue} ${sat}% 92%)"/><stop offset="1" stop-color="hsl(${hue} ${sat}% 80%)"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><g transform="translate(${w / 2 - 36} ${h / 2 - 28})" fill="none" stroke="hsl(${hue} ${sat}% 40%)" stroke-width="4" opacity=".45"><rect x="2" y="2" width="68" height="52" rx="8"/><circle cx="22" cy="20" r="6"/><path d="M6 50l20-20 14 14 10-10 20 16"/></g></svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
 /** Gives every <img data-ai-image> without a real src a placeholder. */
 export function fillImagePlaceholders(html: string) {
+  const brand = brandFromHtml(html);
   return html.replace(/<img\b[^>]*\bdata-ai-image\s*=\s*(["'])([\s\S]*?)\1[^>]*>/gi, (tag, _q, prompt: string) => {
     const hasSrc = /\ssrc\s*=\s*["'][^"']+["']/i.test(tag);
     if (hasSrc) return tag;
     const aspect = tag.match(/data-aspect\s*=\s*["']([\d:]+)["']/i)?.[1];
     const cleaned = tag.replace(/\ssrc\s*=\s*["']\s*["']/i, "");
-    return cleaned.replace(/^<img\b/i, `<img src="${placeholderSrc(prompt, aspect)}"`);
+    return cleaned.replace(/^<img\b/i, `<img src="${placeholderSrc(prompt, aspect, brand)}"`);
   });
 }
 
@@ -328,6 +351,7 @@ export function buildPreviewDocument(files: FileMap, page: string, opts: { annot
   html = inlineLocalAssets(html, files);
   html = markCurrentNav(html, page);
   html = fillImagePlaceholders(html);
+  html = expandBlocks(html);
 
   const head = [
     `<script src="${CDN.tailwind}"></script>`,

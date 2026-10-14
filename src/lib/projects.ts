@@ -30,18 +30,25 @@ export async function uniqueSlug(base: string) {
   return `site-${randomSuffix(8)}`;
 }
 
-export async function createProject(profile: Profile, opts: { prompt?: string; name?: string }) {
+export async function createProject(
+  profile: Profile,
+  opts: { prompt?: string; name?: string; source?: { url: string; content: string; title: string } },
+) {
   const admin = supabaseAdmin();
   const plan = getPlan(profile.plan);
   const { count } = await admin.from("projects").select("id", { count: "exact", head: true }).eq("user_id", profile.id);
   if ((count ?? 0) >= plan.maxProjects) {
     throw new ApiError(403, `Your ${plan.name} plan includes ${plan.maxProjects} projects. Delete one or upgrade for more.`, "upgrade");
   }
-  const name = (opts.name?.trim() || (opts.prompt ? nameFromPrompt(opts.prompt) : "Untitled site")).slice(0, 60);
+  const fromSource = opts.source?.title.split(/\s[|–—-]\s/)[0]?.trim();
+  const name = (opts.name?.trim() || fromSource || (opts.prompt ? nameFromPrompt(opts.prompt) : "Untitled site")).slice(0, 60);
   const slug = await uniqueSlug(name);
+  const settings = opts.source
+    ? { siteName: name, sourceUrl: opts.source.url, importedContent: opts.source.content }
+    : { siteName: name };
   const { data, error } = await admin
     .from("projects")
-    .insert({ user_id: profile.id, name, slug, initial_prompt: opts.prompt?.slice(0, 4000) ?? null, settings: { siteName: name } })
+    .insert({ user_id: profile.id, name, slug, initial_prompt: opts.prompt?.slice(0, 4000) ?? null, settings })
     .select("id, name, slug")
     .single();
   if (error) throw new Error(error.message);

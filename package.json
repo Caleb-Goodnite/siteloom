@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "stripe:setup": "tsx scripts/stripe-setup.ts",
-    "check": "npm run typecheck && npm run lint && npm test"
+    "check": "npm run typecheck && npm run lint && npm test",
+    "eval:generate": "tsx --conditions=react-server scripts/eval-generate.ts"
   },
   "dependencies": {
     "@codemirror/lang-css": "^6.3.1",

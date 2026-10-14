@@ -15,7 +15,7 @@ const FAQS = [
   {
     q: "How do credits work?",
     a: `Each AI message costs a fixed number of credits depending on the model you choose: ${Object.values(TIERS)
-      .map((t) => `${t.label} (${t.credits})`)
+      .map((t) => `${t.label} (${t.credits} per edit, ${t.buildCredits} to build a whole new site)`)
       .join(", ")}. The cost is shown on the send button before you send. AI photos cost ${IMAGE_CREDITS} credit${IMAGE_CREDITS > 1 ? "s" : ""} each.`,
   },
   { q: "When am I not charged?", a: "If a generation fails, you press Stop, or the AI doesn't change your site, the credits are refunded automatically. Editing text directly in the preview, editing code, restoring a previous version and publishing are always free." },

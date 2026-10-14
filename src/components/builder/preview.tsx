@@ -34,6 +34,7 @@ type Props = {
   onRuntimeError: (message: string) => void;
   onFixErrors: () => void;
   placeholders: number;
+  onFillDetails: () => void;
   hasSite: boolean;
 };
 
@@ -205,9 +206,9 @@ export function Preview(props: Props) {
         </div>
 
         {props.placeholders > 0 && !props.viewing && (
-          <Tip label="Highlighted [[placeholders]] need your real details. Use Edit text to fill them in.">
+          <Tip label="Highlighted [[placeholders]] need your real details. Fill each one once and it's used everywhere.">
             <button
-              onClick={() => setMode("edit")}
+              onClick={props.onFillDetails}
               className="ml-1 hidden items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-900 sm:flex"
             >
               <Highlighter className="size-3.5" /> {props.placeholders} to fill in

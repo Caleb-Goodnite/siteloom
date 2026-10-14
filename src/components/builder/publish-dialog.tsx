@@ -9,6 +9,7 @@ import { Hint, Input, Label } from "@/components/ui/field";
 import { Dialog, Switch } from "@/components/ui/misc";
 import { Spinner } from "@/components/ui/spinner";
 import { publishedUrl, site } from "@/config/site";
+import { track } from "@/lib/track";
 import { cn } from "@/lib/utils";
 import type { ApiErrorBody, BuilderProject, PlanInfo } from "./types";
 
@@ -27,6 +28,7 @@ export function PublishDialog(props: {
   plan: PlanInfo;
   seoScore: number | null;
   placeholders: number;
+  onFillDetails: () => void;
   unpublishedChanges: boolean;
   onProject: (p: Partial<BuilderProject>) => void;
   onError: (status: number, body: ApiErrorBody) => void;
@@ -77,7 +79,13 @@ export function PublishDialog(props: {
         throw Object.assign(new Error(data.error), { status: res.status, body: data });
       }
       setWarnings(data.warnings ?? []);
-      props.onProject({ published: true, published_at: data.publishedAt, updated_at: data.publishedAt });
+      if (!project.published) track("site_published");
+      props.onProject({
+        published: true,
+        published_at: data.publishedAt,
+        updated_at: data.publishedAt,
+        ...(data.seo ? { settings: { ...project.settings, seo: data.seo } } : {}),
+      });
       toast.success(project.published ? "Your site is updated" : "Your site is live! 🎉");
     } catch (err) {
       const e = err as Error & { status?: number; body?: ApiErrorBody };
@@ -185,7 +193,12 @@ export function PublishDialog(props: {
             {props.placeholders > 0 && (
               <p className="flex gap-2">
                 <AlertTriangle className="mt-0.5 size-4 shrink-0" />
-                {props.placeholders} placeholder{props.placeholders > 1 ? "s" : ""} like [[Phone number]] still need real details. Use Edit text to fill them in.
+                <span>
+                  {props.placeholders} detail{props.placeholders > 1 ? "s" : ""} like [[Phone number]] still need filling in.{" "}
+                  <button type="button" onClick={props.onFillDetails} className="font-semibold underline underline-offset-2">
+                    Fill them in
+                  </button>
+                </span>
               </p>
             )}
             {props.seoScore !== null && props.seoScore < 70 && (
@@ -204,6 +217,15 @@ export function PublishDialog(props: {
             <Link href="/legal/acceptable-use" className="mt-1 inline-block underline">
               Acceptable use policy
             </Link>
+          </div>
+        )}
+
+        {project.published && project.settings?.seo && (
+          <div className="flex items-center gap-3 rounded-xl bg-green-100 p-3 text-sm text-green-800">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-card font-semibold text-ok">{project.settings.seo.score}</span>
+            <span>
+              <b>SEO audit: {project.settings.seo.score}/100</b> across {project.settings.seo.pages} page{project.settings.seo.pages === 1 ? "" : "s"}, graded with the same checks as our free website grader.
+            </span>
           </div>
         )}
 

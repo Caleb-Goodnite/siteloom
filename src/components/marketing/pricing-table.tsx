@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { IMAGE_CREDITS, TIERS } from "@/config/models";
 import { PLANS, type Interval, type PlanId } from "@/config/plans";
+import { track } from "@/lib/track";
 import { cn } from "@/lib/utils";
 import { useSignedIn } from "./use-session";
 
@@ -34,6 +35,7 @@ export function PricingTable({ currentPlan }: { currentPlan?: PlanId }) {
       });
       const data = await res.json();
       if (!res.ok || !data.url) throw new Error(data.error ?? "Checkout is unavailable right now.");
+      track("checkout_started", { plan, interval });
       window.location.assign(data.url);
     } catch (err) {
       toast.error((err as Error).message);
@@ -107,7 +109,7 @@ export function PricingTable({ currentPlan }: { currentPlan?: PlanId }) {
         <div className="mt-3 flex flex-wrap gap-2">
           {Object.values(TIERS).map((t) => (
             <span key={t.id} className="rounded-full bg-paper-2 px-3 py-1 text-xs">
-              <b className="text-ink">{t.label}</b> · {t.credits} credit{t.credits > 1 ? "s" : ""} — {t.blurb.toLowerCase()}
+              <b className="text-ink">{t.label}</b> · {t.credits} credit{t.credits > 1 ? "s" : ""} per edit, {t.buildCredits} per new site — {t.blurb.toLowerCase()}
             </span>
           ))}
           <span className="rounded-full bg-paper-2 px-3 py-1 text-xs">

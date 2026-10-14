@@ -5,6 +5,7 @@
  */
 import { parse } from "node-html-parser";
 import { listPages } from "@/lib/ai/protocol";
+import { listPlaceholders } from "@/lib/site/placeholders";
 import { hrefToPage, resolveIncludes } from "@/lib/site/render";
 import type { FileMap } from "@/lib/types";
 
@@ -15,10 +16,9 @@ export type SeoReport = { score: number; issues: SeoIssue[]; pages: PageSummary[
 
 const PENALTY: Record<Severity, number> = { error: 12, warning: 5, info: 1 };
 
+/** Number of distinct [[placeholders]] (each is filled once, everywhere). */
 export function countPlaceholders(files: FileMap) {
-  let n = 0;
-  for (const [p, c] of Object.entries(files)) if (p.endsWith(".html")) n += (c.match(/\[\[[^\]\n]{1,80}\]\]/g) ?? []).length;
-  return n;
+  return listPlaceholders(files).length;
 }
 
 export function auditSite(files: FileMap): SeoReport {
@@ -100,7 +100,7 @@ export function auditSite(files: FileMap): SeoReport {
   for (const [page, n] of inbound) if (page !== "index.html" && n === 0 && pages.length > 1) issues.push({ page, severity: "warning", message: "No other page links here — add it to the navigation." });
 
   const placeholders = countPlaceholders(files);
-  if (placeholders) issues.push({ page: "*", severity: "warning", message: `${placeholders} placeholder${placeholders > 1 ? "s" : ""} like [[Phone number]] still need real details.` });
+  if (placeholders) issues.push({ page: "*", severity: "warning", message: `${placeholders} detail${placeholders > 1 ? "s" : ""} like [[Phone number]] still need filling in.` });
 
   const score = Math.max(0, Math.min(100, 100 - issues.reduce((n, i) => n + PENALTY[i.severity], 0)));
   const order: Record<Severity, number> = { error: 0, warning: 1, info: 2 };

@@ -14,6 +14,176 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "best-ai-website-builders-2026",
+    title: "The best AI website builders in 2026: an honest comparison",
+    description:
+      "Lovable, v0, Bolt, Wix, Squarespace, Framer, Durable, Hostinger and Siteloom compared by what each is actually best at, so you can pick the right one for your project.",
+    date: "2026-10-14",
+    author: "The Siteloom team",
+    readingMinutes: 9,
+    body: `"AI website builder" now covers very different products. Some build software, some generate a template, and some write and design a complete site. The best one depends on what you're making.
+
+**Disclosure:** we make Siteloom, so weigh our take accordingly. We've tried to say plainly where other tools are the better choice, and products change fast, so check each vendor's site for current features and pricing.
+
+## First, decide what you're building
+
+- **A website** for a business, practice, restaurant, creator or product: visitors read, then call, book, buy or sign up.
+- **An app**: users log in, data is stored per user, there are dashboards and custom logic.
+
+Most small businesses need a website. Founders validating software need an app. The tools below split along that line.
+
+## AI app builders
+
+### Lovable
+Generates full-stack React applications, typically with Supabase for authentication and data. It's excellent for prototyping SaaS ideas and internal tools. Credit usage varies by request, and users frequently mention paying for "fix loops" on complex projects. **Best for:** founders building an app MVP.
+
+### Bolt.new
+An AI-powered development environment in the browser that works across many frameworks. It's powerful if you want to see and steer the code. **Best for:** developers who want AI help inside a real coding workflow.
+
+### v0
+Vercel's AI UI generator produces high-quality React and Next.js interfaces, often using shadcn/ui components. **Best for:** front-end developers building app UIs, especially on Vercel.
+
+## Traditional builders with AI features
+
+### Wix
+A huge ecosystem: drag-and-drop editing, AI site creation, bookings, stores and an app market. **Best for:** people who want a visual editor and lots of built-in business tools.
+
+### Squarespace
+Polished templates, plus commerce, scheduling and email campaigns in one subscription. **Best for:** design-conscious owners happy to pick a template and edit it visually.
+
+### Hostinger and GoDaddy
+Budget-friendly builders bundled with hosting, domains and email, with AI that gets a simple site up quickly. **Best for:** the lowest price and one account for everything.
+
+## Design-first and quick-start builders
+
+### Framer
+A designer's canvas with great animations and a CMS. **Best for:** designers who want control and motion.
+
+### Durable
+Generates a simple business site in seconds and bundles extras like a CRM and invoicing. **Best for:** getting something online immediately.
+
+## Siteloom
+Our focus is the site itself for businesses that need to be found: multi-page sites designed and written for your business, published as fast static HTML that Google and AI search can read, with SEO, working forms, analytics and hosting built in. Each AI message shows its price before you send it, you aren't charged when nothing changes, and text edits are free. You can also paste your current website to have it redesigned with your real content. **Best for:** small businesses, local services, restaurants, clinics, freelancers and SaaS marketing sites.
+
+## Quick picks
+
+| If you need… | Consider |
+| --- | --- |
+| A web app with logins and a database | Lovable, Bolt |
+| React UI components for an app | v0 |
+| A visual editor plus built-in store or bookings | Wix, Squarespace |
+| The lowest monthly price | Hostinger, GoDaddy |
+| Pixel-level design and animation | Framer, Webflow |
+| A business website that ranks, written for you | Siteloom |
+
+Whatever you choose, check one thing before you commit: open your published site, right-click, choose **View Page Source**, and make sure your text is actually there. If it isn't, search engines may struggle to see it. You can also run any site through our [free website grader](/tools/website-grader).`,
+  },
+  {
+    slug: "how-much-does-a-small-business-website-cost",
+    title: "How much does a small business website cost in 2026?",
+    description:
+      "Realistic price ranges for DIY builders, AI builders, freelancers and agencies, plus the ongoing costs people forget: domain, hosting, email and updates.",
+    date: "2026-10-14",
+    author: "The Siteloom team",
+    readingMinutes: 7,
+    body: `The honest answer is anywhere from free to tens of thousands of dollars. What you're really choosing is **who does the work**: you, software, a freelancer or an agency. Here's how the options compare, using typical ranges (quotes vary widely by region and scope).
+
+## The four ways to get a website
+
+### 1. DIY website builder: typically $10–50/month
+You pick a template and fill it in yourself. **Pros:** cheap and fast to start. **Cons:** you're the designer and copywriter, and many sites end up looking like their template.
+
+### 2. AI website builder: free to roughly $10–80/month
+You describe your business and the software designs and writes the site. The good ones produce multiple pages with real copy, then let you refine by asking for changes. **Pros:** the fastest route to a professional-looking site, at a fraction of the cost of hiring. **Cons:** quality varies a lot between tools, so check that your text is in the page source (search engines need it) and that you can export your site if you leave.
+
+### 3. Freelancer: typically $1,500–8,000 one-time
+A designer or developer builds a custom site. **Pros:** a human who understands your goals. **Cons:** quality varies, timelines slip, and every later change means another invoice unless you agree on maintenance.
+
+### 4. Agency: typically $8,000–50,000+
+A team handles strategy, design, copy, development and often SEO. **Pros:** the most thorough option. **Cons:** cost and time. Usually only worth it for larger businesses or complex sites.
+
+## Ongoing costs people forget
+
+| Item | Typical cost |
+| --- | --- |
+| Domain name (.com) | $10–25/year |
+| Hosting | $0–30/month (often included in builders) |
+| Business email | $6–12 per user/month |
+| SSL certificate | Usually free now |
+| Updates and changes | Your time, or $50–150/hour from a freelancer |
+| Premium plugins/apps | $0–50/month |
+
+## What actually drives the price
+
+- **Number of pages.** A one-page site and a 15-page site with a page per service are different projects.
+- **Copywriting.** Writing good, specific copy is often the most time-consuming part.
+- **Integrations.** Booking, payments, menus, client portals.
+- **E-commerce.** Product catalogs, shipping and tax add real complexity.
+
+## How to spend wisely
+
+1. **Start with what brings customers:** clear services, location, proof you're real, and an easy way to contact or book.
+2. **Make sure search engines can read it.** Run your site through a [free website grader](/tools/website-grader) and fix the basics.
+3. **Own your domain** in your own name, whoever builds the site.
+4. **Make sure you can leave.** Ask whether you can export your site if you switch providers.
+
+For most local businesses, an AI builder that writes real copy and handles SEO basics gets you 90% of an agency site for a few dollars a month. Spend the rest on photos and on collecting reviews.`,
+  },
+  {
+    slug: "local-seo-checklist",
+    title: "The local SEO checklist for small businesses (2026)",
+    description:
+      "A practical, step-by-step checklist to show up in Google Maps and local search: Google Business Profile, your website, reviews, citations and the details that move rankings.",
+    date: "2026-10-14",
+    author: "The Siteloom team",
+    readingMinutes: 8,
+    body: `When someone searches "plumber near me" or "best tacos east austin", Google picks a handful of businesses for the map pack and the results below it. Local SEO is how you become one of them. Here's the checklist we'd follow for any local business, in order of impact.
+
+## 1. Google Business Profile (biggest impact)
+
+- [ ] **Claim and verify** your profile at business.google.com.
+- [ ] Choose the most specific **primary category** ("Pediatric dentist", not just "Dentist") and add relevant secondary categories.
+- [ ] Fill in **every field**: hours (including holiday hours), services, service areas, attributes, booking link.
+- [ ] Add **real photos** regularly: exterior, interior, team, work. Profiles with fresh photos tend to get more engagement.
+- [ ] Use **Posts** for offers, events and updates.
+- [ ] Answer common questions in the **Q&A** section yourself.
+
+## 2. Consistent name, address and phone (NAP)
+
+- [ ] Your business name, address and phone number are **identical** on your website, Google profile, Facebook, Yelp, Apple Maps, Bing Places and industry directories.
+- [ ] Use the same format everywhere ("Suite 200", not "Ste 200" in one place and "#200" in another).
+
+## 3. Your website
+
+- [ ] Each **service has its own page** ("Emergency plumbing in Phoenix"), not just a bullet in a list.
+- [ ] The home page **title and H1 mention your main service and city**.
+- [ ] Your **address and phone are in the footer** of every page, as text, not inside an image.
+- [ ] **LocalBusiness structured data** (or a more specific type like Dentist or Restaurant) with your name, address, phone, hours and geo-coordinates.
+- [ ] A **page per area you serve**, if you travel to customers, each with genuinely local content.
+- [ ] **Fast and mobile-friendly.** Most local searches are on phones.
+- [ ] Your content is **readable without JavaScript**. Check with our [free website grader](/tools/website-grader).
+
+## 4. Reviews
+
+- [ ] **Ask every happy customer.** Send a direct review link right after a great experience.
+- [ ] **Reply to every review**, good and bad, politely and specifically.
+- [ ] Never buy or fake reviews. It violates Google's policies and, in the US, FTC rules.
+
+## 5. Citations and links
+
+- [ ] List your business on major directories (Apple Maps, Bing Places, Yelp, Facebook) and the ones specific to your industry.
+- [ ] Get **local links**: chamber of commerce, sponsorships, local news, partner businesses.
+
+## 6. Track it
+
+- [ ] Set up **Google Search Console** and submit your sitemap.
+- [ ] Watch **Google Business Profile insights** for calls, direction requests and website clicks.
+
+## The 20-minute version
+
+Short on time? Verify your Google Business Profile, make your name/address/phone identical everywhere, put your city and main service in your home page title, and ask your last ten happy customers for a review. Those four things move the needle more than anything else on this list.`,
+  },
+  {
     slug: "ai-built-website-not-showing-on-google",
     title: "Why your AI-built website isn't showing up on Google (and how to fix it)",
     description:

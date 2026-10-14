@@ -46,6 +46,9 @@ type Props = {
   onStop: () => void;
   onRestore: (versionId: string) => void;
   onUpgrade: (message: string) => void;
+  /** The composer text lives in the builder so other panels can prefill a request. */
+  input: string;
+  onInputChange: (value: string) => void;
 };
 
 const QUICK_ACTIONS = [
@@ -70,7 +73,7 @@ export function modelLabel(id: string | null) {
 
 export function Chat(props: Props) {
   const { messages, streaming, generating, credits, plan, hasSite, selection } = props;
-  const [input, setInput] = useState("");
+  const { input, onInputChange: setInput } = props;
   const [tier, setTier] = useState<ModelTier>(plan.tiers.includes("standard") ? "standard" : "fast");
   const [images, setImages] = useState(plan.aiImages);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
@@ -81,7 +84,8 @@ export function Chat(props: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const stick = useRef(true);
 
-  const cost = TIERS[tier].credits;
+  // Building a brand-new site (plan + every page) is priced as one flat "build".
+  const cost = hasSite ? TIERS[tier].credits : TIERS[tier].buildCredits;
   const enough = credits >= cost;
 
   // Remember the last model choice (read after mount to keep SSR and hydration identical).
@@ -332,7 +336,7 @@ export function Chat(props: Props) {
                           <span className="flex justify-between font-medium">
                             {t.label}
                             <span className="text-muted">
-                              {t.credits} credit{t.credits > 1 ? "s" : ""}
+                              {hasSite ? t.credits : t.buildCredits} credits
                             </span>
                           </span>
                           <span className="block text-xs text-muted">{allowed ? t.blurb : "Available on Pro"}</span>

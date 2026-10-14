@@ -17,6 +17,7 @@ import {
   stripManagedScripts,
   usesAlpine,
 } from "@/lib/site/render";
+import { expandBlocks } from "@/lib/site/blocks";
 import { countPlaceholders } from "@/lib/site/seo";
 import { brandColor, compileTailwind, extractTailwindStyles, removeTailwindStyles } from "@/lib/site/tailwind";
 import type { FileMap, ProjectSettings } from "@/lib/types";
@@ -86,6 +87,7 @@ export async function buildPublishedSite(opts: {
     html = inlineIcons(html);
     html = markCurrentNav(html, page);
     html = fillImagePlaceholders(html);
+    html = expandBlocks(html);
     html = rewriteLinksForPublish(html);
 
     const doc = parse(html);
@@ -116,6 +118,49 @@ export async function buildPublishedSite(opts: {
     if (brand && !hasTag(html, /name\s*=\s*["']theme-color["']/i)) head.push(`<meta name="theme-color" content="${brand}">`);
     if (opts.settings.googleVerification) {
       head.push(`<meta name="google-site-verification" content="${escapeAttr(opts.settings.googleVerification)}">`);
+    }
+    // Owner's own analytics (optional, alongside the built-in cookie-free stats).
+    const ga = opts.settings.gaId?.trim();
+    if (ga && /^G-[A-Z0-9]{4,14}$/.test(ga)) {
+      head.push(
+        `<script async src="https://www.googletagmanager.com/gtag/js?id=${ga}"></script>`,
+        `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${ga}");</script>`,
+      );
+    }
+    const pixel = opts.settings.metaPixelId?.trim();
+    if (pixel && /^\d{6,20}$/.test(pixel)) {
+      head.push(
+        `<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","${pixel}");fbq("track","PageView");</script>`,
+      );
+    }
+    // Structured data on every page: WebPage + breadcrumbs (+ WebSite on the home page),
+    // added alongside whatever business schema the page already has.
+    if (!is404) {
+      const h1 = doc.querySelector("h1")?.text.replace(/\s+/g, " ").trim();
+      const graph: Record<string, unknown>[] = [
+        {
+          "@type": "WebPage",
+          "@id": `${url}#webpage`,
+          url,
+          name: title,
+          ...(description ? { description } : {}),
+          inLanguage: lang,
+          isPartOf: { "@id": `${siteUrl}/#website` },
+        },
+      ];
+      if (page === "index.html") {
+        graph.push({ "@type": "WebSite", "@id": `${siteUrl}/#website`, url: `${siteUrl}/`, name: opts.siteName, inLanguage: lang });
+      } else {
+        graph.push({
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+            { "@type": "ListItem", position: 2, name: h1 || title, item: url },
+          ],
+        });
+      }
+      const json = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
+      head.push(`<script type="application/ld+json">${json}</script>`);
     }
     if (is404) head.push(`<meta name="robots" content="noindex">`);
     head.push(`<meta name="generator" content="${site.name}">`);

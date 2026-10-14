@@ -2,9 +2,9 @@ import "server-only";
 import { IMAGE_CREDITS, MAX_IMAGES_PER_MESSAGE, TIERS, type ModelTier, type TierConfig } from "@/config/models";
 import { getPlan, type Plan, type PlanId } from "@/config/plans";
 import { generateSiteImages } from "@/lib/ai/images";
-import { complete, OpenRouterError, streamChat, type Usage } from "@/lib/ai/openrouter";
-import { buildMessages, buildRepairMessages } from "@/lib/ai/prompts";
-import { applyOps, parseResponse } from "@/lib/ai/protocol";
+import { editSite, generateSite, type BuildEvent } from "@/lib/ai/build";
+import { OpenRouterError } from "@/lib/ai/openrouter";
+import { parseResponse } from "@/lib/ai/protocol";
 import { grantCredits, InsufficientCreditsError, refundCredits, spendCredits, syncCredits, totalCredits } from "@/lib/credits";
 import { sendAdminAlert } from "@/lib/email";
 import { serverEnv } from "@/lib/env";
@@ -37,6 +37,10 @@ export type GenerationInput = {
 type Prepared = GenerationInput & {
   plan: Plan;
   tierConfig: TierConfig;
+  /** First build of an empty project (staged pipeline, priced as a full build). */
+  isNewSite: boolean;
+  /** Credits charged for this message. */
+  charge: number;
   ledgerId: number;
   userMessageId: string;
   assistantMessageId: string;
@@ -105,15 +109,17 @@ export async function prepareGeneration(input: GenerationInput): Promise<Prepare
     .maybeSingle();
   if (!locked) throw new ApiError(409, "This site is already being updated. Wait for it to finish, or press Stop.", "busy");
 
+  const isNewSite = Object.keys(project.files).length === 0;
+  const charge = isNewSite ? tierConfig.buildCredits : tierConfig.credits;
   let ledgerId: number;
   try {
-    ({ ledgerId } = await spendCredits(profile.id, tierConfig.credits, `${tierConfig.label} message`, project.id));
+    ({ ledgerId } = await spendCredits(profile.id, charge, isNewSite ? `New site (${tierConfig.label})` : `${tierConfig.label} message`, project.id));
   } catch (err) {
     await unlock(project.id);
     if (err instanceof InsufficientCreditsError) {
       throw new ApiError(
         402,
-        `This message needs ${tierConfig.credits} credit${tierConfig.credits > 1 ? "s" : ""}. ${plan.id === "free" ? "Free credits refill daily, or upgrade for more." : "Top up or wait for your monthly refill."}`,
+        `${isNewSite ? "Building a new site" : "This message"} needs ${charge} credit${charge > 1 ? "s" : ""}. ${plan.id === "free" ? "Free credits refill daily, or upgrade for more." : "Top up or wait for your monthly refill."}`,
         "credits",
       );
     }
@@ -146,13 +152,13 @@ export async function prepareGeneration(input: GenerationInput): Promise<Prepare
       role: "assistant",
       tier: input.tier,
       status: "streaming",
-      credits_charged: tierConfig.credits,
+      credits_charged: charge,
       ledger_id: ledgerId,
     })
     .select("id")
     .single();
 
-  return { ...input, plan, tierConfig, ledgerId, userMessageId: msgs.id, assistantMessageId: assistant!.id };
+  return { ...input, plan, tierConfig, isNewSite, charge, ledgerId, userMessageId: msgs.id, assistantMessageId: assistant!.id };
 }
 
 function friendlyError(err: unknown) {
@@ -174,12 +180,9 @@ function friendlyError(err: unknown) {
 export async function runGeneration(p: Prepared, emit: (e: GenEvent) => void) {
   const admin = supabaseAdmin();
   const abort = new AbortController();
-  const models = p.tierConfig.models;
   let cancelled = false;
   let costUsd = 0;
-  let usage: Usage | null = null;
-  let model = models[0];
-  let finishReason = "";
+  let model = p.tierConfig.models[0];
   let raw = "";
   let saved = false;
   let lastThinking = 0;
@@ -193,7 +196,7 @@ export async function runGeneration(p: Prepared, emit: (e: GenEvent) => void) {
   }, 2500);
 
   try {
-    emit({ t: "start", messageId: p.assistantMessageId, userMessageId: p.userMessageId, credits: p.tierConfig.credits });
+    emit({ t: "start", messageId: p.assistantMessageId, userMessageId: p.userMessageId, credits: p.charge });
 
     const { data: hist } = await admin
       .from("messages")
@@ -210,68 +213,51 @@ export async function runGeneration(p: Prepared, emit: (e: GenEvent) => void) {
         content: m.role === "assistant" && m.files_changed?.length ? `${m.content}\n\n(Files changed: ${m.files_changed.join(", ")})` : m.content,
       }));
 
-    const messages = buildMessages({
-      projectName: p.project.name,
-      files: p.project.files,
-      history,
-      prompt: p.prompt,
-      selection: p.selection,
-      attachments: p.attachments,
-      imagesEnabled: p.images,
-    });
-
-    for await (const ev of streamChat({
-      models,
-      messages,
-      maxTokens: p.tierConfig.maxTokens,
-      reasoning: p.tierConfig.reasoning,
+    // New sites use the staged planner + parallel writers; existing sites get targeted edits.
+    const ctx = {
+      tier: p.tierConfig,
       userId: p.profile.id,
       signal: abort.signal,
-    })) {
-      if (ev.type === "text") {
-        raw += ev.text;
-        emit({ t: "delta", d: ev.text });
-      } else if (ev.type === "reasoning") {
-        if (Date.now() - lastThinking > 1500) {
+      onEvent: (e: BuildEvent) => {
+        if (e.type === "text") {
+          raw += e.text;
+          emit({ t: "delta", d: e.text });
+        } else if (e.type === "status") emit({ t: "status", s: e.message });
+        else if (e.type === "model") model = e.model;
+        else if (Date.now() - lastThinking > 1500) {
           lastThinking = Date.now();
           emit({ t: "thinking" });
         }
-      } else if (ev.type === "model") model = ev.model;
-      else if (ev.type === "finish") finishReason = ev.reason;
-      else if (ev.type === "usage") usage = ev.usage;
-    }
-    if (cancelled) throw new Error("cancelled");
-    costUsd += usage?.costUsd ?? 0;
-
-    const parsed = parseResponse(raw);
-    let result = applyOps(p.project.files, parsed.ops);
-    let note = "";
-
-    // Edits whose SEARCH text didn't match: ask once for full files instead of failing.
-    const failedPaths = [...new Set(result.failures.filter((f) => f.path !== "*").map((f) => f.path))];
-    if (failedPaths.length) {
-      emit({ t: "status", s: "Double-checking an edit…" });
-      try {
-        const repair = await complete({
-          models,
-          messages: buildRepairMessages(messages, raw, failedPaths, result.files),
-          maxTokens: p.tierConfig.maxTokens,
-          signal: abort.signal,
+      },
+    };
+    const build = p.isNewSite
+      ? await generateSite({
+          ...ctx,
+          prompt: p.prompt,
+          projectName: p.project.name,
+          attachments: p.attachments,
+          imagesEnabled: p.images,
+          sourceContent: p.project.settings?.importedContent,
+        })
+      : await editSite({
+          ...ctx,
+          files: p.project.files,
+          prompt: p.prompt,
+          projectName: p.project.name,
+          history,
+          selection: p.selection,
+          attachments: p.attachments,
+          imagesEnabled: p.images,
         });
-        costUsd += repair.usage?.costUsd ?? 0;
-        const fixOps = parseResponse(repair.text).ops.filter((o) => o.kind === "file" && failedPaths.includes(o.path));
-        const fixed = applyOps(result.files, fixOps);
-        result = { files: fixed.files, changed: [...new Set([...result.changed, ...fixed.changed])], failures: fixed.failures };
-      } catch (err) {
-        if (cancelled) throw err;
-        console.error("repair pass failed", err);
-      }
-    }
-    if (finishReason === "length" || parsed.ops.some((o) => !o.complete)) {
-      note = "\n\n_The response hit its length limit, so the last file may be unfinished. Say “continue” to finish it._";
-    }
-
-    const content = (parsed.text || (result.changed.length ? "Done." : "I wasn't able to make that change.")) + note;
+    if (cancelled) throw new Error("cancelled");
+    costUsd += build.costUsd;
+    model = build.models[0] ?? model;
+    const usage = { inputTokens: build.inputTokens, outputTokens: build.outputTokens };
+    const result = { files: build.files, changed: build.changed };
+    const note = build.truncated
+      ? "\n\n_The response hit its length limit, so the last file may be unfinished. Say “continue” to finish it._"
+      : "";
+    const content = (build.text || (result.changed.length ? "Done." : "I wasn't able to make that change.")) + note;
 
     if (!result.changed.length) {
       // You only pay when your site changes.
@@ -297,7 +283,7 @@ export async function runGeneration(p: Prepared, emit: (e: GenEvent) => void) {
       .single();
     await admin.from("projects").update({ files }).eq("id", p.project.id);
     saved = true;
-    let charged = p.tierConfig.credits;
+    let charged = p.charge;
     await admin
       .from("messages")
       .update({
@@ -370,7 +356,7 @@ export async function runGeneration(p: Prepared, emit: (e: GenEvent) => void) {
         status: cancelled ? "cancelled" : "error",
         error,
         content: parseResponse(raw).text.slice(0, 4000),
-        credits_charged: saved ? p.tierConfig.credits : 0,
+        credits_charged: saved ? p.charge : 0,
         cost_usd: costUsd,
         model,
       })

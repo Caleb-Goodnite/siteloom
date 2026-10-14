@@ -8,6 +8,7 @@ import { ASSETS_BUCKET, supabaseAdmin } from "@/lib/supabase/admin";
 const Patch = z.object({
   full_name: z.string().trim().max(80).optional(),
   email_notifications: z.boolean().optional(),
+  marketing_emails: z.boolean().optional(),
 });
 
 export const PATCH = api(async (req) => {

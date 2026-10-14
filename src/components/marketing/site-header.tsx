@@ -10,8 +10,10 @@ import { useSignedIn } from "./use-session";
 
 const NAV = [
   { href: "/templates", label: "Templates" },
+  { href: "/redesign", label: "Redesign" },
+  { href: "/seo", label: "SEO" },
+  { href: "/tools/website-grader", label: "Free SEO check" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/showcase", label: "Showcase" },
   { href: "/blog", label: "Guides" },
 ];
 

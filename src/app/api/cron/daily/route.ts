@@ -3,6 +3,7 @@ import { refundCredits } from "@/lib/credits";
 import { checkDomain } from "@/lib/domains";
 import { sendAdminAlert } from "@/lib/email";
 import { serverEnv } from "@/lib/env";
+import { runLifecycleEmails } from "@/lib/lifecycle";
 import { getBusinessMetrics } from "@/lib/metrics";
 import { redeployPublished } from "@/lib/site/deploy";
 import { supabaseAdmin } from "@/lib/supabase/admin";
@@ -15,7 +16,8 @@ export const maxDuration = 300;
  *  1. refunds + unlocks generations that were interrupted (e.g. a function timeout)
  *  2. prunes old versions, rate-limit rows and webhook markers
  *  3. re-checks custom domains waiting on DNS
- *  4. emails the admin a one-screen business digest
+ *  4. sends onboarding/upgrade emails (each at most once per person)
+ *  5. emails the admin a one-screen business digest
  */
 export async function GET(req: Request) {
   const secret = serverEnv.cronSecret;
@@ -57,7 +59,15 @@ export async function GET(req: Request) {
   }
   log.push(`verified ${verified}/${pending?.length ?? 0} pending domains`);
 
-  // 4. Digest
+  // 4. Onboarding / upgrade emails
+  try {
+    log.push(`lifecycle emails: ${JSON.stringify(await runLifecycleEmails())}`);
+  } catch (err) {
+    console.error("lifecycle emails failed", err);
+    log.push("lifecycle emails failed");
+  }
+
+  // 5. Digest
   const m = await getBusinessMetrics();
   await sendAdminAlert(
     `Daily digest — ${formatUsd(m.mrr, 0)} MRR, ${m.signups1d} signups`,

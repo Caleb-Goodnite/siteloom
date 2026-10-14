@@ -60,7 +60,7 @@ npm run dev                  # http://localhost:3000
 
 ### 1. Supabase
 1. Create a project at supabase.com.
-2. **SQL editor → run [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql).** It creates tables, row-level security, the credit functions and the `site-assets` storage bucket.
+2. **SQL editor → run [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql), then [`0002_lifecycle_emails.sql`](supabase/migrations/0002_lifecycle_emails.sql).** They create tables, row-level security, the credit functions, the `site-assets` storage bucket and the lifecycle-email log.
 3. **Authentication → URL configuration:** set *Site URL* to your app URL and add `http://localhost:3000/auth/callback` and `https://YOUR_APP_DOMAIN/auth/callback` to *Redirect URLs*.
 4. **Authentication → Providers:** enable Email, plus Google/GitHub if you want them (`NEXT_PUBLIC_AUTH_PROVIDERS`).
 5. Recommended: enable **CAPTCHA protection** (Turnstile) under Auth → Attack protection to stop bulk sign-ups for free credits.
@@ -87,11 +87,11 @@ There's also a no-backend **builder playground** at `/dev/builder` (development 
 
 1. **Use Vercel Pro.** Hobby is non-commercial and caps functions at 300 s; generations can run longer (`maxDuration = 800`).
 2. **Two domains** (required for security):
-   - App: `siteloom.com` (marketing, dashboard, builder)
-   - Sites: `siteloom.site` with a **wildcard** `*.siteloom.site` (needs Vercel nameservers on that domain)
+   - App: `siteloom.app` (marketing, dashboard, builder)
+   - Sites: `siteloomsites.com` with a **wildcard** `*.siteloomsites.com` (needs Vercel nameservers on that domain)
 
    Customer sites run arbitrary JavaScript, so they must never share the app's registrable domain or they could read users' auth cookies. The proxy routes any non-app host to the hosted-site handler, and that handler refuses requests on the app host.
-3. Add every variable from `.env.example` in Vercel → Settings → Environment Variables, with `NEXT_PUBLIC_APP_URL=https://siteloom.com` and `NEXT_PUBLIC_SITES_DOMAIN=siteloom.site`.
+3. Add every variable from `.env.example` in Vercel → Settings → Environment Variables, with `NEXT_PUBLIC_APP_URL=https://siteloom.app` and `NEXT_PUBLIC_SITES_DOMAIN=siteloomsites.com`.
 4. Set `VERCEL_TOKEN` + `VERCEL_PROJECT_ID` (+ `VERCEL_TEAM_ID`) so customer custom domains are attached automatically, with SSL.
 5. Re-run `npm run stripe:setup` with the production URL and live key to create the webhook; copy the printed secret.
 6. Verify a sending domain in **Resend** and set `RESEND_API_KEY` + `EMAIL_FROM`.
@@ -107,6 +107,8 @@ There's also a no-backend **builder playground** at `/dev/builder` (development 
 - **Growth loops:** a "Made with" badge on free sites, an opt-in public showcase, referral credits (200 for the referrer, 100 for the friend, paid on upgrade), 21 industry landing pages, 6 comparison pages, guides, `llms.txt`, and OG images for every page.
 - **Trust & safety:** publish-time moderation, auto-suspension after 3 distinct serious reports on free sites, and email alerts for reports and held sites.
 - **Cost control:** a daily AI budget circuit breaker, per-user rate limits, model fallbacks, and an email alert if your OpenRouter balance runs out.
+- **SEO, measured:** every page is graded by the same 15-check auditor as the free website grader (`/tools/website-grader`) on publish (score shown in the publish dialog, dashboard and SEO tab; owners can re-check the live site). Once 10+ sites are published, the homepage and `/seo` show the real average instead of the benchmark in [`src/content/proof.ts`](src/content/proof.ts).
+- **Lifecycle emails:** first-site, publish, SEO-tips and own-domain emails, sent once each by the daily job, with one-click unsubscribe (set `EMAIL_POSTAL_ADDRESS`, required by CAN-SPAM).
 - **Ops:** a daily job unlocks stuck generations, prunes history (keeps 50 versions per site), re-checks pending custom domains, and emails you a **one-screen digest**: MRR, signups, AI spend, open reports.
 
 ## Things only you can do
@@ -148,21 +150,25 @@ Key files:
 | Publish pipeline | `src/lib/site/{publish,tailwind,icons,deploy}.ts` |
 | Hosting | `src/proxy.ts`, `src/app/hosted/[host]/[[...path]]/route.ts` |
 | Billing | `src/lib/billing.ts`, `src/app/api/stripe/webhook/route.ts`, `scripts/stripe-setup.ts` |
-| Database | `supabase/migrations/0001_init.sql` |
+| Staged builds (brief → parallel pages → QA) | `src/lib/ai/{brief,build,design}.ts` |
+| Integrations, theme, redesign import | `src/lib/site/{blocks,theme,import}.ts` |
+| SEO auditor + proof | `src/lib/site/grade.ts`, `src/content/proof.ts`, `src/components/marketing/seo-proof.tsx` |
+| Database | `supabase/migrations/*.sql` |
 | Builder UI | `src/components/builder/*` |
 | SEO content | `src/content/{industries,compare,blog,legal}.ts` |
 
 ## Checks
 
 ```bash
-npm run check   # typecheck + lint + 58 tests (protocol, renderer, click-to-edit, publish pipeline, SEO audit,
+npm run check   # typecheck + lint + 70 tests (protocol, renderer, click-to-edit, publish pipeline, SEO audit,
                 # and the real SQL migration in an in-process Postgres: credits, refunds, RLS)
 npm run build
+npm run eval:generate   # real end-to-end builds via OpenRouter (costs ~$0.60 per site); re-measure before changing proof.ts
 ```
 
 ## Ideas for later
 
-- GitHub export and Shopify/Stripe Payment Link blocks
+- GitHub export and Shopify blocks
 - Multi-language sites (hreflang)
 - Scheduled "SEO coach" emails using Search Console data
 - Team seats on the Business plan

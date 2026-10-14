@@ -22,6 +22,7 @@ export type ProjectCard = {
   domain_verified: boolean;
   status: string;
   blocked: boolean;
+  seo?: { score: number } | null;
 };
 
 function hue(s: string) {
@@ -91,7 +92,14 @@ export function ProjectGrid({ projects }: { projects: ProjectCard[] }) {
                   <Link href={`/project/${p.id}`} className="block truncate font-medium text-ink hover:underline">
                     {p.name}
                   </Link>
-                  <p className="mt-0.5 text-xs text-muted">Edited {formatRelative(p.updated_at)}</p>
+                  <p className="mt-0.5 text-xs text-muted">
+                    Edited {formatRelative(p.updated_at)}
+                    {p.published && p.seo?.score ? (
+                      <span className="ml-2 font-medium text-ok" title="SEO audit score of the published site">
+                        SEO {p.seo.score}
+                      </span>
+                    ) : null}
+                  </p>
                 </div>
                 <div className="flex items-center gap-1.5">
                   {p.blocked ? (

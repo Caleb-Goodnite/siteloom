@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Toaster } from "sonner";
 import { site } from "@/config/site";
+import { Analytics } from "@/components/marketing/analytics";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import "./globals.css";
 
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Toaster position="bottom-center" toastOptions={{ className: "!rounded-xl !border-line !font-sans" }} />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

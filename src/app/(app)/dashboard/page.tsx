@@ -10,7 +10,7 @@ export default async function DashboardPage() {
   const plan = getPlan(profile.plan);
   const { data } = await supabaseAdmin()
     .from("projects")
-    .select("id, name, slug, published, published_at, updated_at, custom_domain, domain_verified, status, blocked")
+    .select("id, name, slug, published, published_at, updated_at, custom_domain, domain_verified, status, blocked, settings->seo")
     .eq("user_id", user.id)
     .order("updated_at", { ascending: false });
   const projects = (data ?? []) as ProjectCard[];

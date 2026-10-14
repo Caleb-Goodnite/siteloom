@@ -11,6 +11,8 @@ import {
   History,
   Inbox,
   MessageSquare,
+  Palette,
+  Plug,
   Rocket,
   Search,
   Settings2,
@@ -29,8 +31,11 @@ import { cn } from "@/lib/utils";
 import { AnalyticsPanel } from "./analytics-panel";
 import { Chat } from "./chat";
 import { CodePanel } from "./code-panel";
+import { DesignPanel } from "./design-panel";
+import { DetailsDialog } from "./details-dialog";
 import { FormsPanel } from "./forms-panel";
 import { HistoryPanel } from "./history-panel";
+import { IntegrationsPanel } from "./integrations-panel";
 import { Preview } from "./preview";
 import { PublishDialog } from "./publish-dialog";
 import { SeoPanel } from "./seo-panel";
@@ -48,6 +53,8 @@ type Props = {
 
 const TABS: { id: Panel; label: string; icon: typeof Eye }[] = [
   { id: "preview", label: "Preview", icon: Eye },
+  { id: "design", label: "Design", icon: Palette },
+  { id: "integrations", label: "Integrations", icon: Plug },
   { id: "code", label: "Code", icon: Code2 },
   { id: "seo", label: "SEO", icon: Search },
   { id: "forms", label: "Forms", icon: Inbox },
@@ -71,6 +78,8 @@ export function Builder(props: Props) {
   const [viewing, setViewing] = useState<{ id: string; label: string; files: FileMap } | null>(null);
   const [publishOpen, setPublishOpen] = useState(false);
   const [upgrade, setUpgrade] = useState<string | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [chatInput, setChatInput] = useState("");
   const [runtimeErrors, setRuntimeErrors] = useState<string[]>([]);
   const lastLiveUpdate = useRef(0);
   const filesRef = useRef(files);
@@ -253,7 +262,7 @@ export function Builder(props: Props) {
     if (autoStarted.current) return;
     autoStarted.current = true;
     if (props.messages.length === 0 && Object.keys(props.files).length === 0 && props.project.initial_prompt && props.project.status === "idle") {
-      const tier: ModelTier = props.plan.tiers.includes("standard") && props.credits >= TIERS.standard.credits ? "standard" : "fast";
+      const tier: ModelTier = props.plan.tiers.includes("standard") && props.credits >= TIERS.standard.buildCredits ? "standard" : "fast";
       // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time kickoff of the first build
       void send({ prompt: props.project.initial_prompt, tier, images: props.plan.aiImages, attachments: [], selection: null });
     }
@@ -398,6 +407,8 @@ export function Builder(props: Props) {
               toast.success("Restored");
             }}
             onUpgrade={setUpgrade}
+            input={chatInput}
+            onInputChange={setChatInput}
           />
         </aside>
 
@@ -449,7 +460,24 @@ export function Builder(props: Props) {
                 })
               }
               placeholders={seo?.placeholders ?? 0}
+              onFillDetails={() => setDetailsOpen(true)}
               hasSite={hasSite}
+            />
+          )}
+          {panel === "design" && <DesignPanel files={files} generating={generating} onSaveFiles={saveFiles} />}
+          {panel === "integrations" && (
+            <IntegrationsPanel
+              project={project}
+              files={files}
+              generating={generating}
+              onSaveFiles={saveFiles}
+              onSaved={(p) => setProject((prev) => ({ ...prev, ...p }))}
+              onAsk={(prompt) => {
+                setChatInput(prompt);
+                setMobileView("chat");
+                toast("Added to the chat. Review and press send.");
+              }}
+              onError={handleApiError}
             />
           )}
           {panel === "code" && <CodePanel files={files} onSave={saveFiles} disabled={generating} />}
@@ -458,6 +486,8 @@ export function Builder(props: Props) {
               report={seo}
               generating={generating}
               canFast={props.plan.tiers.includes("fast")}
+              project={project}
+              onSeo={(seo) => setProject((prev) => ({ ...prev, settings: { ...prev.settings, seo } }))}
               onFix={(prompt) => {
                 setPanel("preview");
                 void send({ prompt, tier: "fast", images: false, attachments: [], selection: null });
@@ -501,10 +531,16 @@ export function Builder(props: Props) {
         plan={props.plan}
         seoScore={seo?.score ?? null}
         placeholders={seo?.placeholders ?? 0}
+        onFillDetails={() => {
+          setPublishOpen(false);
+          setDetailsOpen(true);
+        }}
         unpublishedChanges={unpublishedChanges}
         onProject={(p) => setProject((prev) => ({ ...prev, ...p }))}
         onError={handleApiError}
       />
+
+      <DetailsDialog open={detailsOpen} onOpenChange={setDetailsOpen} files={files} onSave={saveFiles} />
 
       <Dialog open={upgrade !== null} onOpenChange={(o) => !o && setUpgrade(null)} title="You need more credits" description={upgrade ?? ""}>
         <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">

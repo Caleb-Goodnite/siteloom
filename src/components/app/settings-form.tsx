@@ -8,10 +8,11 @@ import { Hint, Input, Label } from "@/components/ui/field";
 import { Dialog, Switch } from "@/components/ui/misc";
 import { createClient } from "@/lib/supabase/client";
 
-export function SettingsForm(props: { email: string; name: string; emailNotifications: boolean; hasSubscription: boolean }) {
+export function SettingsForm(props: { email: string; name: string; emailNotifications: boolean; marketingEmails: boolean; hasSubscription: boolean }) {
   const router = useRouter();
   const [name, setName] = useState(props.name);
   const [notify, setNotify] = useState(props.emailNotifications);
+  const [tips, setTips] = useState(props.marketingEmails);
   const [saving, setSaving] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
@@ -73,6 +74,20 @@ export function SettingsForm(props: { email: string; name: string; emailNotifica
               void save({ email_notifications: v });
             }}
             aria-label="Form submission emails"
+          />
+        </div>
+        <div className="mt-5 flex items-start justify-between gap-6 border-t border-line pt-5">
+          <div>
+            <p className="text-sm text-ink">Tips and product updates</p>
+            <Hint className="mt-0.5">Occasional emails to help you publish, get found on Google and get more from your site.</Hint>
+          </div>
+          <Switch
+            checked={tips}
+            onCheckedChange={(v) => {
+              setTips(v);
+              void save({ marketing_emails: v });
+            }}
+            aria-label="Tips and product updates"
           />
         </div>
       </section>

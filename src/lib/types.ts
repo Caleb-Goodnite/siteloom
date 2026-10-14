@@ -24,8 +24,20 @@ export type Profile = {
   referral_rewarded: boolean;
   is_admin: boolean;
   email_notifications: boolean;
+  marketing_emails: boolean;
   welcomed: boolean;
   created_at: string;
+};
+
+/** Auditor results for the published site (graded on every publish). */
+export type SeoSnapshot = {
+  score: number;
+  min: number;
+  pages: number;
+  issues: { page: string; label: string; detail: string; status: "warn" | "fail" }[];
+  checkedAt: string;
+  /** Live check of the real URL (speed, HTTPS, sitemap/robots as served). */
+  live?: { score: number; responseMs: number; checkedAt: string };
 };
 
 export type ProjectSettings = {
@@ -35,6 +47,13 @@ export type ProjectSettings = {
   lang?: string;
   /** Google Search Console verification token, injected as a meta tag. */
   googleVerification?: string;
+  /** Owner's Google Analytics 4 measurement ID (G-…) and Meta Pixel ID, added on publish. */
+  gaId?: string;
+  metaPixelId?: string;
+  seo?: SeoSnapshot;
+  /** "Redesign my site": the original URL and the content distilled from it (used for the first build). */
+  sourceUrl?: string;
+  importedContent?: string;
 };
 
 export type Project = {

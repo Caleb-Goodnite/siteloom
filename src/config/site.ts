@@ -12,7 +12,7 @@ export const site = {
   name: "Siteloom",
   tagline: "Websites that get found.",
   description:
-    "Describe your business and Siteloom builds a fast, multi-page website that Google and AI search can actually read — with hosting, working forms, analytics and SEO built in.",
+    "Describe your business and Siteloom builds a fast, multi-page website Google and AI search can read, with hosting, forms, analytics and SEO built in.",
   url: (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, ""),
   sitesDomain: process.env.NEXT_PUBLIC_SITES_DOMAIN || "localhost:3000",
   supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@siteloom.com",

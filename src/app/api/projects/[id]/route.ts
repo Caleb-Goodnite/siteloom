@@ -35,6 +35,8 @@ const Patch = z.object({
       description: z.string().max(300).optional(),
       lang: z.string().max(10).optional(),
       googleVerification: z.string().max(100).optional(),
+      gaId: z.union([z.string().regex(/^G-[A-Z0-9]{4,14}$/, "Google Analytics IDs look like G-XXXXXXX"), z.literal("")]).optional(),
+      metaPixelId: z.union([z.string().regex(/^\d{6,20}$/, "Meta Pixel IDs are numbers"), z.literal("")]).optional(),
     })
     .optional(),
   /** Manual code edit: full replacement of the given files (null deletes). */

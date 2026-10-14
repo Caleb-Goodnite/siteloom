@@ -23,7 +23,7 @@ export type Streaming = {
   thinking: boolean;
 };
 
-export type Panel = "preview" | "code" | "seo" | "forms" | "analytics" | "history" | "settings";
+export type Panel = "preview" | "design" | "integrations" | "code" | "seo" | "forms" | "analytics" | "history" | "settings";
 
 export type Device = "desktop" | "tablet" | "mobile";
 

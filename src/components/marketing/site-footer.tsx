@@ -13,11 +13,23 @@ export function SiteFooter() {
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{site.description}</p>
         </div>
-        <FooterCol title="Product" links={[["Pricing", "/pricing"], ["Templates", "/templates"], ["Showcase", "/showcase"], ["Guides", "/blog"], ["Start free", "/signup"]]} />
+        <FooterCol
+          title="Product"
+          links={[
+            ["Pricing", "/pricing"],
+            ["Templates", "/templates"],
+            ["Website redesign", "/redesign"],
+            ["SEO website builder", "/seo"],
+            ["Free website grader", "/tools/website-grader"],
+            ["Showcase", "/showcase"],
+            ["Guides", "/blog"],
+            ["Start free", "/signup"],
+          ]}
+        />
         <FooterCol title="Website builder for" links={industries.slice(0, 8).map((i) => [i.name, `/for/${i.slug}`])} />
         <FooterCol
           title="Compare"
-          links={[...competitors.map((c) => [`${site.name} vs ${c.name}`, `/compare/${c.slug}`] as [string, string]), ["All comparisons", "/compare"]]}
+          links={[...competitors.slice(0, 7).map((c) => [`${site.name} vs ${c.name}`, `/compare/${c.slug}`] as [string, string]), ["All comparisons", "/compare"]]}
         />
         <FooterCol
           title="Legal & support"

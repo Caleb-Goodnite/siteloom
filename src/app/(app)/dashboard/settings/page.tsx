@@ -11,6 +11,7 @@ export default async function SettingsPage() {
         email={profile.email}
         name={profile.full_name ?? ""}
         emailNotifications={profile.email_notifications}
+        marketingEmails={profile.marketing_emails ?? true}
         hasSubscription={Boolean(profile.stripe_subscription_id)}
       />
     </div>

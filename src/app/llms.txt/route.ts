@@ -18,6 +18,9 @@ Pricing: Free plan (${PLANS.free.dailyCredits} credits/day, 1 published site). S
 
 ## Key pages
 - [Pricing](${site.url}/pricing)
+- [AI website redesign (paste your current site)](${site.url}/redesign)
+- [SEO website builder: what every published site includes, with measured scores](${site.url}/seo)
+- [Free website grader / SEO checker](${site.url}/tools/website-grader)
 - [Templates](${site.url}/templates)
 - [Showcase](${site.url}/showcase)
 

@@ -201,6 +201,122 @@ export const competitors: Competitor[] = [
       { q: "Can I use my own domain?", a: "Yes, on any paid plan." },
     ],
   },
+  {
+    slug: "squarespace",
+    name: "Squarespace",
+    url: "https://www.squarespace.com",
+    category: "Website builder",
+    summary:
+      "Squarespace is known for polished templates and an all-in-one platform with commerce, scheduling and email marketing. Siteloom skips templates entirely: you describe your business and get a site designed and written for it, which you can change by chatting, edit by clicking the text, or download as code.",
+    theyreGreatFor: [
+      "People who like choosing a template and dragging sections around",
+      "Online stores, appointment scheduling and email campaigns in one subscription",
+      "Creatives who want a very polished, opinionated design system",
+    ],
+    chooseSiteloomIf: [
+      "You'd rather describe what you want than design it yourself",
+      "You want copy written for your business, services and location",
+      "You want to change things in plain English (\"add a pricing page\")",
+      "You want the option to download your site and host it anywhere",
+    ],
+    rows: [
+      { label: "How you build", siteloom: "Describe it; AI designs and writes it", them: "Pick a template, edit visually (AI assists available)" },
+      { label: "Copywriting", siteloom: "Written for your business and location", them: "Mostly yours to write" },
+      { label: "Changing things", siteloom: "Chat, click-to-edit text, or code", them: "Visual editor" },
+      { label: "Code ownership", siteloom: "Download a static site anytime", them: "Hosted on Squarespace" },
+      { label: "E-commerce & booking", siteloom: "Link Stripe, Square, Calendly and similar", them: "Built in" },
+    ],
+    faqs: [
+      { q: "Is Siteloom a Squarespace alternative?", a: "For service businesses, restaurants, clinics, trades and portfolios, yes. If your site is mainly an online store or you rely on Squarespace Scheduling or Email Campaigns, Squarespace's built-in tools may suit you better." },
+      { q: "Can I move my Squarespace site to Siteloom?", a: "Yes. Paste your Squarespace address on our redesign page and we'll import your content and rebuild it. Then point your domain at Siteloom." },
+      { q: "Is it hard to switch?", a: "No. Most of the work is updating two DNS records for your domain, and we walk you through it." },
+    ],
+  },
+  {
+    slug: "webflow",
+    name: "Webflow",
+    url: "https://webflow.com",
+    category: "Visual development platform",
+    summary:
+      "Webflow is a professional visual development tool with fine-grained control over layout, interactions and a CMS, which makes it a favorite of designers and agencies. It has a learning curve to match. Siteloom is for people who want a great site without learning a design tool.",
+    theyreGreatFor: [
+      "Designers and agencies who want pixel-level control",
+      "Complex CMS-driven sites with custom interactions",
+      "Teams with a dedicated web designer",
+    ],
+    chooseSiteloomIf: [
+      "You don't want to learn a design tool",
+      "You need a complete, well-written site today",
+      "SEO basics should be handled without configuration",
+    ],
+    rows: [
+      { label: "Learning curve", siteloom: "None: describe it in plain English", them: "Significant; built for designers" },
+      { label: "Content", siteloom: "Written for you", them: "You write it" },
+      { label: "Control", siteloom: "Chat, click-to-edit, full code access", them: "Granular visual control" },
+      { label: "SEO setup", siteloom: "Automatic on every publish", them: "Powerful, configured by you" },
+    ],
+    faqs: [
+      { q: "Is Siteloom as flexible as Webflow?", a: "Not for detailed interaction design. Siteloom trades fine-grained control for speed: a complete, well-structured site in minutes that you refine by chatting." },
+      { q: "Can agencies use Siteloom?", a: "Yes. The Business plan covers up to 100 published sites with custom domains, which works well for agencies building sites for local clients." },
+      { q: "Can I export my site?", a: "Yes, as a production-ready static site." },
+    ],
+  },
+  {
+    slug: "godaddy",
+    name: "GoDaddy Website Builder",
+    url: "https://www.godaddy.com/websites/website-builder",
+    category: "Website builder bundled with domains",
+    summary:
+      "GoDaddy's website builder is convenient if you already buy your domain and email there, and its AI can put up a simple site quickly. Siteloom focuses on the quality of the site itself: custom design, multiple well-structured pages, and SEO that's built in rather than added on.",
+    theyreGreatFor: [
+      "Getting a basic one-page site up alongside a GoDaddy domain",
+      "Keeping domain, email and website under one account",
+    ],
+    chooseSiteloomIf: [
+      "You want a distinctive design, not a template look",
+      "You need several pages that each rank for your services",
+      "You want to keep changing your site by just asking for it",
+    ],
+    rows: [
+      { label: "Design", siteloom: "Custom-generated for your business", them: "Template-based sections" },
+      { label: "Pages & structure", siteloom: "Multi-page with SEO structure by default", them: "Often a simple site you extend manually" },
+      { label: "Editing", siteloom: "Chat, click-to-edit, code", them: "Section editor" },
+      { label: "Code export", siteloom: "Yes", them: "Hosted on GoDaddy" },
+    ],
+    faqs: [
+      { q: "Can I keep my GoDaddy domain?", a: "Yes. Keep the domain at GoDaddy and point its DNS records at Siteloom; we show you exactly which ones to change." },
+      { q: "Can I import my GoDaddy site?", a: "Yes. Paste its address on our redesign page and we'll rebuild it with your content." },
+      { q: "What about email?", a: "Your GoDaddy or Google email keeps working. Changing a website's DNS records doesn't affect email records." },
+    ],
+  },
+  {
+    slug: "hostinger",
+    name: "Hostinger Website Builder",
+    url: "https://www.hostinger.com/website-builder",
+    category: "Budget website builder",
+    summary:
+      "Hostinger's website builder is one of the cheapest ways to get a site online, bundling hosting and a domain with an AI-assisted template builder. Siteloom costs a little more and gives you a custom-designed, fully written site you can change conversationally.",
+    theyreGreatFor: [
+      "The lowest possible price for a basic site",
+      "People who also want traditional web hosting from the same provider",
+    ],
+    chooseSiteloomIf: [
+      "Design quality and written content matter more than the lowest price",
+      "You want to make changes by describing them",
+      "You want built-in forms, analytics and SEO checks without extra setup",
+    ],
+    rows: [
+      { label: "Price", siteloom: "Free plan; paid plans with your own domain", them: "Very low, especially on long prepaid terms" },
+      { label: "Design", siteloom: "Custom-generated for your business", them: "AI-assisted templates" },
+      { label: "Editing", siteloom: "Chat, click-to-edit, code", them: "Drag-and-drop editor" },
+      { label: "Code export", siteloom: "Yes", them: "Hosted on Hostinger" },
+    ],
+    faqs: [
+      { q: "Why pay more than Hostinger?", a: "You're paying for the site to be designed and written for you, and to keep improving it by just asking. If you're happy building from a template yourself, a budget builder is a fine choice." },
+      { q: "Can I move from Hostinger?", a: "Yes. Paste your current site's address on the redesign page and we'll rebuild it." },
+      { q: "Is there a free plan?", a: "Yes. Build and publish one site free on a Siteloom subdomain." },
+    ],
+  },
 ];
 
 export function getCompetitor(slug: string) {

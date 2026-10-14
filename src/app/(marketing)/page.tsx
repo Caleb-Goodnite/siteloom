@@ -15,6 +15,7 @@ import { BuilderDemo } from "@/components/marketing/builder-demo";
 import { Faq } from "@/components/marketing/faq";
 import { HeroPrompt } from "@/components/marketing/hero-prompt";
 import { JsonLd } from "@/components/marketing/json-ld";
+import { SeoProof } from "@/components/marketing/seo-proof";
 import { ButtonLink } from "@/components/ui/button";
 import { TIERS } from "@/config/models";
 import { PLANS } from "@/config/plans";
@@ -87,7 +88,7 @@ const FAQS = [
   { q: "How much does it cost?", a: `You can start free with ${PLANS.free.dailyCredits} credits every day plus a welcome bonus, and publish one site. Paid plans start at $${PLANS.starter.priceMonthly}/month and add custom domains, more sites and more credits. Every AI message shows its price before you send it.` },
   {
     q: "What's a credit?",
-    a: `A small, fixed unit of AI work. A quick edit on the Fast model costs ${TIERS.fast.credits} credit${TIERS.fast.credits > 1 ? "s" : ""}, a new page on the Standard model costs ${TIERS.standard.credits}. If the AI fails or makes no changes, credits are refunded automatically. Clicking text to edit it never costs credits.`,
+    a: `A small, fixed unit of AI work. A quick edit on the Fast model costs ${TIERS.fast.credits} credit${TIERS.fast.credits > 1 ? "s" : ""}, a change on the Standard model costs ${TIERS.standard.credits}, and building a complete multi-page site costs ${TIERS.standard.buildCredits}. If the AI fails or makes no changes, credits are refunded automatically. Clicking text to edit it never costs credits.`,
   },
   { q: "Will my site show up on Google?", a: "Siteloom publishes static HTML with unique titles and descriptions, canonical URLs, sitemap.xml, robots.txt, structured data and social cards, and the SEO panel flags anything missing. Rankings also depend on your content and reputation, so we'll point out what to improve." },
   { q: "Can I use my own domain?", a: "Yes, on any paid plan. Point your DNS records at us and we handle SSL automatically." },
@@ -157,6 +158,52 @@ export default function HomePage() {
               <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{f.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* SEO proof */}
+      <section className="mx-auto mt-28 max-w-6xl px-4 sm:px-6" aria-labelledby="seo-proof">
+        <div className="max-w-2xl">
+          <p className="text-sm font-semibold text-accent-ink">SEO, measured</p>
+          <h2 id="seo-proof" className="mt-2 font-display text-5xl leading-[1.02] text-ink sm:text-6xl">
+            Built to rank. Here&apos;s the proof.
+          </h2>
+          <p className="mt-4 text-lg text-ink-2">
+            Search engines and AI assistants read your HTML, not your design. We publish every word in it, then grade every page before it
+            goes live.
+          </p>
+        </div>
+        <div className="mt-10">
+          <SeoProof />
+        </div>
+      </section>
+
+      {/* Already have a site */}
+      <section className="mx-auto mt-28 max-w-6xl px-4 sm:px-6" aria-labelledby="existing">
+        <h2 id="existing" className="font-display text-5xl text-ink sm:text-6xl">
+          Already have a website?
+        </h2>
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          <Link href="/redesign" className="group rounded-3xl border border-line bg-card p-8 transition-colors hover:border-ink">
+            <p className="text-sm font-semibold text-accent-ink">Redesign</p>
+            <h3 className="mt-2 font-display text-3xl leading-tight text-ink">Paste your URL. Get a modern site in minutes.</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
+              We import your real content, photos, hours and contact details, then rebuild it to look current and rank better. Nothing invented.
+            </p>
+            <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-ink">
+              Redesign my site <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+          <Link href="/tools/website-grader" className="group rounded-3xl border border-line bg-card p-8 transition-colors hover:border-ink">
+            <p className="text-sm font-semibold text-accent-ink">Free tool</p>
+            <h3 className="mt-2 font-display text-3xl leading-tight text-ink">See what Google sees on your current site.</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
+              An instant score for titles, speed, mobile, structured data and whether crawlers can read your content at all, with plain-English fixes.
+            </p>
+            <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-ink">
+              Grade my website free <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
         </div>
       </section>
 

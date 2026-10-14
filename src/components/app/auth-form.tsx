@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/field";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { track } from "@/lib/track";
 
 const PROVIDERS = (process.env.NEXT_PUBLIC_AUTH_PROVIDERS ?? "google,github")
   .split(",")
@@ -83,6 +84,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           options: { emailRedirectTo: callback(), data: { full_name: name.trim() || undefined } },
         });
         if (error) throw error;
+        track("signup", { method: "password" });
         if (data.session) {
           router.replace(next);
           router.refresh();
