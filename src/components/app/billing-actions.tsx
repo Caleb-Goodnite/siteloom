@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { PLANS, type PlanId } from "@/config/plans";
+import { track } from "@/lib/track";
 
 async function go(url: string, body?: object) {
   const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body ?? {}) });
@@ -88,13 +90,20 @@ export function CheckoutEffects() {
     if (ran.current) return;
     ran.current = true;
     const checkout = params.get("checkout");
-    if (checkout === "success") toast.success("Welcome aboard! Your plan is active. It can take a few seconds to update.");
+    if (checkout === "success") {
+      toast.success("Welcome aboard! Your plan is active. It can take a few seconds to update.");
+      const bought = PLANS[params.get("plan") as PlanId];
+      if (bought) {
+        const yearly = params.get("interval") === "year";
+        track("purchase", { plan: bought.id, interval: yearly ? "year" : "month", value: yearly ? bought.priceYearly : bought.priceMonthly, currency: "USD" });
+      }
+    }
     if (checkout === "credits") toast.success("Credits purchased. They'll appear in a few seconds.");
     if (checkout) {
       setTimeout(() => router.refresh(), 2500);
       router.replace("/dashboard/billing");
     }
-    const plan = params.get("plan");
+    const plan = checkout ? null : params.get("plan");
     const interval = params.get("interval") ?? "month";
     if (plan) {
       router.replace("/dashboard/billing");

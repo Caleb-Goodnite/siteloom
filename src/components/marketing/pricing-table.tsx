@@ -53,7 +53,7 @@ export function PricingTable({ currentPlan }: { currentPlan?: PlanId }) {
             className={cn("rounded-full px-4 py-1.5 font-medium transition-colors", interval === i ? "bg-ink text-white" : "text-ink-2 hover:text-ink")}
             aria-pressed={interval === i}
           >
-            {i === "month" ? "Monthly" : "Yearly · 2 months free"}
+            {i === "month" ? "Monthly" : "Yearly · save 20%"}
           </button>
         ))}
       </div>

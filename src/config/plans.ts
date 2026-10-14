@@ -5,8 +5,11 @@ import type { ModelTier } from "./models";
  * `npm run stripe:setup`, keyed by lookup key (`pro_month`, `pro_year`, `credits_250`...),
  * so changing a price here + re-running setup is all it takes.
  *
- * Unit economics (Oct 2026 OpenRouter prices): an average Standard message costs
- * ~$0.05–0.10 in tokens; at Pro pricing 4 credits ≈ $0.145 of revenue.
+ * Unit economics (measured Oct 2026): a Standard first build (15 credits) costs ~$0.60 in
+ * tokens (~$0.04/credit, the worst case); Standard edits cost ~$0.0125–0.025/credit. Credit
+ * allowances keep even a user who spends everything on Standard builds near break-even, and
+ * typical usage (mostly edits, ~30% of the allowance) at 70%+ gross margin.
+ * Yearly prices: Starter $12/mo, Pro $26/mo, Business $68/mo.
  */
 export type PlanId = "free" | "starter" | "pro" | "business";
 export type Interval = "month" | "year";
@@ -59,9 +62,9 @@ export const PLANS: Record<PlanId, Plan> = {
     id: "starter",
     name: "Starter",
     blurb: "For a business that needs one great site.",
-    priceMonthly: 12,
-    priceYearly: 120,
-    monthlyCredits: 300,
+    priceMonthly: 15,
+    priceYearly: 144,
+    monthlyCredits: 250,
     dailyCredits: 0,
     maxProjects: 10,
     maxPublished: 3,
@@ -70,7 +73,7 @@ export const PLANS: Record<PlanId, Plan> = {
     tiers: ["fast", "standard"],
     aiImages: true,
     features: [
-      "300 credits / month",
+      "250 credits / month",
       "3 published sites",
       "Connect your own domain",
       "Remove the Siteloom badge",
@@ -81,9 +84,9 @@ export const PLANS: Record<PlanId, Plan> = {
     id: "pro",
     name: "Pro",
     blurb: "For freelancers and growing businesses.",
-    priceMonthly: 29,
-    priceYearly: 290,
-    monthlyCredits: 800,
+    priceMonthly: 32,
+    priceYearly: 312,
+    monthlyCredits: 700,
     dailyCredits: 0,
     maxProjects: 50,
     maxPublished: 15,
@@ -93,7 +96,7 @@ export const PLANS: Record<PlanId, Plan> = {
     aiImages: true,
     highlight: true,
     features: [
-      "800 credits / month",
+      "700 credits / month",
       "15 published sites + custom domains",
       "Max model for complex builds",
       "Everything in Starter",
@@ -103,9 +106,9 @@ export const PLANS: Record<PlanId, Plan> = {
     id: "business",
     name: "Business",
     blurb: "For agencies building sites for clients.",
-    priceMonthly: 79,
-    priceYearly: 790,
-    monthlyCredits: 2400,
+    priceMonthly: 85,
+    priceYearly: 816,
+    monthlyCredits: 1800,
     dailyCredits: 0,
     maxProjects: 500,
     maxPublished: 100,
@@ -114,7 +117,7 @@ export const PLANS: Record<PlanId, Plan> = {
     tiers: ["fast", "standard", "max"],
     aiImages: true,
     features: [
-      "2,400 credits / month",
+      "1,800 credits / month",
       "100 published sites + custom domains",
       "Max model included",
       "Everything in Pro",

@@ -71,11 +71,14 @@ Questions? Email [${site.supportEmail}](mailto:${site.supportEmail}).`,
 ## Information about your site's visitors
 When people visit a site you publish with us, we record privacy-friendly, aggregated page-view counts (page, day and referring website) without cookies or cross-site tracking. IP addresses are used briefly for rate limiting and abuse prevention and are not stored with analytics. When visitors submit a form on your site, we store the submission for you. For that data you are the controller and we act as your processor.
 
+## Cookies and analytics on ${N}
+We use only essential cookies, which keep you signed in. Your light or dark theme choice is saved in your browser's local storage. We measure visits to ${N} with Vercel Web Analytics, which doesn't use cookies or track you across sites. If we run advertising, we may also use Google Analytics and the Meta Pixel to measure which ads lead to sign-ups, and those do set cookies; where the law requires it, we will ask for your consent first.
+
 ## How we use information
 To provide and improve the Service, generate and host your sites, process payments, send transactional emails (like form notifications and receipts), prevent fraud and abuse, and comply with law. We don't sell personal information.
 
 ## Service providers
-We use trusted processors to run the Service: Supabase (database, authentication and file storage), Vercel (hosting), Stripe (payments), OpenRouter and the AI model providers it routes to (generating content from your prompts), and Resend (email). Prompts and site content are sent to AI providers only to produce your results.
+We use trusted processors to run the Service: Supabase (database, authentication and file storage), Vercel (hosting and privacy-friendly analytics), Stripe (payments), OpenRouter and the AI model providers it routes to (generating content from your prompts), and Resend (email). Prompts and site content are sent to AI providers only to produce your results.
 
 ## Retention
 We keep your data while your account is open. Deleting your account (Settings → Delete account) removes your profile, projects, versions, form submissions and uploaded files. Backups may persist for a limited period. Billing records are kept as required by law.

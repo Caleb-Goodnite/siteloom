@@ -120,13 +120,13 @@ export default function HomePage() {
             The AI website builder for businesses
           </p>
           <h1 className="mt-6 font-display text-[56px] leading-[0.95] tracking-[-0.02em] text-ink sm:text-[84px]">
-            Websites that
+            Describe it.
             <br />
-            get <em className="text-accent">found.</em>
+            Get a <em className="text-accent">website.</em>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
-            Describe your business. Siteloom designs, writes and publishes a fast multi-page website that Google and AI search can
-            actually read, with forms, analytics and hosting built in.
+            Tell Siteloom about your business and get a complete multi-page website in minutes: designed, written and ready to publish,
+            with forms, hosting and search-ready SEO built in.
           </p>
           <div className="mx-auto mt-9 max-w-2xl text-left">
             <HeroPrompt />
@@ -158,23 +158,6 @@ export default function HomePage() {
               <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{f.body}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* SEO proof */}
-      <section className="mx-auto mt-28 max-w-6xl px-4 sm:px-6" aria-labelledby="seo-proof">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold text-accent-ink">SEO, measured</p>
-          <h2 id="seo-proof" className="mt-2 font-display text-5xl leading-[1.02] text-ink sm:text-6xl">
-            Built to rank. Here&apos;s the proof.
-          </h2>
-          <p className="mt-4 text-lg text-ink-2">
-            Search engines and AI assistants read your HTML, not your design. We publish every word in it, then grade every page before it
-            goes live.
-          </p>
-        </div>
-        <div className="mt-10">
-          <SeoProof />
         </div>
       </section>
 
@@ -225,6 +208,23 @@ export default function HomePage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      {/* SEO proof */}
+      <section className="mx-auto mt-28 max-w-6xl px-4 sm:px-6" aria-labelledby="seo-proof">
+        <div className="max-w-2xl">
+          <p className="text-sm font-semibold text-accent-ink">SEO, measured</p>
+          <h2 id="seo-proof" className="mt-2 font-display text-5xl leading-[1.02] text-ink sm:text-6xl">
+            Built to rank. Here&apos;s the proof.
+          </h2>
+          <p className="mt-4 text-lg text-ink-2">
+            Search engines and AI assistants read your HTML, not your design. We publish every word in it, then grade every page before it
+            goes live.
+          </p>
+        </div>
+        <div className="mt-10">
+          <SeoProof />
+        </div>
       </section>
 
       {/* Comparison */}

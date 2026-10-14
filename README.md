@@ -42,9 +42,9 @@ Configured in [`src/config/plans.ts`](src/config/plans.ts) (Stripe prices are ge
 | Plan | Price | Credits | Sites | Custom domains |
 | --- | --- | --- | --- | --- |
 | Free | $0 | 5/day + 20 welcome bonus | 1 (with badge) | — |
-| Starter | $12/mo ($120/yr) | 300/mo | 3 | 1 |
-| Pro | $29/mo ($290/yr) | 800/mo | 15 | 15 |
-| Business | $79/mo ($790/yr) | 2,400/mo | 100 | 100 |
+| Starter | $15/mo ($144/yr = $12/mo) | 250/mo | 3 | 1 |
+| Pro | $32/mo ($312/yr = $26/mo) | 700/mo | 15 | 15 |
+| Business | $85/mo ($816/yr = $68/mo) | 1,800/mo | 100 | 100 |
 
 Top-ups: 250 credits for $10 and 1,000 for $35; these never expire. At Pro pricing a Standard message brings in ~$0.145 and typically costs ~$0.05–0.10 in tokens. The admin dashboard shows MRR against AI spend so you can tune this.
 

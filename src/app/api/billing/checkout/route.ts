@@ -56,7 +56,7 @@ export const POST = api(async (req) => {
     allow_promotion_codes: true,
     automatic_tax: { enabled: automaticTax },
     ...(automaticTax ? { customer_update: { address: "auto" as const } } : {}),
-    success_url: `${returnUrl}?checkout=success`,
+    success_url: `${returnUrl}?checkout=success&plan=${body.plan}&interval=${body.interval}`,
     cancel_url: `${returnUrl}?checkout=cancelled`,
   });
   return Response.json({ url: session.url });
