@@ -12,7 +12,7 @@ export function GET() {
 
 > ${site.description}
 
-${site.name} is an AI website builder for businesses. Users describe their business in plain language; it designs, writes and publishes a multi-page static website (HTML + compiled Tailwind CSS) with SEO defaults (unique titles/descriptions, canonical URLs, sitemap.xml, JSON-LD structured data, social cards), working contact forms with an inbox, privacy-friendly analytics, hosting, custom domains and code export.
+${site.name} is an AI website builder for businesses, made by ${site.company.name} (${site.company.url}). Users describe their business in plain language; it designs, writes and publishes a multi-page static website (HTML + compiled Tailwind CSS) with SEO defaults (unique titles/descriptions, canonical URLs, sitemap.xml, JSON-LD structured data, social cards), working contact forms with an inbox, privacy-friendly analytics, hosting, custom domains and code export.
 
 Pricing: Free plan (${PLANS.free.dailyCredits} credits/day, 1 published site). Starter $${PLANS.starter.priceMonthly}/mo, Pro $${PLANS.pro.priceMonthly}/mo, Business $${PLANS.business.priceMonthly}/mo. Each AI message has a fixed credit price shown before sending; credits are refunded automatically when a generation fails or makes no changes. Editing text directly is free.
 

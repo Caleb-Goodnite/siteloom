@@ -117,6 +117,7 @@ export default function HomePage() {
           name: site.name,
           url: site.url,
           logo: `${site.url}/icon.svg`,
+          parentOrganization: { "@type": "Organization", name: site.company.name, url: site.company.url },
           ...(site.social.length ? { sameAs: site.social } : {}),
         }}
       />

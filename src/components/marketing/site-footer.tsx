@@ -46,7 +46,11 @@ export function SiteFooter() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-6xl px-4 py-6 text-xs text-muted sm:px-6">
           <p>
-            © {year} {site.name}. All rights reserved.
+            © {year} {site.company.name}. {site.name} is a product of{" "}
+            <a href={site.company.url} className="underline underline-offset-2 hover:text-ink">
+              {site.company.name}
+            </a>
+            .
           </p>
         </div>
       </div>

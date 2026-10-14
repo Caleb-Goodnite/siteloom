@@ -25,6 +25,8 @@ export const site = {
   url: (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, ""),
   sitesDomain: normalizeSitesDomain(process.env.NEXT_PUBLIC_SITES_DOMAIN),
   supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@siteloom.com",
+  /** The parent company that owns and runs Siteloom. */
+  company: { name: "Anchorforge Digital", url: "https://anchorforgedigital.com" },
   /** Official social profiles (comma-separated URLs), shown in the footer and as schema.org sameAs. */
   social: (process.env.NEXT_PUBLIC_SOCIAL_LINKS || "")
     .split(",")
@@ -36,7 +38,7 @@ export const site = {
   comparisonsReviewed: "2026-10-14",
   /** Used in the legal pages. Have a lawyer review /legal/* before launch. */
   legal: {
-    entity: process.env.NEXT_PUBLIC_LEGAL_ENTITY || "Siteloom",
+    entity: process.env.NEXT_PUBLIC_LEGAL_ENTITY || "Anchorforge Digital",
     governingLaw: process.env.NEXT_PUBLIC_GOVERNING_LAW || "the State of Delaware, United States",
     effectiveDate: "2026-10-14",
   },

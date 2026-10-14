@@ -36,7 +36,7 @@ export function escapeHtml(s: string) {
 export function emailLayout(body: string, opts: { unsubscribeUrl?: string } = {}) {
   const postal = process.env.EMAIL_POSTAL_ADDRESS;
   const footer = [
-    `${site.name} · <a href="${site.url}" style="color:#78716c">${new URL(site.url).hostname}</a>`,
+    `${site.name} by ${site.company.name} · <a href="${site.url}" style="color:#78716c">${new URL(site.url).hostname}</a>`,
     opts.unsubscribeUrl && postal ? escapeHtml(postal) : "",
     opts.unsubscribeUrl ? `<a href="${opts.unsubscribeUrl}" style="color:#78716c">Unsubscribe from tips and offers</a>` : "",
   ]
