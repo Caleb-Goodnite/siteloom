@@ -206,6 +206,36 @@ Display ads, YouTube ads, influencers and paid press. They're harder to measure 
 
 ---
 
+## Budget marketing plan
+
+Pick the row that matches what you can spend. Every row includes the ones above it.
+
+| Monthly budget | What to do | Why |
+| --- | --- | --- |
+| **$0** | Search Console + Bing Webmaster; directory listings (Part 5); free social profiles; one build video a week; answer website questions on Reddit; Product Hunt launch | Gets the first backlinks (an SEO audit on 2026-10-14 found **0**), the first visitors and the first proof |
+| **~$10** | One-time paid directory listings that include a backlink (some AI directories charge $10–50 once) | Backlinks are the main thing holding siteloom.app's own Google rankings back |
+| **~$30** | Google Search ads at $1/day on the 2–3 best industry pages only | Learns which industries convert, slowly but cheaply |
+| **30% of revenue** | Raise ads only from revenue (Part 6 rules) | Ads never come out of anyone's pocket |
+
+### Free social profiles (one afternoon)
+Create **Instagram, TikTok, YouTube, LinkedIn and Facebook** pages named Siteloom (a parent may need to own some of them). Use the same logo and one-line bio, and post the weekly build video to all of them.
+
+Then put the profile links in `NEXT_PUBLIC_SOCIAL_LINKS` (comma-separated) in Vercel. They appear in the footer and in the site's structured data, which helps Google connect the brand. When you own the X handle, set `NEXT_PUBLIC_TWITTER_HANDLE`.
+
+### Email trust records (15 minutes, free)
+SEO audits flag a missing SPF and DMARC on siteloom.app, and the same records stop your emails from landing in spam.
+
+In Vercel → Domains → siteloom.app → DNS records:
+1. Add the records Resend shows under **Domains** for siteloom.app. These are SPF and DKIM, usually on a `send` subdomain.
+2. Add a TXT record named `_dmarc` with the value `v=DMARC1; p=none; rua=mailto:YOUR_EMAIL`.
+
+### Content that ranks (free, about 1 hour a month)
+- Each month, add one guide that answers a real question small businesses search for, for example "how much does a website cost for a plumber".
+- Put a link to the free website grader in every guide.
+- Ask Claude for a draft, then fact-check it. Never invent statistics.
+
+---
+
 ## Part 7: What already runs by itself
 
 - **The "Made with Siteloom" badge** on every free site is free advertising.

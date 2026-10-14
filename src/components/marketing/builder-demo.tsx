@@ -1,4 +1,5 @@
 import { Check, FileCode2, Monitor, MousePointerClick, Sparkles } from "lucide-react";
+import { site } from "@/config/site";
 
 /** Static illustration of the builder (pure HTML/CSS, no images) used on the home page. */
 export function BuilderDemo() {
@@ -11,7 +12,7 @@ export function BuilderDemo() {
           <span className="size-2.5 rounded-full bg-[#febc2e]" />
           <span className="size-2.5 rounded-full bg-[#28c840]" />
           <div className="mx-auto flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 text-[11px] text-muted">
-            <span className="size-1.5 rounded-full bg-ok" /> brightsmile.siteloom.site
+            <span className="size-1.5 rounded-full bg-ok" /> brightsmile.{site.sitesDomain === "localhost:3000" ? "siteloomsites.com" : site.sitesDomain}
           </div>
         </div>
         <div className="grid md:grid-cols-[300px_1fr]">
@@ -52,9 +53,9 @@ export function BuilderDemo() {
             <div className="grid gap-6 px-6 py-8 sm:grid-cols-[1.1fr_1fr] sm:px-10 sm:py-12">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Family dentistry · Columbus, OH</p>
-                <h3 className="mt-3 font-display text-3xl leading-[1.05] text-[#0f3d3a] sm:text-[40px]">
+                <p className="mt-3 font-display text-3xl leading-[1.05] text-[#0f3d3a] sm:text-[40px]">
                   Gentle dental care for the whole family
-                </h3>
+                </p>
                 <p className="mt-3 max-w-sm text-[13px] leading-relaxed text-[#3c5f5b]">
                   Same-week appointments, transparent pricing and a team that takes nervous patients seriously.
                 </p>

@@ -1,8 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { normalizeSitesDomain } from "@/config/site";
 import { updateSession } from "@/lib/supabase/proxy";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-const SITES_DOMAIN = (process.env.NEXT_PUBLIC_SITES_DOMAIN || "localhost:3000").toLowerCase();
+const SITES_DOMAIN = normalizeSitesDomain(process.env.NEXT_PUBLIC_SITES_DOMAIN);
 const appHost = new URL(APP_URL).host.toLowerCase();
 
 const PROTECTED = ["/dashboard", "/project", "/admin"];
@@ -53,6 +54,19 @@ export async function proxy(request: NextRequest) {
       login.pathname = "/login";
       login.search = `?next=${encodeURIComponent(pathname + search)}`;
       return NextResponse.redirect(login);
+    }
+    // Already signed in: skip the login/signup forms and go where they were headed.
+    if (userId && (pathname === "/login" || pathname === "/signup")) {
+      const next = request.nextUrl.searchParams.get("next") ?? "";
+      let target = new URL("/dashboard", request.url);
+      if (/^\/(?![/\\])/.test(next)) {
+        const candidate = new URL(next, request.url);
+        const loops = candidate.pathname === "/login" || candidate.pathname === "/signup";
+        if (candidate.origin === target.origin && !loops) target = candidate; // never redirect off-site
+      }
+      const redirect = NextResponse.redirect(target);
+      response.cookies.getAll().forEach((c) => redirect.cookies.set(c));
+      return redirect;
     }
   }
 

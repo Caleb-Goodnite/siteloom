@@ -110,7 +110,16 @@ export default function HomePage() {
           offers: Object.values(PLANS).map((p) => ({ "@type": "Offer", name: p.name, price: p.priceMonthly, priceCurrency: "USD" })),
         }}
       />
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", name: site.name, url: site.url, logo: `${site.url}/icon.svg` }} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: site.name,
+          url: site.url,
+          logo: `${site.url}/icon.svg`,
+          ...(site.social.length ? { sameAs: site.social } : {}),
+        }}
+      />
 
       {/* Hero */}
       <section className="relative overflow-hidden px-4 pb-16 pt-14 sm:px-6 sm:pt-20">

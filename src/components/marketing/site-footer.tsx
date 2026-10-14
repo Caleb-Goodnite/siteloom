@@ -39,6 +39,7 @@ export function SiteFooter() {
             ["Acceptable use", "/legal/acceptable-use"],
             ["Report abuse", "/report"],
             ["Contact", `mailto:${site.supportEmail}`],
+            ...site.social.map((u): [string, string] => [socialLabel(u), u]),
           ]}
         />
       </div>
@@ -68,4 +69,18 @@ function FooterCol({ title, links }: { title: string; links: [string, string][] 
       </ul>
     </div>
   );
+}
+
+function socialLabel(url: string) {
+  const host = new URL(url).hostname.replace(/^www\./, "");
+  const names: Record<string, string> = {
+    "x.com": "X",
+    "twitter.com": "X",
+    "instagram.com": "Instagram",
+    "facebook.com": "Facebook",
+    "linkedin.com": "LinkedIn",
+    "youtube.com": "YouTube",
+    "tiktok.com": "TikTok",
+  };
+  return names[host] ?? host;
 }

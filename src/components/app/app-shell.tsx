@@ -25,6 +25,15 @@ export function AppShell({ profile, children }: { profile: Profile; children: Re
             <NavLink href="/dashboard/settings" className="hidden sm:inline-flex">
               Settings
             </NavLink>
+            <NavLink href="/templates" className="hidden md:inline-flex">
+              Templates
+            </NavLink>
+            <NavLink href="/tools/website-grader" className="hidden md:inline-flex">
+              SEO check
+            </NavLink>
+            <NavLink href="/blog" className="hidden lg:inline-flex">
+              Guides
+            </NavLink>
             {isAdmin(profile) && <NavLink href="/admin">Admin</NavLink>}
           </nav>
           <div className="ml-auto flex items-center gap-2">

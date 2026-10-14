@@ -45,6 +45,7 @@ export function PricingTable({ currentPlan }: { currentPlan?: PlanId }) {
 
   return (
     <div>
+      <h2 className="sr-only">Plans</h2>
       <div className="mx-auto mb-10 flex w-fit items-center gap-1 rounded-full border border-line bg-card p-1 text-sm">
         {(["month", "year"] as const).map((i) => (
           <button

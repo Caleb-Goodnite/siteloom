@@ -19,7 +19,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — AI website builder for sites that rank`,
+    default: `${site.name}: AI Website Builder for Small Businesses That Rank`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -36,10 +36,10 @@ export const metadata: Metadata = {
     type: "website",
     siteName: site.name,
     url: site.url,
-    title: `${site.name} — AI website builder for sites that rank`,
+    title: `${site.name}: AI Website Builder for Small Businesses That Rank`,
     description: site.description,
   },
-  twitter: { card: "summary_large_image", site: site.twitter, creator: site.twitter },
+  twitter: { card: "summary_large_image", ...(site.twitter ? { site: site.twitter, creator: site.twitter } : {}) },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
 };
