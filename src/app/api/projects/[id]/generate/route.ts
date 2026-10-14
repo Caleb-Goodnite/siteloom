@@ -8,7 +8,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 import type { Project } from "@/lib/types";
 
 // Long generations need room (Vercel Pro with Fluid Compute allows up to 800s).
-export const maxDuration = 800;
+export const maxDuration = 300;
 
 type Ctx = { params: Promise<{ id: string }> };
 
