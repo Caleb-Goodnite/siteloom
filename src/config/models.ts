@@ -30,8 +30,8 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     label: "Fast",
     blurb: "Quick edits and copy changes",
     credits: 1,
-    // Haiku 5.5: $0.10 / $0.50 per M tokens — roughly half a cent per message.
-    models: fromEnv("MODELS_FAST", ["anthropic/claude-haiku-5.5", "google/gemini-3.8-flash", "deepseek/deepseek-v4.1-flash"]),
+    // Qwen 3.8 Flash: $0.15 / $0.47 per M tokens; GLM 5.3 Flash: $0.036 / $0.90 — well under a cent per message.
+    models: fromEnv("MODELS_FAST", ["qwen/qwen3.8-flash", "z-ai/glm-5.3-flash", "anthropic/claude-haiku-5.5"]),
     maxTokens: 32_000,
     reasoning: null,
   },
@@ -58,7 +58,7 @@ export const TIERS: Record<ModelTier, TierConfig> = {
 };
 
 /** Cheap model for background jobs: prompt enhancement, moderation, SEO metadata. */
-export const UTILITY_MODELS = fromEnv("MODELS_UTILITY", ["anthropic/claude-haiku-5.5", "google/gemini-3.8-flash"]);
+export const UTILITY_MODELS = fromEnv("MODELS_UTILITY", ["qwen/qwen3.8-flash", "z-ai/glm-5.3-flash", "anthropic/claude-haiku-5.5"]);
 
 /**
  * Photo generation via OpenRouter's Images API (POST /api/v1/images), tried in order.
