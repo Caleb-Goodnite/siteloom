@@ -11,7 +11,7 @@ What the product does automatically for growth: SEO pages, the free website grad
 - [ ] **Analytics**: enable Web Analytics in the Vercel project (Analytics tab). Optional for ads: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`. Funnel events already fire: `signup`, `site_created`, `redesign_started`, `grader_used`, `site_published`, `checkout_started`.
 - [ ] **Email deliverability**: in Resend, verify your sending domain (SPF + DKIM), add a DMARC record (`v=DMARC1; p=none; rua=mailto:you@…`), set `EMAIL_FROM` and `EMAIL_POSTAL_ADDRESS`.
 - [ ] Run `supabase/migrations/0002_lifecycle_emails.sql` in the Supabase SQL editor (onboarding emails).
-- [ ] **Stripe live mode**: live keys in Vercel, run `npm run stripe:setup` against production, test a real $15 purchase and refund it.
+- [ ] **Stripe live mode**: live keys in Vercel, run `npm run stripe:setup` against production, test a real $19 purchase and refund it.
 - [ ] Lawyer review of `/legal/*`; set `NEXT_PUBLIC_LEGAL_ENTITY`.
 - [ ] Build and publish 3–5 of your own example sites (dentist, restaurant, plumber, SaaS) and switch on **Show in showcase**. They make `/showcase` real proof.
 - [ ] Set `ADMIN_EMAILS` so you get the daily digest and abuse alerts.

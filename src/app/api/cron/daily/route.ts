@@ -79,6 +79,10 @@ ${[
   ["Total users", String(m.users)],
   ["Generations (24h)", String(m.generations1d)],
   ["AI spend (24h / 30d)", `${formatUsd(m.aiSpend1d)} / ${formatUsd(m.aiSpend30d)}`],
+  ["Cost per credit (30d)", (() => {
+    const all = m.costPerCredit.find((t) => t.tier === "all");
+    return all?.credits ? `${formatUsd(all.cost / all.credits, 3)} over ${all.messages} messages` : "no paid messages yet";
+  })()],
   ["Published sites", String(m.published)],
   ["Form submissions (7d)", String(m.formSubmissions7d)],
   ["Open abuse reports", String(m.openReports)],

@@ -62,10 +62,10 @@ In Vercel, set `NEXT_PUBLIC_LEGAL_ENTITY` to the legal name (for example "Jane D
 
 | Sale | Stripe fees | You keep (before AI costs) |
 | --- | --- | --- |
-| Starter monthly, $15 | ~$0.84 (2.9% + 30¢ + 0.7% subscription fee) | ~$14.16 |
-| Starter yearly, $144 | ~$5.48 | ~$138.52 |
-| Pro monthly, $32 | ~$1.45 | ~$30.55 |
-| Business monthly, $85 | ~$3.36 | ~$81.64 |
+| Starter monthly, $19 | ~$0.99 (2.9% + 30¢ + 0.7% subscription fee) | ~$18.01 |
+| Starter yearly, $190 | ~$7.14 | ~$182.86 |
+| Pro monthly, $39 | ~$1.70 | ~$37.30 |
+| Business monthly, $99 | ~$3.86 | ~$95.14 |
 
 Cards from outside the US cost 1.5% more, and currency conversion costs 1% more.
 
@@ -174,7 +174,7 @@ Start with the 5 industries you think have the most small businesses, not all 21
 **Negative keywords** (whole campaign): free, jobs, job, salary, course, tutorial, how to code, html, css, wordpress, template download, login, internship.
 
 **Ads**
-- Headlines: "AI Website Builder for Plumbers" · "Live in Minutes, Free to Start" · "Hosting, Forms & SEO Included" · "From $12/mo".
+- Headlines: "AI Website Builder for Plumbers" · "Live in Minutes, Free to Start" · "Hosting, Forms & SEO Included" · "From $16/mo".
 - Descriptions:
   - "Describe your business, get a complete multi-page website. Edit by chatting. Publish in one click."
   - "Built for Google: fast pages, structured data and sitemap on every site. Try free, no card needed."
@@ -185,7 +185,7 @@ Start with the 5 industries you think have the most small businesses, not all 21
 | --- | --- |
 | Clicks but few signups (under 1 in 15) | The landing page isn't convincing. Try a different headline on that industry page before spending more. |
 | Signups but **0 purchases** | Don't increase spend. Watch where people stop: do they create a site? Publish? Hit the paywall? Fix that first. |
-| Cost per purchase **under $40** | Working. A yearly Starter pays $144 up front. Raise the budget 20% per week. |
+| Cost per purchase **under $40** | Working. A yearly Starter pays $190 up front. Raise the budget 20% per week. |
 | Cost per purchase $40–$80 | Pause the worst ad groups and keep the best ones. |
 | Cost per purchase over $80 after $500 total | Stop ads. Focus on videos and listings, then try again later. |
 
@@ -267,7 +267,7 @@ In Vercel → Domains → curblit.com → DNS records:
 ## Part 9: Once you have ~50 paying customers
 
 - **Affiliate program:** pay 30% recurring commission to freelancers and YouTubers who send customers (for example with Rewardful, which works with Stripe). The parent signs up.
-- **Agencies:** the Business plan ($85/mo) is built for freelancers who make sites for local businesses. Post in freelancer communities offering an agency trial with a promo code.
+- **Agencies:** the Business plan ($99/mo) is built for freelancers who make sites for local businesses. Post in freelancer communities offering an agency trial with a promo code.
 - **More industry pages and ad groups** for whatever converts best.
 
 ---

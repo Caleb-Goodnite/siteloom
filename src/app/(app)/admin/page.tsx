@@ -10,6 +10,9 @@ import { formatRelative, formatUsd } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Admin", robots: { index: false } };
 
+/** Plans in config/plans.ts assume a credit costs about this much in AI fees. */
+const COST_PER_CREDIT_TARGET = 0.04;
+
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="rounded-2xl border border-line bg-card p-5">
@@ -60,6 +63,42 @@ export default async function AdminPage() {
           ))}
           {!m.aiSpendSeries.length && <p className="text-sm text-muted">No usage yet.</p>}
         </div>
+      </section>
+
+      <section className="mt-8 rounded-2xl border border-line bg-card p-6">
+        <h2 className="font-semibold text-ink">Cost per credit, last 30 days</h2>
+        <p className="mt-1 text-sm text-muted">
+          What a credit really costs in AI fees. Plans are priced for about {formatUsd(COST_PER_CREDIT_TARGET, 2)} or less; above that, raise credit prices.
+        </p>
+        {m.costPerCredit.length ? (
+          <table className="mt-4 w-full text-sm">
+            <thead>
+              <tr className="text-left text-xs text-muted">
+                <th className="pb-2 font-medium">Tier</th>
+                <th className="pb-2 font-medium">Messages</th>
+                <th className="pb-2 font-medium">Credits</th>
+                <th className="pb-2 font-medium">AI cost</th>
+                <th className="pb-2 font-medium">Per credit</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-line tabular-nums">
+              {m.costPerCredit.map((t) => {
+                const per = t.credits ? t.cost / t.credits : 0;
+                return (
+                  <tr key={t.tier} className={t.tier === "all" ? "font-semibold text-ink" : "text-ink-2"}>
+                    <td className="py-2 capitalize">{t.tier}</td>
+                    <td className="py-2">{t.messages.toLocaleString()}</td>
+                    <td className="py-2">{t.credits.toLocaleString()}</td>
+                    <td className="py-2">{formatUsd(t.cost)}</td>
+                    <td className={per > COST_PER_CREDIT_TARGET ? "py-2 text-danger" : "py-2"}>{formatUsd(per, 3)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ) : (
+          <p className="mt-4 text-sm text-muted">No paid messages yet.</p>
+        )}
       </section>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">

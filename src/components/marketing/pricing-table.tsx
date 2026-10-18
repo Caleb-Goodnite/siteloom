@@ -54,13 +54,14 @@ export function PricingTable({ currentPlan }: { currentPlan?: PlanId }) {
             className={cn("rounded-full px-4 py-1.5 font-medium transition-colors", interval === i ? "bg-ink text-white" : "text-ink-2 hover:text-ink")}
             aria-pressed={interval === i}
           >
-            {i === "month" ? "Monthly" : "Yearly · save 20%"}
+            {i === "month" ? "Monthly" : "Yearly · 2 months free"}
           </button>
         ))}
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {Object.values(PLANS).map((plan) => {
-          const price = interval === "year" ? plan.priceYearly / 12 : plan.priceMonthly;
+          // Yearly shown per month, rounded up so it never understates the real price.
+          const price = interval === "year" ? Math.ceil(plan.priceYearly / 12) : plan.priceMonthly;
           const isCurrent = currentPlan === plan.id;
           return (
             <div
@@ -76,7 +77,7 @@ export function PricingTable({ currentPlan }: { currentPlan?: PlanId }) {
               <h3 className="text-lg font-semibold text-ink">{plan.name}</h3>
               <p className="mt-1 min-h-10 text-sm text-muted">{plan.blurb}</p>
               <p className="mt-5 flex items-baseline gap-1">
-                <span className="font-display text-5xl text-ink">${Number.isInteger(price) ? price : price.toFixed(2)}</span>
+                <span className="font-display text-5xl text-ink">${price}</span>
                 <span className="text-sm text-muted">/ month</span>
               </p>
               <p className="mt-1 h-4 text-xs text-muted">{plan.priceMonthly > 0 && interval === "year" ? `$${plan.priceYearly} billed yearly` : ""}</p>
