@@ -3,8 +3,8 @@
  * fallbacks; OpenRouter automatically tries the next one if a provider is down,
  * so a single outage never takes the builder offline.
  *
- * Model IDs and prices were checked against https://openrouter.ai/api/v1/models on 2026-10-14.
- * Override any list with env vars (comma-separated), e.g. MODELS_STANDARD="anthropic/claude-sonnet-5.5,openai/gpt-6.1-sol".
+ * Model IDs are checked against OpenRouter; prices are a snapshot and may change.
+ * Override any list with env vars (comma-separated), e.g. MODELS_STANDARD="x-ai/grok-4.7,anthropic/claude-sonnet-5.5".
  */
 export type ModelTier = "fast" | "standard" | "max";
 
@@ -33,8 +33,8 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     blurb: "Quick edits and copy changes",
     credits: 1,
     buildCredits: 4,
-    // Qwen 3.8 Flash: $0.15 / $0.47 per M tokens; GLM 5.3 Flash: $0.036 / $0.90 — well under a cent per message.
-    models: fromEnv("MODELS_FAST", ["qwen/qwen3.8-flash", "z-ai/glm-5.3-flash", "anthropic/claude-haiku-5.5"]),
+    // GPT-6 Luna: $0.10 / $0.50 per M tokens; GLM Flash and Haiku are fallbacks.
+    models: fromEnv("MODELS_FAST", ["openai/gpt-6-luna", "z-ai/glm-5.3-flash", "anthropic/claude-haiku-5.5"]),
     maxTokens: 32_000,
     reasoning: null,
   },
@@ -44,8 +44,8 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     blurb: "Best for new sites and redesigns",
     credits: 4,
     buildCredits: 15,
-    // Sonnet 5.5: $2 / $10 per M tokens — strongest design + HTML quality per dollar.
-    models: fromEnv("MODELS_STANDARD", ["anthropic/claude-sonnet-5.5", "openai/gpt-6.1-sol", "google/gemini-4-argon"]),
+    // Grok 4.7: $2 / $6 per M tokens; Sonnet is the fallback.
+    models: fromEnv("MODELS_STANDARD", ["x-ai/grok-4.7", "anthropic/claude-sonnet-5.5"]),
     maxTokens: 40_000,
     reasoning: "low",
   },
@@ -55,8 +55,8 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     blurb: "Most capable, for complex multi-page builds",
     credits: 10,
     buildCredits: 35,
-    // Opus 5.5: $4 / $20 per M tokens.
-    models: fromEnv("MODELS_MAX", ["anthropic/claude-opus-5.5", "anthropic/claude-sonnet-5.5"]),
+    // GPT-6.1 Sol: $2 / $10 per M tokens; keep Grok as a lower-cost fallback.
+    models: fromEnv("MODELS_MAX", ["openai/gpt-6.1-sol", "x-ai/grok-4.7"]),
     maxTokens: 48_000,
     reasoning: "medium",
   },

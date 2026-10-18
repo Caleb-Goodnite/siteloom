@@ -23,13 +23,13 @@ App builders target people building *apps*. Curblit targets the much larger grou
 
 ## Models (via OpenRouter)
 
-Prices and IDs were checked against `openrouter.ai/api/v1/models` on 2026-10-14. All of them live in [`src/config/models.ts`](src/config/models.ts) and can be overridden with env vars. Each tier has fallbacks, so a provider outage doesn't take the builder down.
+Model IDs live in [`src/config/models.ts`](src/config/models.ts) and can be overridden with env vars. Prices are a snapshot and may change. Each tier has fallbacks, so a provider outage doesn't take the builder down.
 
 | Tier | Model (fallbacks) | Cost to you (per M tokens) | Credits per message |
 | --- | --- | --- | --- |
-| Fast | `qwen/qwen3.8-flash` (GLM 5.3 Flash, Claude Haiku 5.5) | $0.15 in / $0.47 out | 1 |
-| Standard | `anthropic/claude-sonnet-5.5` (GPT-6.1 Sol, Gemini 4 Argon) | $2 / $10 | 4 |
-| Max (Pro+) | `anthropic/claude-opus-5.5` (Sonnet 5.5) | $4 / $20 | 10 |
+| Fast | `openai/gpt-6-luna` (GLM 5.3 Flash, Claude Haiku 5.5) | $0.10 in / $0.50 out | 1 |
+| Standard | `x-ai/grok-4.7` (Claude Sonnet 5.5) | $2 / $6 | 4 |
+| Max (Pro+) | `openai/gpt-6.1-sol` (Grok 4.7) | $2 / $10 | 10 |
 | Utility (naming, prompt enhancer, moderation) | `qwen/qwen3.8-flash` (GLM 5.3 Flash, Haiku 5.5) | $0.15 / $0.47 | free |
 | Photos | `bytedance-seed/seedream-5-0-flash` (FLUX.2 Klein, Recraft 4.1 Flash) | ≈ $0.018 / image | 1 per photo |
 
