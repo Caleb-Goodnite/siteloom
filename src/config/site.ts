@@ -40,7 +40,7 @@ export const site = {
   legal: {
     entity: process.env.NEXT_PUBLIC_LEGAL_ENTITY || "Anchorforge Digital",
     governingLaw: process.env.NEXT_PUBLIC_GOVERNING_LAW || "the State of Delaware, United States",
-    effectiveDate: "2026-10-14",
+    effectiveDate: "2026-10-18",
   },
 } as const;
 
