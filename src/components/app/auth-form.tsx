@@ -9,7 +9,7 @@ import { Input, Label } from "@/components/ui/field";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { track } from "@/lib/track";
 
-const PROVIDERS = (process.env.NEXT_PUBLIC_AUTH_PROVIDERS ?? "google,github")
+const PROVIDERS = (process.env.NEXT_PUBLIC_AUTH_PROVIDERS ?? "google")
   .split(",")
   .map((p) => p.trim())
   .filter((p): p is "google" | "github" => p === "google" || p === "github");
