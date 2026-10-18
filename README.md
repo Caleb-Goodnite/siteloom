@@ -29,7 +29,7 @@ Model IDs live in [`src/config/models.ts`](src/config/models.ts) and can be over
 | --- | --- | --- | --- |
 | Fast | `openai/gpt-6-luna` (GLM 5.3 Flash, Claude Haiku 5.5) | $0.10 in / $0.50 out | 1 |
 | Standard | `x-ai/grok-4.7` (Claude Sonnet 5.5) | $2 / $6 | 4 |
-| Max (Pro+) | `openai/gpt-6.1-sol` (Grok 4.7) | $2 / $10 | 10 |
+| Max (Pro+) | `anthropic/claude-opus-5.5` (GPT-6.1 Sol) | $4 / $20 | 15 (50 per new site) |
 | Utility (naming, prompt enhancer, moderation) | `qwen/qwen3.8-flash` (GLM 5.3 Flash, Haiku 5.5) | $0.15 / $0.47 | free |
 | Photos | `bytedance-seed/seedream-5-0-flash` (FLUX.2 Klein, Recraft 4.1 Flash) | ≈ $0.018 / image | 1 per photo |
 

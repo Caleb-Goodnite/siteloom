@@ -10,9 +10,9 @@
   --muted: #78716c;
   --line: #e7e2da;
   --line-2: #d6cfc4;
-  --accent: #ff5a1f;
-  --accent-ink: #c2410c;
-  --accent-soft: #ffe8dd;
+  --accent: #173d31;
+  --accent-ink: #123629;
+  --accent-soft: #e2ede6;
   --ok: #15803d;
   --warn: #b45309;
   --danger: #b91c1c;
@@ -28,12 +28,22 @@
   --muted: #a69c92;
   --line: #39342f;
   --line-2: #4b443d;
-  --accent: #c2410c;
-  --accent-ink: #ff9b79;
-  --accent-soft: #3b241d;
+  --accent: #214c37;
+  --accent-ink: #93caaa;
+  --accent-soft: #1b3025;
   --ok: #4ade80;
   --warn: #fbbf24;
   --danger: #f87171;
+}
+
+/* Marketing header: <html data-auth> is set by the head script in app/layout.tsx. */
+.auth-in-only,
+.auth-out-only {
+  display: none;
+}
+:root[data-auth="in"] .auth-in-only,
+:root[data-auth="out"] .auth-out-only {
+  display: contents;
 }
 
 @theme inline {
@@ -106,8 +116,8 @@ body {
 :root[data-theme="dark"] .text-green-800 { color: #86efac; }
 :root[data-theme="dark"] .bg-ink { background-color: #0b0a09; }
 :root[data-theme="dark"] .bg-ink-2 { background-color: #302b27; }
-:root[data-theme="dark"] .text-accent { color: #ff8a5b; }
-:root[data-theme="dark"] .hover\:bg-accent-ink:hover { background-color: #9a3412; }
+:root[data-theme="dark"] .text-accent { color: #93caaa; }
+:root[data-theme="dark"] .hover\:bg-accent-ink:hover { background-color: #173d31; }
 
 /* Long-form article typography (blog, legal) */
 .prose-sl {

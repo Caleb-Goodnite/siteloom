@@ -26,7 +26,7 @@ const FEATURES = [
   {
     icon: Search,
     title: "Built to be found",
-    body: "Every page ships as plain HTML that Google and AI assistants read instantly, with titles, descriptions, sitemap, structured data and social cards handled on publish.",
+    body: "Give each service its own clear page, explain where you work, and make it easy for nearby customers to call or send a request. Curblit adds crawlable HTML, page titles, structured data and a sitemap when you publish.",
     span: "md:col-span-2",
   },
   {
@@ -225,11 +225,10 @@ export default function HomePage() {
         <div className="max-w-2xl">
           <p className="text-sm font-semibold text-accent-ink">SEO, measured</p>
           <h2 id="seo-proof" className="mt-2 font-display text-5xl leading-[1.02] text-ink sm:text-6xl">
-            Built to rank. Here&apos;s the proof.
+            Help nearby customers find you.
           </h2>
           <p className="mt-4 text-lg text-ink-2">
-            Search engines and AI assistants read your HTML, not your design. We publish every word in it, then grade every page before it
-            goes live.
+            Explain what you do, where you do it and how to get in touch. Curblit makes those details readable to search engines, adds the technical basics and checks each page before you publish. No website builder can promise a top ranking; useful content, local reputation and competition matter too.
           </p>
         </div>
         <div className="mt-10">

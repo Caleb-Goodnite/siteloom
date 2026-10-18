@@ -17,6 +17,7 @@ export function SiteFooter() {
           title="Product"
           links={[
             ["Pricing", "/pricing"],
+            ["About Curblit", "/about"],
             ["Templates", "/templates"],
             ["Website redesign", "/redesign"],
             ["SEO website builder", "/seo"],

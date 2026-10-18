@@ -9,7 +9,7 @@ const ThemeContext = createContext<{ theme: Theme; setTheme: (theme: Theme) => v
 
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#11100f" : "#f6f3ee");
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#11100f" : "#102e24");
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -19,8 +19,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     let stored: string | null = null;
     try {
-      stored = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem("siteloom-theme");
-      if (stored === "light" || stored === "dark") localStorage.setItem(STORAGE_KEY, stored);
+      stored = localStorage.getItem(STORAGE_KEY);
     } catch {
       // Keep system preference when storage is unavailable.
     }

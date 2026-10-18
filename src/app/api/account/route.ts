@@ -1,9 +1,17 @@
 import { z } from "zod";
+import { accountSummary } from "@/components/app/app-shell";
 import { getProfile } from "@/lib/auth";
 import { api, requireApiUser } from "@/lib/http";
 import { invalidateSite } from "@/lib/site/hosting";
 import { stripe } from "@/lib/stripe";
 import { ASSETS_BUCKET, supabaseAdmin } from "@/lib/supabase/admin";
+
+/** The signed-in header on static marketing pages loads the account from here. */
+export const GET = api(async (req) => {
+  const user = await requireApiUser(req);
+  const profile = await getProfile(user.id);
+  return Response.json(accountSummary(profile), { headers: { "Cache-Control": "private, no-store" } });
+});
 
 const Patch = z.object({
   full_name: z.string().trim().max(80).optional(),

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Toaster } from "sonner";
 import { site } from "@/config/site";
@@ -38,27 +37,34 @@ export const metadata: Metadata = {
     url: site.url,
     title: `${site.name}: AI Website Builder for Small Businesses That Rank`,
     description: site.description,
+    images: [{ url: "/curblit-social.jpg", width: 1200, height: 1200, alt: "Curblit" }],
   },
-  twitter: { card: "summary_large_image", ...(site.twitter ? { site: site.twitter, creator: site.twitter } : {}) },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/curblit-social.jpg"],
+    ...(site.twitter ? { site: site.twitter, creator: site.twitter } : {}),
+  },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f3ee",
+  themeColor: "#102e24",
   width: "device-width",
   initialScale: 1,
 };
 
-const themeInitScript = `(()=>{try{const saved=localStorage.getItem("curblit-theme")||localStorage.getItem("siteloom-theme");const dark=saved==="light"||saved==="dark"?saved==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=dark?"dark":"light";document.querySelector('meta[name="theme-color"]')?.setAttribute("content",dark?"#11100f":"#f6f3ee")}catch{document.documentElement.dataset.theme="light"}})()`;
+// Runs in <head> before first paint: applies the saved theme, and marks whether a Supabase auth
+// cookie exists so static marketing pages show the right header without a flash (UI hint only).
+const headInitScript = `(()=>{const d=document.documentElement;try{const s=localStorage.getItem("curblit-theme");const t=s==="light"||s==="dark"?s:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.dataset.theme=t;document.querySelector('meta[name="theme-color"]')?.setAttribute("content",t==="dark"?"#11100f":"#102e24")}catch{d.dataset.theme="light"}d.dataset.auth=/(?:^|;\\s*)sb-[^=]+-auth-token(?:\\.0)?=/.test(document.cookie)?"in":"out"})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: headInitScript }} />
+      </head>
       <body className="min-h-dvh">
-        <Script id="theme-init" strategy="beforeInteractive">
-          {themeInitScript}
-        </Script>
         <ThemeProvider>
           {children}
           <Toaster position="bottom-center" toastOptions={{ className: "!rounded-xl !border-line !font-sans" }} />

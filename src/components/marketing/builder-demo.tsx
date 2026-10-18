@@ -5,7 +5,7 @@ import { site } from "@/config/site";
 export function BuilderDemo() {
   return (
     <div className="relative mx-auto max-w-5xl">
-      <div className="absolute -inset-x-10 -top-10 -bottom-6 -z-10 rounded-[48px] bg-[radial-gradient(ellipse_at_top,rgba(255,90,31,0.14),transparent_60%)]" />
+      <div className="absolute -inset-x-4 -top-10 -bottom-6 -z-10 rounded-[48px] bg-[radial-gradient(ellipse_at_top,rgba(47,122,86,0.16),transparent_60%)] sm:-inset-x-10" />
       <div className="overflow-hidden rounded-[22px] border border-line-2 bg-card shadow-[0_40px_100px_-40px_rgba(28,25,23,0.45)]">
         <div className="flex items-center gap-2 border-b border-line bg-paper/70 px-4 py-2.5">
           <span className="size-2.5 rounded-full bg-[#ff5f57]" />

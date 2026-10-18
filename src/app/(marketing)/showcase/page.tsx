@@ -8,7 +8,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Showcase: real websites built with Curblit",
-  description: `Live websites businesses built and published with ${site.name}.`,
+  description: `Real, live websites that small businesses built and published with ${site.name}. See what the AI website builder makes before you start.`,
   alternates: { canonical: "/showcase" },
 };
 

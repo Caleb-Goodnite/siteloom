@@ -53,12 +53,15 @@ export const TIERS: Record<ModelTier, TierConfig> = {
     id: "max",
     label: "Max",
     blurb: "Most capable, for complex multi-page builds",
-    credits: 10,
-    buildCredits: 35,
-    // GPT-6.1 Sol: $2 / $10 per M tokens; keep Grok as a lower-cost fallback.
-    models: fromEnv("MODELS_MAX", ["openai/gpt-6.1-sol", "x-ai/grok-4.7"]),
-    maxTokens: 48_000,
-    reasoning: "medium",
+    // Priced so even a worst-case Opus call stays near the ~$0.04/credit target in plans.ts:
+    // ~30k input ($0.12) + 32k output cap ($0.64) ≈ $0.76 ≈ $0.05/credit; typical edits ≈ $0.02–0.03/credit.
+    credits: 15,
+    buildCredits: 50,
+    // Claude Opus 5.5: $4 / $20 per M tokens; GPT-6.1 Sol ($2 / $10) if Opus is unavailable.
+    models: fromEnv("MODELS_MAX", ["anthropic/claude-opus-5.5", "openai/gpt-6.1-sol"]),
+    // Output cap bounds the worst case. Low reasoning effort: thinking tokens are billed as output.
+    maxTokens: 32_000,
+    reasoning: "low",
   },
 };
 

@@ -25,19 +25,21 @@ export async function ogCard({ title, eyebrow }: { title: string; eyebrow?: stri
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#f6f3ee", padding: 72, fontFamily: "sans-serif" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <svg width="52" height="52" viewBox="0 0 32 32">
-            <rect width="32" height="32" rx="9" fill="#1c1917" />
-            <path d="M11 7v18M21 7v18" stroke="#f6f3ee" strokeWidth="3" strokeLinecap="round" />
-            <path d="M6 16c3.5-4 6.5-4 10 0s6.5 4 10 0" stroke="#ff5a1f" strokeWidth="3" fill="none" strokeLinecap="round" />
+            <rect width="32" height="32" rx="9" fill="#08251b" />
+            <rect x="5" y="7.5" width="22" height="3.25" rx="1.625" fill="#f2f4ed" />
+            <rect x="5" y="21.25" width="22" height="3.25" rx="1.625" fill="#f2f4ed" />
+            <rect x="5" y="14.375" width="7.25" height="3.25" rx="1.625" fill="#f2f4ed" />
+            <rect x="14.75" y="14.375" width="12.25" height="3.25" rx="1.625" fill="#78b990" />
           </svg>
           <span style={{ fontSize: 34, fontWeight: 700, color: "#1c1917" }}>{site.name}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {eyebrow ? <span style={{ fontSize: 28, color: "#c2410c", marginBottom: 16 }}>{eyebrow}</span> : null}
+          {eyebrow ? <span style={{ fontSize: 28, color: "#123629", marginBottom: 16 }}>{eyebrow}</span> : null}
           <span style={{ fontSize: title.length > 48 ? 76 : 92, lineHeight: 1.0, color: "#1c1917", fontFamily: font ? "Instrument Serif" : "serif", letterSpacing: -1 }}>
             {title}
           </span>
         </div>
-        <div style={{ display: "flex", height: 10, width: 220, background: "#ff5a1f", borderRadius: 999 }} />
+        <div style={{ display: "flex", height: 10, width: 220, background: "#173d31", borderRadius: 999 }} />
       </div>
     ),
     { ...OG_SIZE, fonts: font ? [{ name: "Instrument Serif", data: font, weight: 400, style: "normal" }] : undefined },

@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getPost(slug);
   if (!p) return {};
   return {
-    title: p.title,
+    // Long headlines skip the " | Curblit" suffix so search results don't cut them off.
+    title: p.title.length > 50 ? { absolute: p.title } : p.title,
     description: p.description,
     alternates: { canonical: `/blog/${p.slug}` },
     openGraph: { type: "article", title: p.title, description: p.description, publishedTime: p.date, url: `/blog/${p.slug}` },

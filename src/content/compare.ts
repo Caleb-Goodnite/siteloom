@@ -317,6 +317,38 @@ export const competitors: Competitor[] = [
       { q: "Is there a free plan?", a: "Yes. Build and publish one site free on a Curblit subdomain." },
     ],
   },
+  {
+    slug: "siteloom",
+    name: "SiteLoom",
+    url: "https://siteloom.co/en/",
+    category: "AI website builder for small businesses",
+    summary:
+      "SiteLoom helps small businesses create a site with AI, visual editing and guided content imports. Its drag-and-drop editor, template library and help from human experts make it a strong fit if you want hands-on design control or help getting started. Curblit takes a more chat-first approach: it creates a custom, multi-page site, handles technical SEO basics, shows AI costs before each message and lets you download the finished site.",
+    theyreGreatFor: [
+      "Importing business details and photos from Facebook or Instagram, or using a Google Business Profile as a starting point",
+      "Choosing from templates and arranging a site with a visual editor",
+      "Getting personal, done-for-you setup help from a website expert",
+    ],
+    chooseCurblitIf: [
+      "You want to make changes by describing them in plain language or clicking the text",
+      "You want technical SEO checks and a public website grader in the same product",
+      "You want to see the credit cost before each AI request",
+      "You want to download your static site and host it elsewhere",
+    ],
+    rows: [
+      { label: "Getting started", curblit: "Describe your business or import an existing public website", them: "AI generation, with Facebook or Instagram content import and Google Business Profile as a starting point" },
+      { label: "How you edit", curblit: "Chat, click text to edit it, or edit code", them: "Visual drag-and-drop editor with templates" },
+      { label: "SEO help", curblit: "Static HTML, page metadata, structured data, sitemap and a public site grader", them: "SEO tools and AI-assisted site creation" },
+      { label: "AI pricing", curblit: "Credit cost shown before each message; no charge when nothing changes", them: "Plan-based pricing" },
+      { label: "Code ownership", curblit: "Download a production-ready static site", them: "Sites are hosted on SiteLoom; code export isn't offered" },
+      { label: "Human setup help", curblit: "Product support by email", them: "Optional expert, done-for-you website service" },
+    ],
+    faqs: [
+      { q: "Can Curblit import my Facebook, Instagram or Google Business Profile?", a: "Not directly at this time. Curblit can use details you provide or import content from an existing public website. SiteLoom currently offers social content import and lists Google Business Profile as a starting point in its FAQ." },
+      { q: "Which is better for a small business?", a: "It depends on how you want to work. SiteLoom is a good fit if you want a visual editor, template selection, social-profile imports or personal setup help. Curblit may fit better if you prefer chat and click-to-edit, want transparent per-request AI costs, or need to download your site." },
+      { q: "Can I move a SiteLoom site to Curblit?", a: "Curblit can import content from a public website URL and use it as the basis for a redesign. Review the imported text and images before publishing, and plan to reconnect your domain when you're ready to switch." },
+    ],
+  },
 ];
 
 export function getCompetitor(slug: string) {

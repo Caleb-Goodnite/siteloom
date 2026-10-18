@@ -28,7 +28,7 @@ export const site = {
   /** The parent company that owns and runs Curblit. */
   company: { name: "Anchorforge Digital", url: "https://anchorforgedigital.com" },
   /** Official social profiles (comma-separated URLs), shown in the footer and as schema.org sameAs. */
-  social: (process.env.NEXT_PUBLIC_SOCIAL_LINKS || "")
+  social: (process.env.NEXT_PUBLIC_SOCIAL_LINKS || "https://www.instagram.com/curblit/")
     .split(",")
     .map((u) => u.trim())
     .filter((u) => /^https:\/\/[^\s]+$/.test(u)),

@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = getCompetitor(slug);
   if (!c) return {};
   return {
-    title: `${site.name} vs ${c.name}: which is right for your website?`,
-    description: `${c.name} alternative for business websites? An honest comparison of ${site.name} and ${c.name}: output, SEO, pricing model, forms and when to choose each.`,
+    title: { absolute: `${site.name} vs ${c.name}: an honest comparison` },
+    description: `Looking for a ${c.name} alternative? ${site.name} vs ${c.name} compared: output, SEO, pricing, forms and when to choose each.`,
     alternates: { canonical: `/compare/${c.slug}` },
   };
 }

@@ -39,6 +39,13 @@ export default function PricingPage() {
       <div className="mx-auto mt-12 max-w-6xl">
         <PricingTable />
       </div>
+      <section className="mx-auto mt-12 max-w-3xl rounded-2xl border border-line bg-card p-6 sm:p-8" aria-labelledby="credit-example">
+        <p className="text-sm font-semibold text-accent-ink">A concrete example</p>
+        <h2 id="credit-example" className="mt-2 font-display text-3xl text-ink">What might a month of edits use?</h2>
+        <p className="mt-3 leading-relaxed text-ink-2">
+          On Starter, one Standard new-site build ({TIERS.standard.buildCredits} credits) plus five Standard edit requests ({TIERS.standard.credits} credits each) would use {TIERS.standard.buildCredits + TIERS.standard.credits * 5} of your {PLANS.starter.monthlyCredits} monthly credits. That&apos;s about {Math.round(((TIERS.standard.buildCredits + TIERS.standard.credits * 5) / PLANS.starter.monthlyCredits) * 100)}% of the allowance. It&apos;s an illustration, not a usage promise; you see the cost before every request, and direct text edits are free.
+        </p>
+      </section>
       <div className="mt-24">
         <Faq items={FAQS} title="Pricing questions" />
       </div>
