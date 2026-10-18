@@ -28,7 +28,7 @@ async function main() {
 
   const prompt = arg("prompt", "A website for Bright Smile Dental, a family dental practice in Columbus, OH.")!;
   const tier = (arg("tier", "standard") as keyof typeof TIERS) ?? "standard";
-  const out = path.resolve(arg("out", "/tmp/siteloom-eval")!);
+  const out = path.resolve(arg("out", "/tmp/curblit-eval")!);
   const started = Date.now();
   let lastLog = 0;
 

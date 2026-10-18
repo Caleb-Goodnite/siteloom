@@ -50,7 +50,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const themeInitScript = `(()=>{try{const saved=localStorage.getItem("siteloom-theme");const dark=saved==="light"||saved==="dark"?saved==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=dark?"dark":"light";document.querySelector('meta[name="theme-color"]')?.setAttribute("content",dark?"#11100f":"#f6f3ee")}catch{document.documentElement.dataset.theme="light"}})()`;
+const themeInitScript = `(()=>{try{const saved=localStorage.getItem("curblit-theme")||localStorage.getItem("siteloom-theme");const dark=saved==="light"||saved==="dark"?saved==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=dark?"dark":"light";document.querySelector('meta[name="theme-color"]')?.setAttribute("content",dark?"#11100f":"#f6f3ee")}catch{document.documentElement.dataset.theme="light"}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

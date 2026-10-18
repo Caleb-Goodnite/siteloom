@@ -9,7 +9,7 @@ describe("buildPublishedSite", () => {
   it("produces a fast, crawlable, SEO-complete static site", async () => {
     const { files, warnings, brand } = await buildPublishedSite({
       files: site,
-      siteUrl: "https://bright.siteloom.site",
+      siteUrl: "https://bright.curblit.site",
       siteName: "Bright Smile Dental",
       settings: { googleVerification: "abc123" },
       badge: true,
@@ -39,9 +39,9 @@ describe("buildPublishedSite", () => {
     expect(home).toContain('href="/contact#form"');
     expect(home).toMatch(/<a href="\/" class="[^"]*" aria-current="page">Bright Smile<\/a>/);
     // SEO tags.
-    expect(home).toContain('<link rel="canonical" href="https://bright.siteloom.site/">');
+    expect(home).toContain('<link rel="canonical" href="https://bright.curblit.site/">');
     expect(home).toContain('<meta property="og:title" content="Family Dentist in Columbus, OH | Bright Smile Dental">');
-    expect(home).toContain('<meta property="og:image" content="https://bright.siteloom.site/__sl/og.png?t=');
+    expect(home).toContain('<meta property="og:image" content="https://bright.curblit.site/__sl/og.png?t=');
     expect(home).toContain('<meta name="twitter:card" content="summary_large_image">');
     expect(home).toContain('<meta name="google-site-verification" content="abc123">');
     expect(home).toContain('<script defer src="/__sl/sl.js" data-badge="1"></script>');
@@ -49,9 +49,9 @@ describe("buildPublishedSite", () => {
     // Placeholder image got a data URI so the layout doesn't break.
     expect(home).toMatch(/<img src="data:image\/svg\+xml/);
 
-    expect(files["services.html"]).toContain('<link rel="canonical" href="https://bright.siteloom.site/services">');
-    expect(files["sitemap.xml"]).toContain("<loc>https://bright.siteloom.site/contact</loc>");
-    expect(files["robots.txt"]).toContain("Sitemap: https://bright.siteloom.site/sitemap.xml");
+    expect(files["services.html"]).toContain('<link rel="canonical" href="https://bright.curblit.site/services">');
+    expect(files["sitemap.xml"]).toContain("<loc>https://bright.curblit.site/contact</loc>");
+    expect(files["robots.txt"]).toContain("Sitemap: https://bright.curblit.site/sitemap.xml");
     expect(files["llms.txt"]).toContain("# Bright Smile Dental");
     expect(files["favicon.svg"]).toContain('fill="#0f766e"');
     expect(files["assets/site.js"]).toBe(site["assets/site.js"]);

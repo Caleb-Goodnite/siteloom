@@ -15,7 +15,7 @@ const FAQS = [
   { q: "Is the website grader really free?", a: "Yes. No sign-up, no email required. Grade as many of your pages as you like (within a fair hourly limit)." },
   { q: "What does it check?", a: "Whether your text is readable without JavaScript, your page title and meta description, headings, word count, structured data, image alt text, HTTPS, mobile viewport, server speed, sitemap.xml, robots.txt, social previews, canonical tags and whether visitors can contact you in one tap." },
   { q: "Why does “readable without JavaScript” matter?", a: "Many modern sites build their content in the browser with JavaScript. Google indexes that slowly in a second pass, and most AI search crawlers don't run JavaScript at all, so that content can be invisible to them. Plain HTML is read instantly by everyone." },
-  { q: "My score is low. What now?", a: "Each failed check explains what to fix. If you'd rather not do it by hand, Siteloom can rebuild your site with your existing content and every check handled automatically. That's free to try." },
+  { q: "My score is low. What now?", a: "Each failed check explains what to fix. If you'd rather not do it by hand, Curblit can rebuild your site with your existing content and every check handled automatically. That's free to try." },
   { q: "Does a perfect score guarantee rankings?", a: "No. These are the technical foundations. Rankings also depend on content quality, reviews, links and competition. But a site that fails these basics is at a real disadvantage." },
 ];
 

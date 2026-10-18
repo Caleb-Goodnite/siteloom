@@ -1,4 +1,4 @@
--- Siteloom schema.
+-- Curblit schema.
 -- Run in the Supabase SQL editor (or `supabase db push`). Safe to read top to bottom:
 -- clients may only SELECT their own rows; every write goes through the server with
 -- the secret key after the app has checked plan limits, credits and ownership.

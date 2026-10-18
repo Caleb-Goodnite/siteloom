@@ -35,7 +35,7 @@ export const GET = api<Ctx>(async (_req, ctx) => {
   for (const [path, content] of Object.entries(project.files)) source.file(path, content);
   zip.file(
     "README.txt",
-    `${project.name}\n\nsite/    Upload this folder to any static host (Netlify, Cloudflare Pages, GitHub Pages, S3, cPanel…).\n         Pages link with clean URLs (/about), so enable "pretty URLs"/".html extension fallback" on your host,\n         or keep the .html files as-is.\n         Note: built-in forms and analytics only work while hosted on Siteloom — point forms at your
+    `${project.name}\n\nsite/    Upload this folder to any static host (Netlify, Cloudflare Pages, GitHub Pages, S3, cPanel…).\n         Pages link with clean URLs (/about), so enable "pretty URLs"/".html extension fallback" on your host,\n         or keep the .html files as-is.\n         Note: built-in forms and analytics only work while hosted on Curblit — point forms at your
          own form service (e.g. Formspree) if you host elsewhere.\nsource/  The editable source files (partials are combined at build time).\n`,
   );
   const blob = await zip.generateAsync({ type: "uint8array", compression: "DEFLATE" });

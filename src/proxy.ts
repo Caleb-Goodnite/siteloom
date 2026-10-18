@@ -27,7 +27,7 @@ export async function proxy(request: NextRequest) {
   const host = (request.headers.get("host") ?? "").toLowerCase();
   const { pathname, search } = request.nextUrl;
 
-  // The bare sites domain (e.g. siteloomsites.com) must never serve the app: send visitors there.
+  // The bare sites domain (e.g. curblit.site) must never serve the app: send visitors there.
   if (host === SITES_DOMAIN && SITES_DOMAIN !== appHost) {
     return NextResponse.redirect(new URL(pathname + search, APP_URL), 308);
   }

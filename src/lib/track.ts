@@ -1,7 +1,7 @@
 import { track as vercelTrack } from "@vercel/analytics";
 
 /**
- * Conversion events for siteloom.app's own analytics. Always sent to Vercel Web Analytics
+ * Conversion events for curblit.com's own analytics. Always sent to Vercel Web Analytics
  * (custom events). Also sent to GA4 and the Meta Pixel when those are configured for ads
  * (NEXT_PUBLIC_GA_ID / NEXT_PUBLIC_META_PIXEL_ID); Google Ads imports conversions from GA4.
  */

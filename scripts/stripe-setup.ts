@@ -131,7 +131,7 @@ async function main() {
       const created = await stripe.webhookEndpoints.create({
         url: webhookUrl,
         enabled_events: WEBHOOK_EVENTS,
-        description: "Siteloom app",
+        description: "Curblit app",
         // Match the SDK so event payloads have the shape the app's types expect.
         api_version: Stripe.API_VERSION,
       });

@@ -84,13 +84,13 @@ const COMPARE = [
 ] as const;
 
 const FAQS = [
-  { q: "What can I build with Siteloom?", a: "Websites for businesses, creators and products: multi-page business sites, landing pages, portfolios, restaurant and clinic sites, SaaS marketing sites and more. If you need user logins or a database, you're building an app, and an app builder is a better fit." },
+  { q: "What can I build with Curblit?", a: "Websites for businesses, creators and products: multi-page business sites, landing pages, portfolios, restaurant and clinic sites, SaaS marketing sites and more. If you need user logins or a database, you're building an app, and an app builder is a better fit." },
   { q: "How much does it cost?", a: `You can start free with ${PLANS.free.dailyCredits} credits every day plus a welcome bonus, and publish one site. Paid plans start at $${PLANS.starter.priceMonthly}/month and add custom domains, more sites and more credits. Every AI message shows its price before you send it.` },
   {
     q: "What's a credit?",
     a: `A small, fixed unit of AI work. A quick edit on the Fast model costs ${TIERS.fast.credits} credit${TIERS.fast.credits > 1 ? "s" : ""}, a change on the Standard model costs ${TIERS.standard.credits}, and building a complete multi-page site costs ${TIERS.standard.buildCredits}. If the AI fails or makes no changes, credits are refunded automatically. Clicking text to edit it never costs credits.`,
   },
-  { q: "Will my site show up on Google?", a: "Siteloom publishes static HTML with unique titles and descriptions, canonical URLs, sitemap.xml, robots.txt, structured data and social cards, and the SEO panel flags anything missing. Rankings also depend on your content and reputation, so we'll point out what to improve." },
+  { q: "Will my site show up on Google?", a: "Curblit publishes static HTML with unique titles and descriptions, canonical URLs, sitemap.xml, robots.txt, structured data and social cards, and the SEO panel flags anything missing. Rankings also depend on your content and reputation, so we'll point out what to improve." },
   { q: "Can I use my own domain?", a: "Yes, on any paid plan. Point your DNS records at us and we handle SSL automatically." },
   { q: "Do I own my website?", a: "Yes. Download a production-ready copy anytime and host it anywhere. The AI-generated content is yours to use." },
 ];
@@ -135,7 +135,7 @@ export default function HomePage() {
             Get a <em className="text-accent">website.</em>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
-            Tell Siteloom about your business and get a complete multi-page website in minutes: designed, written and ready to publish,
+            Tell Curblit about your business and get a complete multi-page website in minutes: designed, written and ready to publish,
             with forms, hosting and search-ready SEO built in.
           </p>
           <div className="mx-auto mt-9 max-w-2xl text-left">
@@ -151,7 +151,7 @@ export default function HomePage() {
       {/* Features */}
       <section className="mx-auto mt-28 max-w-6xl px-4 sm:px-6" aria-labelledby="why">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold text-accent-ink">Why Siteloom</p>
+          <p className="text-sm font-semibold text-accent-ink">Why Curblit</p>
           <h2 id="why" className="mt-2 font-display text-5xl leading-[1.02] text-ink sm:text-6xl">
             Everything AI app builders get wrong about websites, fixed.
           </h2>

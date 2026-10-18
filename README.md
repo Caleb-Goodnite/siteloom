@@ -1,6 +1,6 @@
-# Siteloom — the AI website builder for sites that get found
+# Curblit — the AI website builder for sites that get found
 
-Describe a business in a sentence; Siteloom designs, writes and publishes a fast, multi-page website with SEO, working forms, analytics, hosting and custom domains built in.
+Describe a business in a sentence; Curblit designs, writes and publishes a fast, multi-page website with SEO, working forms, analytics, hosting and custom domains built in.
 
 Stack: **Next.js 16** (App Router) · **Supabase** (auth, Postgres, storage) · **OpenRouter** (AI) · **Stripe** (billing) · **Vercel** (hosting) · optional **Resend** (email).
 
@@ -10,7 +10,7 @@ Stack: **Next.js 16** (App Router) · **Supabase** (auth, Postgres, storage) · 
 
 Market research (Oct 2026) on Lovable, Bolt.new, v0, Orchids, Wix, Framer and Durable found the same complaints again and again:
 
-| Problem users report | What Siteloom does instead |
+| Problem users report | What Curblit does instead |
 | --- | --- |
 | **Unpredictable credit burn**, especially "fix loops" where the AI breaks something and charges to fix it | Flat credit price **shown on the send button**. Automatic refund when a generation fails, is stopped, or changes nothing. Free text edits, code edits and version restores. |
 | AI-built React SPAs **don't get indexed** well (content rendered by JS, identical titles, no sitemap) | Output is **static HTML + compiled CSS**. Every publish adds canonical URLs, Open Graph/Twitter tags, a generated social image, `sitemap.xml`, `robots.txt`, `llms.txt`, a favicon and JSON-LD. A built-in **SEO panel** scores every page. |
@@ -19,7 +19,7 @@ Market research (Oct 2026) on Lovable, Bolt.new, v0, Orchids, Wix, Framer and Du
 | Lock-in | **Download** a production-ready static site anytime. |
 | AI builders get abused to host **phishing** | Publish-time moderation (hard rules + an AI check), abuse reports, auto-suspension of reported free sites, separate domain for customer sites. |
 
-App builders target people building *apps*. Siteloom targets the much larger group that needs a *website*: local services, restaurants, clinics, freelancers, creators and SaaS marketing sites.
+App builders target people building *apps*. Curblit targets the much larger group that needs a *website*: local services, restaurants, clinics, freelancers, creators and SaaS marketing sites.
 
 ## Models (via OpenRouter)
 
@@ -87,16 +87,16 @@ There's also a no-backend **builder playground** at `/dev/builder` (development 
 
 1. **Use Vercel Pro.** Hobby is non-commercial and caps functions at 300 s; generations can run longer (`maxDuration = 800`).
 2. **Two domains** (required for security):
-   - App: `siteloom.app` (marketing, dashboard, builder)
-   - Sites: `siteloomsites.com` with a **wildcard** `*.siteloomsites.com` (needs Vercel nameservers on that domain)
+   - App: `curblit.com` (marketing, dashboard, builder)
+   - Sites: `curblit.site` with a **wildcard** `*.curblit.site` (needs Vercel nameservers on that domain)
 
    Customer sites run arbitrary JavaScript, so they must never share the app's registrable domain or they could read users' auth cookies. The proxy routes any non-app host to the hosted-site handler, and that handler refuses requests on the app host.
-3. Add every variable from `.env.example` in Vercel → Settings → Environment Variables, with `NEXT_PUBLIC_APP_URL=https://siteloom.app` and `NEXT_PUBLIC_SITES_DOMAIN=siteloomsites.com`.
+3. Add every variable from `.env.example` in Vercel → Settings → Environment Variables, with `NEXT_PUBLIC_APP_URL=https://curblit.com` and `NEXT_PUBLIC_SITES_DOMAIN=curblit.site`.
 4. Set `VERCEL_TOKEN` + `VERCEL_PROJECT_ID` (+ `VERCEL_TEAM_ID`) so customer custom domains are attached automatically, with SSL.
 5. Re-run `npm run stripe:setup` with the production URL and live key to create the webhook; copy the printed secret.
 6. Verify a sending domain in **Resend** and set `RESEND_API_KEY` + `EMAIL_FROM`.
 7. Set `CRON_SECRET`. [`vercel.json`](vercel.json) schedules the daily maintenance job.
-8. Add `siteloom.com` to **Google Search Console** and submit `/sitemap.xml`.
+8. Add `curblit.com` to **Google Search Console** and submit `/sitemap.xml`.
 
 ---
 
@@ -114,7 +114,7 @@ There's also a no-backend **builder playground** at `/dev/builder` (development 
 ## Things only you can do
 
 - Have a lawyer review [`src/content/legal.ts`](src/content/legal.ts) and set `NEXT_PUBLIC_LEGAL_ENTITY` / `NEXT_PUBLIC_GOVERNING_LAW`.
-- Check that the **name "Siteloom"** and both domains are available and clear to trademark. Rename in [`src/config/site.ts`](src/config/site.ts).
+- Check that the **name "Curblit"** and both domains are available and clear to trademark. Rename in [`src/config/site.ts`](src/config/site.ts).
 - Re-check the comparison pages ([`src/content/compare.ts`](src/content/compare.ts)) every few months; competitors change quickly.
 - Configure Stripe Tax if you need to collect sales tax or VAT (`STRIPE_AUTOMATIC_TAX=true`).
 - Watch `/admin` and the daily digest; handle the occasional abuse report or held site.

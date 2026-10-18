@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 export type Theme = "light" | "dark";
 
-const STORAGE_KEY = "siteloom-theme";
+const STORAGE_KEY = "curblit-theme";
 const ThemeContext = createContext<{ theme: Theme; setTheme: (theme: Theme) => void } | null>(null);
 
 function applyTheme(theme: Theme) {
@@ -19,7 +19,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     let stored: string | null = null;
     try {
-      stored = localStorage.getItem(STORAGE_KEY);
+      stored = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem("siteloom-theme");
+      if (stored === "light" || stored === "dark") localStorage.setItem(STORAGE_KEY, stored);
     } catch {
       // Keep system preference when storage is unavailable.
     }

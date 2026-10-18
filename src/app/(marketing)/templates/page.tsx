@@ -6,7 +6,7 @@ import { industries } from "@/content/industries";
 export const metadata: Metadata = {
   title: "Website templates for every kind of business",
   description:
-    "Start from a proven brief for restaurants, dentists, plumbers, law firms, photographers, SaaS and more. Siteloom tailors the design, copy and SEO to your business.",
+    "Start from a proven brief for restaurants, dentists, plumbers, law firms, photographers, SaaS and more. Curblit tailors the design, copy and SEO to your business.",
   alternates: { canonical: "/templates" },
 };
 
@@ -17,7 +17,7 @@ export default function TemplatesPage() {
         <h1 className="font-display text-6xl leading-[0.98] text-ink sm:text-7xl">Start from a brief that works</h1>
         <p className="mt-5 text-lg text-ink-2">
           These aren&apos;t rigid templates. Each one is a starting brief, with the pages, sections and SEO that business type needs, that
-          Siteloom tailors to your name, location, services and style.
+          Curblit tailors to your name, location, services and style.
         </p>
       </div>
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

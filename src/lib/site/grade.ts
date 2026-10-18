@@ -3,7 +3,7 @@ import { parse } from "node-html-parser";
 import { assertPublicUrl, fetchHtml, ImportError } from "@/lib/site/import";
 
 /**
- * Free website grader (siteloom.app/tools/website-grader). Checks a live page the way a
+ * Free website grader (curblit.com/tools/website-grader). Checks a live page the way a
  * search engine or AI crawler sees it — raw HTML, no JavaScript — and explains each result.
  */
 
@@ -30,7 +30,7 @@ async function exists(url: URL, path: string, test: (body: string) => boolean) {
   try {
     const target = new URL(path, url);
     await assertPublicUrl(target.toString());
-    const res = await fetch(target, { redirect: "follow", signal: AbortSignal.timeout(6000), headers: { "User-Agent": "Mozilla/5.0 (compatible; SiteloomGrader/1.0)" } });
+    const res = await fetch(target, { redirect: "follow", signal: AbortSignal.timeout(6000), headers: { "User-Agent": "Mozilla/5.0 (compatible; CurblitGrader/1.0)" } });
     if (!res.ok) return { ok: false, body: "" };
     const body = (await res.text()).slice(0, 200_000);
     return { ok: test(body), body };
@@ -61,7 +61,7 @@ export async function gradeWebsite(input: string): Promise<GradeResult> {
   return gradeHtml(url, html, { responseMs, sitemap: sitemap.ok, robotsOk: robots.ok, robotsBlocksAll });
 }
 
-/** Grades a page's HTML. Pure (no network), so it also scores Siteloom's own builds. */
+/** Grades a page's HTML. Pure (no network), so it also scores Curblit's own builds. */
 export function gradeHtml(url: URL, html: string, ctx: GradeContext): GradeResult {
   const { responseMs } = ctx;
   const root = parse(html, { blockTextElements: { script: true, style: true, noscript: true } });

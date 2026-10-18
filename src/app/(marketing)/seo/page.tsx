@@ -28,7 +28,7 @@ const COMPARE: [string, string, string][] = [
 
 const FAQS = [
   {
-    q: "Does a Siteloom site guarantee I'll rank #1?",
+    q: "Does a Curblit site guarantee I'll rank #1?",
     a: "No one can honestly promise that. Rankings depend on your content, reviews, links and competition. What we guarantee is the technical foundation: every page is crawlable, fast, mobile-friendly and marked up correctly, so nothing on the technical side holds you back.",
   },
   {
@@ -37,7 +37,7 @@ const FAQS = [
   },
   {
     q: "Why does it matter that the content is in the HTML?",
-    a: "Many AI app builders produce single-page JavaScript apps. The HTML they send is an empty shell, and the words only appear after scripts run in a browser. Google renders JavaScript later, in a second pass, and most AI search crawlers (the ones behind ChatGPT search, Perplexity and others) don't run it at all. Siteloom sites send every word in the HTML, so everyone reads them instantly.",
+    a: "Many AI app builders produce single-page JavaScript apps. The HTML they send is an empty shell, and the words only appear after scripts run in a browser. Google renders JavaScript later, in a second pass, and most AI search crawlers (the ones behind ChatGPT search, Perplexity and others) don't run it at all. Curblit sites send every word in the HTML, so everyone reads them instantly.",
   },
   {
     q: "Can I see my site's score?",
@@ -69,7 +69,7 @@ export default function SeoPage() {
         <p className="text-sm font-semibold text-accent-ink">SEO website builder</p>
         <h1 className="mt-3 font-display text-5xl leading-[1] text-ink sm:text-7xl">Built to rank. And we can prove it.</h1>
         <p className="mx-auto mt-5 max-w-xl text-lg text-ink-2">
-          Most AI builders make sites that look great to people and blank to search engines. Every Siteloom page ships as fast, crawlable
+          Most AI builders make sites that look great to people and blank to search engines. Every Curblit page ships as fast, crawlable
           HTML with the technical SEO done for you, and graded before it goes live.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -111,7 +111,7 @@ export default function SeoPage() {
 
       <section className="mx-auto mt-28 max-w-5xl" aria-labelledby="vs">
         <h2 id="vs" className="font-display text-4xl text-ink sm:text-5xl">
-          Siteloom vs typical AI app builders
+          Curblit vs typical AI app builders
         </h2>
         <p className="mt-3 max-w-2xl text-ink-2">
           A general comparison. Individual products differ, so check our{" "}
@@ -149,7 +149,7 @@ export default function SeoPage() {
           <h2 id="grader" className="font-display text-4xl text-ink sm:text-5xl">
             How does your current site score?
           </h2>
-          <p className="mt-3 text-ink-2">The same 15-check auditor we run on every Siteloom publish. Free, no sign-up.</p>
+          <p className="mt-3 text-ink-2">The same 15-check auditor we run on every Curblit publish. Free, no sign-up.</p>
         </div>
         <div className="mt-8">
           <WebsiteGrader />

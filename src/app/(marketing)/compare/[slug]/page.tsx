@@ -66,7 +66,7 @@ export default async function ComparePage({ params }: Props) {
         <div className="rounded-2xl border border-ink bg-card p-6">
           <h2 className="text-lg font-semibold text-ink">Choose {site.name} if…</h2>
           <ul className="mt-4 space-y-2.5 text-[15px] text-ink-2">
-            {c.chooseSiteloomIf.map((x) => (
+            {c.chooseCurblitIf.map((x) => (
               <li key={x} className="flex gap-2">
                 <Check className="mt-1 size-4 shrink-0 text-ok" />
                 {x}
@@ -91,7 +91,7 @@ export default async function ComparePage({ params }: Props) {
               {c.rows.map((r) => (
                 <tr key={r.label} className="border-b border-line align-top last:border-0">
                   <th scope="row" className="p-4 text-left font-medium text-ink">{r.label}</th>
-                  <td className="p-4 text-ink-2">{r.siteloom}</td>
+                  <td className="p-4 text-ink-2">{r.curblit}</td>
                   <td className="p-4 text-ink-2">{r.them}</td>
                 </tr>
               ))}

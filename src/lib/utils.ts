@@ -20,7 +20,7 @@ export function slugify(input: string, max = 40) {
 export const RESERVED_SLUGS = new Set([
   "www", "app", "api", "admin", "mail", "email", "smtp", "ftp", "blog", "docs", "help", "support",
   "status", "dashboard", "login", "signup", "auth", "billing", "stripe", "static", "assets", "cdn",
-  "dev", "staging", "test", "beta", "secure", "account", "accounts", "pay", "payments", "siteloom",
+  "dev", "staging", "test", "beta", "secure", "account", "accounts", "pay", "payments", "curblit",
 ]);
 
 export function isValidSlug(slug: string) {

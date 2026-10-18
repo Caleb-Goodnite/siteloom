@@ -1,4 +1,4 @@
-# Siteloom growth instructions
+# Curblit growth instructions
 
 These are step-by-step instructions for getting paid and getting customers, written so the business needs about 1–2 hours a week once it's running. Work through the parts in order and check boxes as you go.
 
@@ -17,25 +17,25 @@ Facts checked October 2026. Sources are listed at the bottom. Rules change, so r
 | **Meta (Facebook/Instagram) ads** | Meta doesn't clearly publish an age rule for ad accounts. | Run ads from the parent's account so nothing gets shut down mid-campaign. |
 | **Vercel, Supabase, OpenRouter, Resend, domains** | These bill a card and need terms accepted. | Use the parent's card and let the parent accept the terms. |
 
-**Business setup:** start as a **sole proprietorship in the parent's name** with a DBA ("doing business as") name of "Siteloom". Stripe supports this directly ("Individual / sole proprietor" type). An LLC can come later when revenue is steady.
+**Business setup:** start as a **sole proprietorship in the parent's name** with a DBA ("doing business as") name of "Curblit". Stripe supports this directly ("Individual / sole proprietor" type). An LLC can come later when revenue is steady.
 - Stripe needs the owner's **SSN** (or ITIN). An **EIN** is free from irs.gov in about 10 minutes and is safer to hand out than an SSN.
 - Stripe needs a real street address; PO boxes aren't accepted.
 - Book **one hour with an accountant** before the first $1,000. The income is taxable, and Stripe reports it on a 1099-K.
 
-In Vercel, set `NEXT_PUBLIC_LEGAL_ENTITY` to the legal name (for example "Jane Doe d/b/a Siteloom") so the Terms and Privacy pages are correct.
+In Vercel, set `NEXT_PUBLIC_LEGAL_ENTITY` to the legal name (for example "Jane Doe d/b/a Curblit") so the Terms and Privacy pages are correct.
 
 ---
 
 ## Part 2: Stripe, step by step (one evening, you and a parent together)
 
 ### 2a. Create and verify the account
-- [ ] **You:** sign up at dashboard.stripe.com with the Siteloom email. Enter **your real birthday**: a fake one causes verification problems and frozen money later.
+- [ ] **You:** sign up at dashboard.stripe.com with the Curblit email. Enter **your real birthday**: a fake one causes verification problems and frozen money later.
 - [ ] **Parent:** add themselves as the account **owner**. Stripe asks for their name, date of birth, last 4 of SSN, address, and their consent to the terms. It may ask for a photo ID.
-- [ ] Business type: **Individual / sole proprietor**. Business name: Siteloom. Website: `https://siteloom.app`. Description: "AI website builder subscription for small businesses."
+- [ ] Business type: **Individual / sole proprietor**. Business name: Curblit. Website: `https://curblit.com`. Description: "AI website builder subscription for small businesses."
 - [ ] **Bank account for payouts:** a checking account the parent owns, or a joint one. Payouts are free. Use the standard schedule; instant payouts cost 1.5%.
 
 ### 2b. Settings that make money or prevent losses (Dashboard → Settings)
-- [ ] **Statement descriptor:** `SITELOOM`. This is what customers see on their card statement. A name they recognize prevents "I don't know this charge" disputes, and every dispute costs $15.
+- [ ] **Statement descriptor:** `CURBLIT`. This is what customers see on their card statement. A name they recognize prevents "I don't know this charge" disputes, and every dispute costs $15.
 - [ ] **Billing → Revenue recovery → Smart Retries:** on. **Failed payment emails:** on. Stripe retries failed cards and emails customers to update them, which saves customers you'd otherwise lose.
 - [ ] **Billing → Subscriptions → "Send emails about upcoming renewals":** on for yearly plans. It's required in some states and prevents refund requests.
 - [ ] **Emails → Successful payments** and **Refunds:** on, so receipts are automatic.
@@ -44,12 +44,12 @@ In Vercel, set `NEXT_PUBLIC_LEGAL_ENTITY` to the legal name (for example "Jane D
 - [ ] **Radar** (fraud protection) is on by default. Leave it on.
 - [ ] **Tax:** open **Tax → Registrations** and turn on threshold monitoring. Software subscriptions are taxable in some states (New York, Texas, …) and not in others (California). You usually only have to register in a state after about $100,000 of sales there. Some states also count transaction numbers, so many small monthly subscriptions in one state can trigger it. When Stripe alerts you, ask the accountant, then set `STRIPE_AUTOMATIC_TAX=true`. Stripe Tax costs 0.5% of sales in states where you're registered.
 
-### 2c. Connect Stripe to Siteloom
+### 2c. Connect Stripe to Curblit
 - [ ] **Developers → API keys:** copy the **live** secret key (`sk_live_…`).
 - [ ] In Vercel → Settings → Environment Variables:
   - Set `STRIPE_SECRET_KEY` to the live key.
   - **Delete `STRIPE_API_BASE`.** It points at the mock Stripe and must be empty in live mode.
-- [ ] On your computer, put the same live key in `.env.local`, make sure `NEXT_PUBLIC_APP_URL=https://siteloom.app`, then run:
+- [ ] On your computer, put the same live key in `.env.local`, make sure `NEXT_PUBLIC_APP_URL=https://curblit.com`, then run:
   ```bash
   npm run stripe:setup
   ```
@@ -90,17 +90,17 @@ Monthly costs are about $25–75: Vercel Pro $20, Supabase free then $25, Resend
 ## Part 4: Tracking (30 minutes, before any ads)
 
 - [ ] **Vercel Web Analytics** (our main analytics, already in the code): Vercel project → **Analytics** tab → Enable. It's cookie-free, so no cookie banner is needed. Page views work on the free Hobby plan. Signups, new sites, checkouts and purchases also show up as custom events, but only on Vercel Pro.
-- [ ] **Only when you start Google Ads**, add Google Analytics 4: create a property for siteloom.app and set `NEXT_PUBLIC_GA_ID` in Vercel. Google Ads can only learn from GA4, not Vercel. GA4 uses cookies, so keep ads US-only (Part 6). In GA4 → Admin → Events, mark **`purchase`** and **`signup`** as key events. They show up after the first one happens.
+- [ ] **Only when you start Google Ads**, add Google Analytics 4: create a property for curblit.com and set `NEXT_PUBLIC_GA_ID` in Vercel. Google Ads can only learn from GA4, not Vercel. GA4 uses cookies, so keep ads US-only (Part 6). In GA4 → Admin → Events, mark **`purchase`** and **`signup`** as key events. They show up after the first one happens.
 - [ ] **Meta Pixel (only when you start Meta ads, also uses cookies):** Meta Events Manager → create a Pixel. Set `NEXT_PUBLIC_META_PIXEL_ID` in Vercel. The site already sends:
 
-  | Siteloom event | Meta event |
+  | Curblit event | Meta event |
   | --- | --- |
   | signup | CompleteRegistration |
   | site_created | Lead |
   | checkout_started | InitiateCheckout |
   | purchase | Purchase (with price) |
 
-- [ ] **Google Search Console** (free, the most important one): add `siteloom.app`, verify it with a DNS record in your domain settings, and submit `https://siteloom.app/sitemap.xml`. Do the same in **Bing Webmaster Tools**, which can import from Google in one click.
+- [ ] **Google Search Console** (free, the most important one): add `curblit.com`, verify it with a DNS record in your domain settings, and submit `https://curblit.com/sitemap.xml`. Do the same in **Bing Webmaster Tools**, which can import from Google in one click.
 - [ ] Redeploy, open the site, and check that the Pixel fires using Meta's "Test events" tab.
 
 ---
@@ -136,7 +136,7 @@ Monthly costs are about $25–75: Vercel Pro $20, Supabase free then $25, Resend
 
 ---
 
-## Part 6: Paid ads (optional, only once Siteloom pays for them)
+## Part 6: Paid ads (optional, only once Curblit pays for them)
 
 **Ads are not required.** Parts 5 and 7 cost $0. Start there, and only turn on ads once customers are paying for them:
 
@@ -213,20 +213,20 @@ Pick the row that matches what you can spend. Every row includes the ones above 
 | Monthly budget | What to do | Why |
 | --- | --- | --- |
 | **$0** | Search Console + Bing Webmaster; directory listings (Part 5); free social profiles; one build video a week; answer website questions on Reddit; Product Hunt launch | Gets the first backlinks (an SEO audit on 2026-10-14 found **0**), the first visitors and the first proof |
-| **~$10** | One-time paid directory listings that include a backlink (some AI directories charge $10–50 once) | Backlinks are the main thing holding siteloom.app's own Google rankings back |
+| **~$10** | One-time paid directory listings that include a backlink (some AI directories charge $10–50 once) | Backlinks are the main thing holding curblit.com's own Google rankings back |
 | **~$30** | Google Search ads at $1/day on the 2–3 best industry pages only | Learns which industries convert, slowly but cheaply |
 | **30% of revenue** | Raise ads only from revenue (Part 6 rules) | Ads never come out of anyone's pocket |
 
 ### Free social profiles (one afternoon)
-Create **Instagram, TikTok, YouTube, LinkedIn and Facebook** pages named Siteloom (a parent may need to own some of them). Use the same logo and one-line bio, and post the weekly build video to all of them.
+Create **Instagram, TikTok, YouTube, LinkedIn and Facebook** pages named Curblit (a parent may need to own some of them). Use the same logo and one-line bio, and post the weekly build video to all of them.
 
 Then put the profile links in `NEXT_PUBLIC_SOCIAL_LINKS` (comma-separated) in Vercel. They appear in the footer and in the site's structured data, which helps Google connect the brand. When you own the X handle, set `NEXT_PUBLIC_TWITTER_HANDLE`.
 
 ### Email trust records (15 minutes, free)
-SEO audits flag a missing SPF and DMARC on siteloom.app, and the same records stop your emails from landing in spam.
+SEO audits flag a missing SPF and DMARC on curblit.com, and the same records stop your emails from landing in spam.
 
-In Vercel → Domains → siteloom.app → DNS records:
-1. Add the records Resend shows under **Domains** for siteloom.app. These are SPF and DKIM, usually on a `send` subdomain.
+In Vercel → Domains → curblit.com → DNS records:
+1. Add the records Resend shows under **Domains** for curblit.com. These are SPF and DKIM, usually on a `send` subdomain.
 2. Add a TXT record named `_dmarc` with the value `v=DMARC1; p=none; rua=mailto:YOUR_EMAIL`.
 
 ### Content that ranks (free, about 1 hour a month)
@@ -238,7 +238,7 @@ In Vercel → Domains → siteloom.app → DNS records:
 
 ## Part 7: What already runs by itself
 
-- **The "Made with Siteloom" badge** on every free site is free advertising.
+- **The "Made with Curblit" badge** on every free site is free advertising.
 - **Upgrade pressure:** custom domains, removing the badge and more published sites all need a paid plan.
 - **Free website grader** (`/tools/website-grader`): businesses see their own bad score and are offered a rebuild.
 - **Search pages:** 21 industry pages, comparison pages, guides, `/seo` and `llms.txt`. They grow slowly and stay free.

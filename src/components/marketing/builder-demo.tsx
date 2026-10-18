@@ -12,7 +12,7 @@ export function BuilderDemo() {
           <span className="size-2.5 rounded-full bg-[#febc2e]" />
           <span className="size-2.5 rounded-full bg-[#28c840]" />
           <div className="mx-auto flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 text-[11px] text-muted">
-            <span className="size-1.5 rounded-full bg-ok" /> brightsmile.{site.sitesDomain === "localhost:3000" ? "siteloomsites.com" : site.sitesDomain}
+            <span className="size-1.5 rounded-full bg-ok" /> brightsmile.{site.sitesDomain === "localhost:3000" ? "curblit.site" : site.sitesDomain}
           </div>
         </div>
         <div className="grid md:grid-cols-[300px_1fr]">

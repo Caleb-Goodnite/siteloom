@@ -15,7 +15,7 @@ import { parse, type HTMLElement } from "node-html-parser";
 const MAX_BYTES = 2_000_000;
 const MAX_PAGES = 5;
 const MAX_DOSSIER = 14_000;
-const UA = "Mozilla/5.0 (compatible; SiteloomImporter/1.0; +https://siteloom.app)";
+const UA = "Mozilla/5.0 (compatible; CurblitImporter/1.0; +https://curblit.com)";
 
 export class ImportError extends Error {}
 

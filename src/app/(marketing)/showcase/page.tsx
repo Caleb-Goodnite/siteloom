@@ -7,7 +7,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Showcase: real websites built with Siteloom",
+  title: "Showcase: real websites built with Curblit",
   description: `Live websites businesses built and published with ${site.name}.`,
   alternates: { canonical: "/showcase" },
 };

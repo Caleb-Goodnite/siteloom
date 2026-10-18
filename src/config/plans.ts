@@ -76,7 +76,7 @@ export const PLANS: Record<PlanId, Plan> = {
       "250 credits / month",
       "3 published sites",
       "Connect your own domain",
-      "Remove the Siteloom badge",
+      "Remove the Curblit badge",
       "Form email notifications",
     ],
   },

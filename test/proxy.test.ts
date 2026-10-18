@@ -33,8 +33,8 @@ describe("auth redirects", () => {
 describe("sites domain setting", async () => {
   const { normalizeSitesDomain } = await import("@/config/site");
   it("accepts the common ways of typing it", () => {
-    for (const v of ["siteloomsites.com", "*.siteloomsites.com", "https://siteloomsites.com/", " SiteloomSites.com ", "www.siteloomsites.com"]) {
-      expect(normalizeSitesDomain(v)).toBe("siteloomsites.com");
+    for (const v of ["curblit.site", "*.curblit.site", "https://curblit.site/", " Curblit.site ", "www.curblit.site"]) {
+      expect(normalizeSitesDomain(v)).toBe("curblit.site");
     }
     expect(normalizeSitesDomain(undefined)).toBe("localhost:3000");
   });

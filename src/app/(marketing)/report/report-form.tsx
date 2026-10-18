@@ -57,7 +57,7 @@ export function ReportForm() {
     <form onSubmit={submit} className="mt-8 space-y-5 rounded-2xl border border-line bg-card p-6">
       <div>
         <Label htmlFor="url">Site address</Label>
-        <Input id="url" type="url" required placeholder="https://example.siteloomsites.com" value={url} onChange={(e) => setUrl(e.target.value)} />
+        <Input id="url" type="url" required placeholder="https://example.curblit.site" value={url} onChange={(e) => setUrl(e.target.value)} />
       </div>
       <fieldset>
         <legend className="mb-2 text-sm font-medium text-ink">What&apos;s wrong?</legend>

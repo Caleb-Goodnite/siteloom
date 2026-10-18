@@ -17,13 +17,13 @@ export const posts: Post[] = [
     slug: "best-ai-website-builders-2026",
     title: "The best AI website builders in 2026: an honest comparison",
     description:
-      "Lovable, v0, Bolt, Wix, Squarespace, Framer, Durable, Hostinger and Siteloom compared by what each is actually best at, so you can pick the right one for your project.",
+      "Lovable, v0, Bolt, Wix, Squarespace, Framer, Durable, Hostinger and Curblit compared by what each is actually best at, so you can pick the right one for your project.",
     date: "2026-10-14",
-    author: "The Siteloom team",
+    author: "The Curblit team",
     readingMinutes: 9,
     body: `"AI website builder" now covers very different products. Some build software, some generate a template, and some write and design a complete site. The best one depends on what you're making.
 
-**Disclosure:** we make Siteloom, so weigh our take accordingly. We've tried to say plainly where other tools are the better choice, and products change fast, so check each vendor's site for current features and pricing.
+**Disclosure:** we make Curblit, so weigh our take accordingly. We've tried to say plainly where other tools are the better choice, and products change fast, so check each vendor's site for current features and pricing.
 
 ## First, decide what you're building
 
@@ -62,7 +62,7 @@ A designer's canvas with great animations and a CMS. **Best for:** designers who
 ### Durable
 Generates a simple business site in seconds and bundles extras like a CRM and invoicing. **Best for:** getting something online immediately.
 
-## Siteloom
+## Curblit
 Our focus is the site itself for businesses that need to be found: multi-page sites designed and written for your business, published as fast static HTML that Google and AI search can read, with SEO, working forms, analytics and hosting built in. Each AI message shows its price before you send it, you aren't charged when nothing changes, and text edits are free. You can also paste your current website to have it redesigned with your real content. **Best for:** small businesses, local services, restaurants, clinics, freelancers and SaaS marketing sites.
 
 ## Quick picks
@@ -74,7 +74,7 @@ Our focus is the site itself for businesses that need to be found: multi-page si
 | A visual editor plus built-in store or bookings | Wix, Squarespace |
 | The lowest monthly price | Hostinger, GoDaddy |
 | Pixel-level design and animation | Framer, Webflow |
-| A business website that ranks, written for you | Siteloom |
+| A business website that ranks, written for you | Curblit |
 
 Whatever you choose, check one thing before you commit: open your published site, right-click, choose **View Page Source**, and make sure your text is actually there. If it isn't, search engines may struggle to see it. You can also run any site through our [free website grader](/tools/website-grader).`,
   },
@@ -84,7 +84,7 @@ Whatever you choose, check one thing before you commit: open your published site
     description:
       "Realistic price ranges for DIY builders, AI builders, freelancers and agencies, plus the ongoing costs people forget: domain, hosting, email and updates.",
     date: "2026-10-14",
-    author: "The Siteloom team",
+    author: "The Curblit team",
     readingMinutes: 7,
     body: `The honest answer is anywhere from free to tens of thousands of dollars. What you're really choosing is **who does the work**: you, software, a freelancer or an agency. Here's how the options compare, using typical ranges (quotes vary widely by region and scope).
 
@@ -135,7 +135,7 @@ For most local businesses, an AI builder that writes real copy and handles SEO b
     description:
       "A practical, step-by-step checklist to show up in Google Maps and local search: Google Business Profile, your website, reviews, citations and the details that move rankings.",
     date: "2026-10-14",
-    author: "The Siteloom team",
+    author: "The Curblit team",
     readingMinutes: 8,
     body: `When someone searches "plumber near me" or "best tacos east austin", Google picks a handful of businesses for the map pack and the results below it. Local SEO is how you become one of them. Here's the checklist we'd follow for any local business, in order of impact.
 
@@ -189,7 +189,7 @@ Short on time? Verify your Google Business Profile, make your name/address/phone
     description:
       "AI website builders make it easy to launch, but many sites never get indexed. Here are the seven most common causes and the exact fixes, in order of impact.",
     date: "2026-10-14",
-    author: "The Siteloom team",
+    author: "The Curblit team",
     readingMinutes: 8,
     body: `You described your business, an AI built a good-looking website, you published it… and weeks later, searching for your business name returns nothing. This is one of the most common complaints about AI-built sites, and it's almost always fixable.
 
@@ -201,7 +201,7 @@ Many AI builders produce single-page applications: the server sends a nearly emp
 
 **How to check:** open your site, right-click → *View Page Source* (not Inspect). If you can't find your headline and paragraphs in that source, crawlers may not either.
 
-**Fix:** serve real HTML. Use server-side rendering or prerendering, or a builder that outputs static HTML. (Siteloom publishes plain static HTML for exactly this reason.)
+**Fix:** serve real HTML. Use server-side rendering or prerendering, or a builder that outputs static HTML. (Curblit publishes plain static HTML for exactly this reason.)
 
 ## 2. Every page has the same title and description
 
@@ -249,7 +249,7 @@ Even a perfect site needs signals that it exists.
 - LocalBusiness (or similar) JSON-LD on the home page
 - Google Business Profile created and matching
 
-Siteloom handles the technical items automatically on every publish — static HTML, unique titles checked by the built-in SEO panel, sitemap.xml, robots.txt, canonical URLs, structured data and social cards — so you can spend your time on the part only you can do: telling customers why you're the right choice.`,
+Curblit handles the technical items automatically on every publish — static HTML, unique titles checked by the built-in SEO panel, sitemap.xml, robots.txt, canonical URLs, structured data and social cards — so you can spend your time on the part only you can do: telling customers why you're the right choice.`,
   },
   {
     slug: "static-html-vs-javascript-apps-for-small-business-websites",
@@ -257,7 +257,7 @@ Siteloom handles the technical items automatically on every publish — static H
     description:
       "AI tools can now build either a full JavaScript app or a classic static website. For most businesses, the right answer is clear — here's why, and when it isn't.",
     date: "2026-10-14",
-    author: "The Siteloom team",
+    author: "The Curblit team",
     readingMinutes: 6,
     body: `When you ask an AI to "build me a website," the tool decides something important on your behalf: whether you get a **static website** (HTML files a server simply hands to the browser) or a **JavaScript application** (code that runs in the browser to build the page).
 
@@ -285,7 +285,7 @@ If visitors **log in and use** your site, you want an app — ideally with a sep
 
 ## "But I need a contact form"
 
-This used to be the reason people reached for a backend. It isn't anymore: modern hosts handle form submissions for static sites. On Siteloom, any form you ask for is delivered to an inbox in your dashboard (and to your email on paid plans), with spam protection built in — no server code needed.
+This used to be the reason people reached for a backend. It isn't anymore: modern hosts handle form submissions for static sites. On Curblit, any form you ask for is delivered to an inbox in your dashboard (and to your email on paid plans), with spam protection built in — no server code needed.
 
 ## "But I want it to feel interactive"
 
@@ -301,7 +301,7 @@ For a business website in 2026, static HTML isn't old-fashioned; it's the fastes
     description:
       "Most wasted AI credits come from vague first prompts and long chains of fixes. Use this five-part template to get a site you're happy with in one or two messages.",
     date: "2026-10-14",
-    author: "The Siteloom team",
+    author: "The Curblit team",
     readingMinutes: 5,
     body: `With AI website builders, the first prompt does most of the work. A vague request leads to a generic site, and every "no, not like that" costs time and credits. A specific request lands close on the first try.
 
@@ -334,11 +334,11 @@ Put together, that's a short paragraph — and it's the difference between "a de
 ## Tips that save credits
 
 - **Give real details up front.** If you don't, a good builder will leave placeholders like [[Phone number]] rather than inventing them — but you'll have to fill them in later.
-- **Fix wording by clicking it, not by prompting.** On Siteloom, click any text in the preview and type. It's free.
+- **Fix wording by clicking it, not by prompting.** On Curblit, click any text in the preview and type. It's free.
 - **Use the right model for the job.** Use a fast, cheap model for small tweaks ("make the button say Book now") and the standard model for new pages or redesigns.
 - **Point at things.** Select the element you want changed instead of describing where it is.
 - **Batch small changes.** "Make the header sticky, change the CTA to Book now, and add our Instagram to the footer" is one message, not three.
-- **Use Enhance.** Siteloom's free *Enhance prompt* button turns a one-liner into a structured brief like the one above.
+- **Use Enhance.** Curblit's free *Enhance prompt* button turns a one-liner into a structured brief like the one above.
 
 ## A complete example
 

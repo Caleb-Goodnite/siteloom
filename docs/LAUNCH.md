@@ -1,12 +1,12 @@
-# Siteloom launch & growth playbook
+# Curblit launch & growth playbook
 
-What the product does automatically for growth: SEO pages, the free website grader, onboarding emails, referral credits, the "Made with Siteloom" badge on free sites, and the public showcase. This file covers the parts that need you.
+What the product does automatically for growth: SEO pages, the free website grader, onboarding emails, referral credits, the "Made with Curblit" badge on free sites, and the public showcase. This file covers the parts that need you.
 
 ---
 
 ## 1. Before launch (one afternoon)
 
-- [ ] **Google Search Console** → add `siteloom.app` (Domain property via DNS) → submit `https://siteloom.app/sitemap.xml`.
+- [ ] **Google Search Console** → add `curblit.com` (Domain property via DNS) → submit `https://curblit.com/sitemap.xml`.
 - [ ] **Bing Webmaster Tools** → import from Search Console (also feeds ChatGPT/Copilot search).
 - [ ] **Analytics**: enable Web Analytics in the Vercel project (Analytics tab). Optional for ads: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`. Funnel events already fire: `signup`, `site_created`, `redesign_started`, `grader_used`, `site_published`, `checkout_started`.
 - [ ] **Email deliverability**: in Resend, verify your sending domain (SPF + DKIM), add a DMARC record (`v=DMARC1; p=none; rua=mailto:you@…`), set `EMAIL_FROM` and `EMAIL_POSTAL_ADDRESS`.
@@ -19,15 +19,15 @@ What the product does automatically for growth: SEO pages, the free website grad
 ## 2. Launch week
 
 ### Product Hunt (Tuesday–Thursday, 12:01am PT)
-- **Name:** Siteloom
+- **Name:** Curblit
 - **Tagline (60 chars):** `AI websites that actually show up on Google`
-- **Description:** Describe your business, or paste your current site, and Siteloom designs, writes and publishes a fast multi-page website that Google and AI search can read. Forms, analytics, hosting and SEO are built in. Every message shows its price first, and you're never charged when nothing changes.
-- **First comment (as maker):** why you built it. AI app builders are great for apps, but small businesses need *websites* that rank, and most AI-built sites are JavaScript apps that crawlers struggle to read. Mention the free grader: `siteloom.app/tools/website-grader`.
+- **Description:** Describe your business, or paste your current site, and Curblit designs, writes and publishes a fast multi-page website that Google and AI search can read. Forms, analytics, hosting and SEO are built in. Every message shows its price first, and you're never charged when nothing changes.
+- **First comment (as maker):** why you built it. AI app builders are great for apps, but small businesses need *websites* that rank, and most AI-built sites are JavaScript apps that crawlers struggle to read. Mention the free grader: `curblit.com/tools/website-grader`.
 - **Gallery:** 1) the builder mid-generation, 2) before/after of a redesign, 3) the grader result, 4) pricing ("price shown before you send").
 - Tell your network the day before; ask people to try it and leave honest feedback (never ask for upvotes; PH penalizes it).
 
 ### Show HN
-`Show HN: Siteloom – AI website builder that outputs static HTML instead of a React app`. Lead with the technical angle: plan → parallel page writers from one design brief, static output with compiled Tailwind, sandboxed preview, honest placeholders instead of invented facts. Be in the comments all day.
+`Show HN: Curblit – AI website builder that outputs static HTML instead of a React app`. Lead with the technical angle: plan → parallel page writers from one design brief, static output with compiled Tailwind, sandboxed preview, honest placeholders instead of invented facts. Be in the comments all day.
 
 ### Communities (give value first; read each sub's self-promotion rules)
 - r/SideProject, r/EntrepreneurRideAlong, r/indiehackers: build-in-public story with numbers.

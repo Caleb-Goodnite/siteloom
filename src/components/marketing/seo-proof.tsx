@@ -14,7 +14,7 @@ const APP_HTML = `<!doctype html>
   </body>
 </html>`;
 
-const SITELOOM_HTML = `<title>Family Dentist in Columbus, OH | Bright Smile Dental</title>
+const CURBLIT_HTML = `<title>Family Dentist in Columbus, OH | Bright Smile Dental</title>
 <meta name="description" content="Gentle, family-friendly dental care
   in Columbus, OH. Cleanings, whitening, implants…">
 <link rel="canonical" href="https://brightsmile.example/">
@@ -67,11 +67,11 @@ export async function SeoProof({ moreLink = true }: { moreLink?: boolean }) {
         </figure>
         <figure className="overflow-hidden rounded-2xl border border-ink bg-card">
           <figcaption className="flex items-center justify-between gap-3 border-b border-line px-5 py-3 text-sm">
-            <span className="font-medium text-ink">What a crawler gets from a Siteloom site</span>
+            <span className="font-medium text-ink">What a crawler gets from a Curblit site</span>
             <span className="shrink-0 whitespace-nowrap rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">every word</span>
           </figcaption>
-          <pre className="overflow-x-auto p-5 font-mono text-[12.5px] leading-relaxed text-ink-2">{SITELOOM_HTML}</pre>
-          <p className="border-t border-line px-5 py-3 text-xs text-muted">Excerpt from a site Siteloom generated: real title, description, schema and copy in the HTML.</p>
+          <pre className="overflow-x-auto p-5 font-mono text-[12.5px] leading-relaxed text-ink-2">{CURBLIT_HTML}</pre>
+          <p className="border-t border-line px-5 py-3 text-xs text-muted">Excerpt from a site Curblit generated: real title, description, schema and copy in the HTML.</p>
         </figure>
       </div>
 
