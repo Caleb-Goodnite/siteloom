@@ -46,6 +46,15 @@ export async function GET(req: Request) {
   const { error: cleanupError } = await admin.rpc("cleanup_ops", { p_keep_versions: 50 });
   log.push(cleanupError ? `cleanup failed: ${cleanupError.message}` : "cleanup ok");
 
+  // Form submissions are kept for 12 months (see Terms §7 and the Privacy Policy), so old visitor
+  // data can't leak in a breach.
+  const keepUntil = new Date(Date.now() - 365 * 86400_000).toISOString();
+  const { count: expired, error: expireError } = await admin
+    .from("form_submissions")
+    .delete({ count: "exact" })
+    .lt("created_at", keepUntil);
+  log.push(expireError ? `submission cleanup failed: ${expireError.message}` : `${expired ?? 0} old submissions deleted`);
+
   // 3. Pending custom domains
   const { data: pending } = await admin.from("projects").select("id, custom_domain").not("custom_domain", "is", null).eq("domain_verified", false).limit(50);
   let verified = 0;

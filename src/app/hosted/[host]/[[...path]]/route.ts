@@ -8,6 +8,7 @@ import { siteOgImage } from "@/lib/site/og";
 import { siteRuntimeJs } from "@/lib/site/runtime";
 import { cleanUrlFor, pageForPath } from "@/lib/site/render";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { redactSubmission } from "@/lib/site/redact";
 
 type Ctx = { params: Promise<{ host: string; path?: string[] }> };
 
@@ -121,7 +122,7 @@ function cleanFormData(input: unknown) {
     if (total > 20000) break;
     out[key] = value;
   }
-  return Object.keys(out).length ? out : null;
+  return Object.keys(out).length ? redactSubmission(out) : null;
 }
 
 async function handleForm(req: Request, s: HostedSite) {
