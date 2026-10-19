@@ -28,13 +28,14 @@ export const PATCH = api<Ctx>(async (req, ctx) => {
   return Response.json({ ok: true });
 });
 
-const Del = z.object({ ids: z.array(z.string().uuid()).max(500) });
+const Del = z.union([z.object({ ids: z.array(z.string().uuid()).max(500) }), z.object({ all: z.literal(true) })]);
 
 export const DELETE = api<Ctx>(async (req, ctx) => {
   const user = await requireApiUser(req);
   const { id } = await ctx.params;
   await getOwnedProject(id, user.id, "id");
-  const { ids } = Del.parse(await req.json());
-  await supabaseAdmin().from("form_submissions").delete().eq("project_id", id).in("id", ids);
+  const body = Del.parse(await req.json());
+  const query = supabaseAdmin().from("form_submissions").delete().eq("project_id", id);
+  await ("all" in body ? query : query.in("id", body.ids));
   return Response.json({ ok: true });
 });

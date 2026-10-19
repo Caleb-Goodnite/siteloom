@@ -40,6 +40,15 @@ export function FormsPanel({ projectId, published }: { projectId: string; publis
     await fetch(`/api/projects/${projectId}/forms`, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ids: [id] }) });
   }
 
+  async function removeAll() {
+    if (!window.confirm("Delete every form submission for this site? This can't be undone.")) return;
+    const res = await fetch(`/api/projects/${projectId}/forms`, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ all: true }) });
+    if (res.ok) {
+      setRows([]);
+      toast.success("All submissions deleted");
+    } else toast.error("Couldn't delete submissions");
+  }
+
   if (!rows) {
     return (
       <div className="flex flex-1 items-center justify-center">
@@ -54,23 +63,28 @@ export function FormsPanel({ projectId, published }: { projectId: string; publis
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="text-lg font-semibold text-ink">Form submissions</h2>
-            <p className="text-sm text-ink-2">Every form on your site delivers here. Paid plans also email each one to you.</p>
+            <p className="text-sm text-ink-2">Every form on your site delivers here. Paid plans also email each one to you. Submissions are deleted automatically after 12 months.</p>
           </div>
           {rows.length > 0 && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                const blob = new Blob([toCsv(rows)], { type: "text/csv" });
-                const a = document.createElement("a");
-                a.href = URL.createObjectURL(blob);
-                a.download = "submissions.csv";
-                a.click();
-                URL.revokeObjectURL(a.href);
-              }}
-            >
-              <Download className="size-3.5" /> CSV
-            </Button>
+            <div className="flex shrink-0 gap-2">
+              <Button size="sm" variant="outline" onClick={removeAll}>
+                <Trash2 className="size-3.5" /> Delete all
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  const blob = new Blob([toCsv(rows)], { type: "text/csv" });
+                  const a = document.createElement("a");
+                  a.href = URL.createObjectURL(blob);
+                  a.download = "submissions.csv";
+                  a.click();
+                  URL.revokeObjectURL(a.href);
+                }}
+              >
+                <Download className="size-3.5" /> CSV
+              </Button>
+            </div>
           )}
         </div>
 

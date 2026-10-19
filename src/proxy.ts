@@ -76,9 +76,13 @@ export async function proxy(request: NextRequest) {
     response.cookies.set("sl_ref", ref.toLowerCase(), { maxAge: 60 * 60 * 24 * 60, path: "/", sameSite: "lax" });
   }
 
-  response.headers.set("X-Frame-Options", "SAMEORIGIN");
+  // Nothing embeds the app (the editor previews sites with srcdoc), so refuse all framing.
+  // HSTS is added by Vercel on every domain.
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("Content-Security-Policy", "frame-ancestors 'none'");
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), browsing-topics=()");
   return response;
 }
 
