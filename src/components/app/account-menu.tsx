@@ -4,6 +4,20 @@ import Link from "next/link";
 import { BookOpen, CreditCard, Gauge, Home, LayoutTemplate, LifeBuoy, LogOut, Settings } from "lucide-react";
 import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from "@/components/ui/misc";
 import { site } from "@/config/site";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+
+async function signOut() {
+  try {
+    // Clears the browser session (and its cookies) and revokes the refresh token...
+    if (isSupabaseConfigured()) await createClient().auth.signOut();
+    // ...and lets the server clear anything it set, before a full reload so every header resets.
+    await fetch("/auth/signout", { method: "POST", redirect: "manual" });
+  } finally {
+    // A full page load on purpose: client navigation would keep the signed-in UI state around.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+    window.location.assign("/");
+  }
+}
 
 export function AccountMenu({ email, name, avatar }: { email: string; name: string | null; avatar: string | null }) {
   const initial = (name ?? email).trim()[0]?.toUpperCase() ?? "?";
@@ -61,13 +75,10 @@ export function AccountMenu({ email, name, avatar }: { email: string; name: stri
           </a>
         </MenuItem>
         <MenuSeparator />
-        <form action="/auth/signout" method="post">
-          <MenuItem asChild>
-            <button type="submit" className="w-full">
-              <LogOut className="size-4" /> Log out
-            </button>
-          </MenuItem>
-        </form>
+        {/* Not a <form>: the menu unmounts on select, which cancels a form submit before it's sent. */}
+        <MenuItem onSelect={signOut}>
+          <LogOut className="size-4" /> Log out
+        </MenuItem>
       </MenuContent>
     </Menu>
   );
